@@ -1,0 +1,2 @@
+# Vega runtime not bundled
+Run `npm run setup:charts` from the kit root on a network-enabled machine. The script installs resolved exact Vega dependencies, creates/updates package-lock.json and copies JS plus licence notices here. It does not download or include font files. Until then the technical preview shows a visible runtime warning and accessible data tables rather than claiming charts loaded.
