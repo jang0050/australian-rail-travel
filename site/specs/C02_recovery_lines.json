@@ -1,0 +1,309 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 350,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "params": [
+    {
+      "name": "cityFocus",
+      "value": "All cities"
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "ref": 100
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "strokeDash": [
+          4,
+          4
+        ],
+        "color": "#4e656d"
+      },
+      "encoding": {
+        "y": {
+          "field": "ref",
+          "type": "quantitative",
+          "title": "Recovery index (2018–2019 = 100)"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/national_history.json"
+      },
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 35
+        },
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "x": {
+          "field": "year_end",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year ending in June",
+            "labelAngle": 0,
+            "labelExpr": "datum.label"
+          },
+          "title": "Year ending in June"
+        },
+        "y": {
+          "field": "recovery_index",
+          "type": "quantitative",
+          "title": "Recovery index (2018–2019 = 100)",
+          "scale": {
+            "domain": [
+              0,
+              120
+            ]
+          }
+        },
+        "color": {
+          "field": "city",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Sydney",
+              "Melbourne",
+              "Brisbane",
+              "Perth",
+              "Adelaide"
+            ],
+            "range": [
+              "#766084",
+              "#a34e2e",
+              "#427161",
+              "#21647a",
+              "#826736"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "columns": 3,
+            "symbolType": "stroke",
+            "symbolSize": 500
+          },
+          "title": "City"
+        },
+        "strokeDash": {
+          "field": "city",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Sydney",
+              "Melbourne",
+              "Brisbane",
+              "Perth",
+              "Adelaide"
+            ],
+            "range": [
+              [
+                1,
+                0
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                10,
+                3,
+                2,
+                3
+              ],
+              [
+                5,
+                2,
+                1,
+                2
+              ]
+            ]
+          },
+          "legend": {
+            "title": null,
+            "columns": 3,
+            "symbolStrokeWidth": 2.5,
+            "symbolSize": 500,
+            "symbolType": "stroke"
+          },
+          "title": "City"
+        },
+        "opacity": {
+          "condition": {
+            "test": "cityFocus === 'All cities' || datum.city === cityFocus",
+            "value": 1
+          },
+          "value": 0.16
+        },
+        "tooltip": [
+          {
+            "field": "city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "display_financial_year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "trips_million",
+            "type": "quantitative",
+            "title": "Estimated heavy-rail journeys (million)",
+            "format": ",.1f"
+          },
+          {
+            "field": "recovery_index",
+            "type": "quantitative",
+            "title": "Recovery index (2018–2019 = 100)",
+            "format": ".1f"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year_end": 2019,
+            "ref": 100,
+            "label": "Pre-pandemic level"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dy": -13,
+        "fontSize": 12
+      },
+      "encoding": {
+        "x": {
+          "field": "year_end",
+          "type": "ordinal",
+          "title": "Year ending in June"
+        },
+        "y": {
+          "field": "ref",
+          "type": "quantitative",
+          "title": "Recovery index (2018–2019 = 100)"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal",
+          "title": "City or total"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    }
+  ],
+  "description": "Separate Bureau of Infrastructure and Transport Research Economics Yearbook 2025 Chapter 2 city estimates. All five cities share their own 2018–2019 baseline; not spliced with Trainline."
+}

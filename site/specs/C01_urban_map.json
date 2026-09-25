@@ -1,0 +1,319 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 420,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -134,
+      0,
+      0
+    ],
+    "center": [
+      0,
+      -27
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e3e7e5",
+        "stroke": "#fafaf4",
+        "strokeWidth": 1
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/national_current.json"
+      },
+      "mark": {
+        "type": "circle",
+        "color": "#21647a",
+        "opacity": 0.72,
+        "stroke": "#fff",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "journeys_million",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              400
+            ],
+            "range": [
+              0,
+              4200
+            ]
+          },
+          "legend": {
+            "title": "Urban heavy-rail journeys (million)",
+            "values": [
+              50,
+              200,
+              350
+            ],
+            "symbolFillColor": "#21647a"
+          },
+          "title": "Train journeys (million)"
+        },
+        "tooltip": [
+          {
+            "field": "city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "journeys_million",
+            "type": "quantitative",
+            "title": "Urban heavy-rail journeys (million)",
+            "format": ",.1f"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/national_current.json"
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "datum.city !== 'Melbourne' && datum.city !== 'Adelaide'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -37,
+        "fontWeight": 600,
+        "fontSize": 13
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "display_label",
+          "type": "nominal",
+          "title": "City or total"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/national_current.json"
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "datum.city === 'Melbourne'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": 37,
+        "dx": 15,
+        "fontWeight": 600,
+        "fontSize": 13
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "display_label",
+          "type": "nominal",
+          "title": "City or total"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/national_current.json"
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "datum.city === 'Adelaide'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": 22,
+        "dx": -40,
+        "fontWeight": 600,
+        "fontSize": 13
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "display_label",
+          "type": "nominal",
+          "title": "City or total"
+        }
+      }
+    }
+  ],
+  "description": "Urban heavy rail journeys in 2024–2025. Circle area encodes journeys; Australian Bureau of Statistics Greater Capital City Statistical Area representative points locate cities, not trip origins."
+}
