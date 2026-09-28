@@ -1,0 +1,194 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 350,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "data": {
+    "url": "data/waterfall.json"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "size": 25
+      },
+      "encoding": {
+        "y": {
+          "field": "display_label",
+          "type": "nominal",
+          "sort": [
+            "2018–2019",
+            "Sydney",
+            "Melbourne",
+            "Brisbane",
+            "Adelaide",
+            "Perth",
+            "2024–2025"
+          ],
+          "title": "City or total",
+          "axis": {
+            "labelExpr": "replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2')",
+            "title": null
+          }
+        },
+        "x": {
+          "field": "start",
+          "type": "quantitative",
+          "title": "Estimated heavy-rail journeys (million)",
+          "scale": {
+            "domain": [
+              0,
+              900
+            ]
+          },
+          "axis": {
+            "title": "Estimated heavy-rail journeys (million)",
+            "tickCount": 5
+          }
+        },
+        "x2": {
+          "field": "end",
+          "title": "Running total after contribution (million)"
+        },
+        "color": {
+          "field": "kind",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Total",
+              "Decrease",
+              "Increase"
+            ],
+            "range": [
+              "#142f3c",
+              "#a34e2e",
+              "#21647a"
+            ]
+          },
+          "legend": null,
+          "title": "Contribution type"
+        },
+        "tooltip": [
+          {
+            "field": "display_label",
+            "type": "nominal",
+            "title": "City or total"
+          },
+          {
+            "field": "change",
+            "type": "quantitative",
+            "title": "Total or signed contribution (million)",
+            "format": "+.1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.kind === 'Total' || abs(datum.change) >= 10"
+        },
+        {
+          "calculate": "datum.kind === 'Total' ? format(datum.end, '.1f') : format(datum.change, '+.1f')",
+          "as": "valueLabel"
+        },
+        {
+          "calculate": "max(datum.start,datum.end)",
+          "as": "labelPosition"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "display_label",
+          "type": "nominal",
+          "sort": [
+            "2018–2019",
+            "Sydney",
+            "Melbourne",
+            "Brisbane",
+            "Adelaide",
+            "Perth",
+            "2024–2025"
+          ],
+          "title": "City or total"
+        },
+        "x": {
+          "field": "labelPosition",
+          "type": "quantitative",
+          "title": "Estimated heavy-rail journeys (million)"
+        },
+        "text": {
+          "field": "valueLabel",
+          "type": "nominal",
+          "title": "Contribution label"
+        }
+      }
+    }
+  ],
+  "transform": [
+    {
+      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+      "as": "display_financial_year"
+    },
+    {
+      "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+      "as": "display_year"
+    },
+    {
+      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+      "as": "display_label"
+    },
+    {
+      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+      "as": "display_band"
+    }
+  ],
+  "description": "Arithmetic bridge using only the same Yearbook series as C02. Floating intervals add each city’s signed contribution to the combined total."
+}
