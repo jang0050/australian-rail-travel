@@ -1,0 +1,225 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "width": 900,
+  "height": 290,
+  "padding": 2,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "data": [
+    {
+      "name": "tree",
+      "url": "data/nonurban.json",
+      "transform": [
+        {
+          "type": "stratify",
+          "key": "id",
+          "parentKey": "parent"
+        },
+        {
+          "type": "treemap",
+          "field": "value",
+          "sort": {
+            "field": "value",
+            "order": "descending"
+          },
+          "method": "squarify",
+          "size": [
+            {
+              "signal": "width"
+            },
+            {
+              "signal": "height"
+            }
+          ],
+          "paddingInner": 3,
+          "paddingOuter": 1,
+          "paddingTop": 20,
+          "round": true
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!datum.children"
+        }
+      ]
+    },
+    {
+      "name": "parents",
+      "source": "tree",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.depth === 1"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": [
+        "New South Wales",
+        "Victoria",
+        "Queensland",
+        "Western Australia"
+      ],
+      "range": [
+        "#766084",
+        "#a34e2e",
+        "#427161",
+        "#21647a"
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "enter": {
+          "fill": {
+            "scale": "color",
+            "field": "parent"
+          },
+          "stroke": {
+            "value": "#fafaf4"
+          },
+          "tooltip": {
+            "signal": "{'Service':replace(datum.name, /^NSW /, 'New South Wales '),'Journeys (million)':datum.value}"
+          }
+        },
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "field": "y0"
+          },
+          "x2": {
+            "field": "x1"
+          },
+          "y2": {
+            "field": "y1"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "enter": {
+          "font": {
+            "value": "Source Sans 3"
+          },
+          "fontSize": {
+            "value": 17
+          },
+          "fontWeight": {
+            "value": 600
+          },
+          "fill": {
+            "value": "white"
+          },
+          "baseline": {
+            "value": "top"
+          }
+        },
+        "update": {
+          "x": {
+            "signal": "datum.x0 + 12"
+          },
+          "y": {
+            "signal": "datum.y0 + 14"
+          },
+          "text": {
+            "signal": "datum.x1-datum.x0>155 && datum.y1-datum.y0>45 ? replace(datum.name, /^NSW /, 'New South Wales ') : ''"
+          },
+          "limit": {
+            "signal": "max(0,datum.x1-datum.x0-20)"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "enter": {
+          "font": {
+            "value": "Source Sans 3"
+          },
+          "fontSize": {
+            "value": 24
+          },
+          "fill": {
+            "value": "white"
+          },
+          "baseline": {
+            "value": "top"
+          }
+        },
+        "update": {
+          "x": {
+            "signal": "datum.x0 + 12"
+          },
+          "y": {
+            "signal": "datum.y0 + 42"
+          },
+          "text": {
+            "signal": "datum.x1-datum.x0>155 && datum.y1-datum.y0>75 ? format(datum.value,'.1f')+' million' : ''"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "data": "parents"
+      },
+      "encode": {
+        "enter": {
+          "font": {
+            "value": "Source Sans 3"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fill": {
+            "value": "#142f3c"
+          },
+          "baseline": {
+            "value": "top"
+          }
+        },
+        "update": {
+          "x": {
+            "field": "x0"
+          },
+          "y": {
+            "signal": "datum.y0 + 2"
+          },
+          "text": {
+            "signal": "datum.x1-datum.x0>130 ? replace(datum.name, /^NSW /, 'New South Wales ') : ''"
+          }
+        }
+      }
+    }
+  ],
+  "description": "Area encodes journeys within state groups. Complete Trainline 13 Table 23, 2024–2025, excludes operators not reported by the source."
+}
