@@ -1,0 +1,222 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 440,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "projection": {
+    "type": "azimuthalEqualArea",
+    "rotate": [
+      -145,
+      38,
+      0
+    ],
+    "center": [
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/lga_recovery.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e3e7e5",
+        "stroke": "white",
+        "strokeWidth": 0.6
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/bins_5.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "name": "grid",
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#fff",
+        "strokeWidth": 0.4
+      },
+      "encoding": {
+        "color": {
+          "field": "properties.entries_million",
+          "type": "quantitative",
+          "title": "Annual station entries (million)",
+          "scale": {
+            "type": "sqrt",
+            "domain": [
+              0,
+              80
+            ],
+            "range": [
+              "#d5e5e8",
+              "#21647a",
+              "#142f3c"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "gradientLength": 200
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.bin_id",
+            "type": "nominal",
+            "title": "Grid cell"
+          },
+          {
+            "field": "properties.annual_entries",
+            "type": "quantitative",
+            "title": "2024–2025 entries",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.station_count",
+            "type": "quantitative",
+            "title": "Station count",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.cell_width_km",
+            "type": "quantitative",
+            "title": "Grid cell width (kilometres)",
+            "format": ".1f"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/stations.json"
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "datum.station_name === 'Flinders Street'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "dy": -10,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Central Melbourne"
+        }
+      }
+    }
+  ],
+  "description": "Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size."
+}

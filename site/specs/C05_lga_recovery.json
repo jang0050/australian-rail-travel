@@ -1,0 +1,273 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 440,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "projection": {
+    "type": "azimuthalEqualArea",
+    "rotate": [
+      -145,
+      38,
+      0
+    ],
+    "center": [
+      0,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/lga_recovery.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e3e7e5",
+        "stroke": "white",
+        "strokeWidth": 0.6
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/lga_recovery.geojson",
+        "format": {
+          "type": "json",
+          "property": "features"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "isValid(datum.properties.recovery_index)"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "color": {
+          "field": "properties.recovery_index",
+          "type": "quantitative",
+          "title": "Recovery index (2018–2019 = 100)",
+          "scale": {
+            "type": "threshold",
+            "domain": [
+              60,
+              80,
+              100
+            ],
+            "range": [
+              "#a34e2e",
+              "#d39871",
+              "#f2dfc5",
+              "#21647a"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleLimit": 350,
+            "labelFontSize": 11
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.lga_name",
+            "type": "nominal",
+            "title": "Local government area"
+          },
+          {
+            "field": "properties.recovery_index",
+            "type": "quantitative",
+            "title": "Recovery index (2018–2019 = 100)",
+            "format": ".1f"
+          },
+          {
+            "field": "properties.station_count",
+            "type": "quantitative",
+            "title": "Matched stations",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.baseline_entries",
+            "type": "quantitative",
+            "title": "Annual station entries (2018–2019)",
+            "format": ",.0f"
+          },
+          {
+            "field": "properties.current_entries",
+            "type": "quantitative",
+            "title": "Annual station entries (2024–2025)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/stations.json"
+      },
+      "mark": {
+        "type": "circle",
+        "size": 7,
+        "color": "#142f3c",
+        "opacity": 0.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        }
+      ]
+    },
+    {
+      "data": {
+        "url": "data/stations.json"
+      },
+      "transform": [
+        {
+          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_financial_year"
+        },
+        {
+          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+          "as": "display_year"
+        },
+        {
+          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+          "as": "display_label"
+        },
+        {
+          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+          "as": "display_band"
+        },
+        {
+          "filter": "datum.station_name === 'Flinders Street'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -8,
+        "dy": -9,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Central Melbourne"
+        }
+      }
+    }
+  ],
+  "description": "Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations."
+}
