@@ -1,0 +1,165 @@
+[
+  {
+    "id": "C01",
+    "spec": "specs/C01_urban_map.json",
+    "idiom": "Proportional-symbol map",
+    "advanced": true,
+    "data": "data/national_current.json",
+    "columns": {
+      "city": "City",
+      "journeys_million": "Urban heavy-rail journeys (million)"
+    },
+    "description": "Urban heavy rail journeys in 2024–2025. Circle area encodes journeys; Australian Bureau of Statistics Greater Capital City Statistical Area representative points locate cities, not trip origins."
+  },
+  {
+    "id": "C02",
+    "spec": "specs/C02_recovery_lines.json",
+    "idiom": "Indexed line chart",
+    "advanced": false,
+    "data": "data/national_history.json",
+    "columns": {
+      "city": "City",
+      "financial_year": "Financial year",
+      "trips_million": "Estimated heavy-rail journeys (million)",
+      "recovery_index": "Recovery index (2018–2019 = 100)"
+    },
+    "description": "Separate Bureau of Infrastructure and Transport Research Economics Yearbook 2025 Chapter 2 city estimates. All five cities share their own 2018–2019 baseline; not spliced with Trainline."
+  },
+  {
+    "id": "C03",
+    "spec": "specs/C03_change_bridge.json",
+    "idiom": "Waterfall bridge",
+    "advanced": "candidate",
+    "data": "data/waterfall.json",
+    "columns": {
+      "label": "City or total",
+      "start": "Running total before contribution (million)",
+      "end": "Running total after contribution (million)",
+      "change": "Total or signed contribution (million)"
+    },
+    "description": "Arithmetic bridge using only the same Yearbook series as C02. Floating intervals add each city’s signed contribution to the combined total."
+  },
+  {
+    "id": "C04",
+    "spec": "specs/C04_victoria_waffle.json",
+    "idiom": "Waffle",
+    "advanced": true,
+    "data": "data/victoria_annual.json",
+    "columns": {
+      "financial_year": "Financial year",
+      "service": "Service",
+      "journeys": "Train journeys",
+      "recovery_index": "Recovery index (2018–2019 = 100)"
+    },
+    "description": "100 squares represent all metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact shares are shown in text."
+  },
+  {
+    "id": "C12",
+    "spec": "specs/C12_victoria_slope.json",
+    "idiom": "Slopegraph",
+    "advanced": "candidate",
+    "data": "data/victoria_annual.json",
+    "columns": {
+      "financial_year": "Financial year",
+      "service": "Service",
+      "journeys_million": "Train journeys (million)",
+      "recovery_index": "Recovery index (2018–2019 = 100)"
+    },
+    "description": "Department of Transport and Planning monthly totals from two complete financial years. Endpoints only; intervening changes are not shown. Method for estimating train transaction rates changed in January 2021."
+  },
+  {
+    "id": "C07",
+    "spec": "specs/C07_nonurban_treemap.json",
+    "idiom": "Hierarchical treemap",
+    "advanced": true,
+    "data": "data/nonurban.json",
+    "columns": {
+      "name": "Service or state",
+      "value": "Train journeys (million)"
+    },
+    "description": "Area encodes journeys within state groups. Complete Trainline 13 Table 23, 2024–2025, excludes operators not reported by the source."
+  },
+  {
+    "id": "C05",
+    "spec": "specs/C05_lga_recovery.json",
+    "idiom": "Choropleth map",
+    "advanced": true,
+    "data": "data/lga_recovery.json",
+    "columns": {
+      "lga_name": "Local government area",
+      "station_count": "Matched stations",
+      "baseline_entries": "Annual station entries (2018–2019)",
+      "current_entries": "Annual station entries (2024–2025)",
+      "recovery_index": "Recovery index (2018–2019 = 100)"
+    },
+    "description": "Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations."
+  },
+  {
+    "id": "C06",
+    "spec": "specs/C06_entry_bins.json",
+    "idiom": "Equal-area bin map",
+    "advanced": true,
+    "data": "data/bins_5.geojson",
+    "columns": {
+      "bin_id": "Grid cell",
+      "annual_entries": "Annual station entries (2024–2025)",
+      "station_count": "Station count",
+      "cell_width_km": "Grid cell width (kilometres)"
+    },
+    "description": "Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size."
+  },
+  {
+    "id": "C11",
+    "spec": "specs/C11_station_contributions.json",
+    "idiom": "Diverging bar chart",
+    "advanced": false,
+    "data": "data/station_changes.json",
+    "columns": {
+      "station_name": "Station",
+      "baseline_entries": "Annual station entries (2018–2019)",
+      "current_entries": "Annual station entries (2024–2025)",
+      "change_entries": "Change in annual station entries"
+    },
+    "description": "Five largest positive and five largest negative absolute changes among 220 matched station identifiers. Other 210 stations omitted from this selected-extremes view."
+  },
+  {
+    "id": "C08",
+    "spec": "specs/C08_time_heatmap.json",
+    "idiom": "Heatmap",
+    "advanced": true,
+    "data": "data/profiles.json",
+    "columns": {
+      "station_name": "Station",
+      "band": "Time band",
+      "entries": "Rounded normal-weekday station entries",
+      "share": "Share of five-band total (percent)"
+    },
+    "description": "Twelve largest annual-entry stations passing profile screens. Unequal-duration bands show shares of the published five-band sum, not an hourly arrival rate."
+  },
+  {
+    "id": "C09",
+    "spec": "specs/C09_station_histogram.json",
+    "idiom": "Histogram",
+    "advanced": true,
+    "data": "data/stations.json",
+    "columns": {
+      "station_name": "Station",
+      "baseline_entries": "Annual station entries (2018–2019)",
+      "recovery_index": "Recovery index (2018–2019 = 100)"
+    },
+    "description": "Frequency distribution in 20-point intervals; baseline threshold is selectable. All eligible extremes retained; each station counts once."
+  },
+  {
+    "id": "C10",
+    "spec": "specs/C10_weekend_boxplot.json",
+    "idiom": "Boxplot",
+    "advanced": true,
+    "data": "data/weekend.json",
+    "columns": {
+      "station_name": "Station",
+      "year": "Financial year",
+      "ratio": "Weekend-to-weekday daily-entry ratio"
+    },
+    "description": "Same 191 eligible stations each year. Ratio is average of Saturday and Sunday daily entries divided by weekday daily entries. Boxes show middle half; line is median; whiskers 1.5 interquartile range (the width of the middle half of values); points are outliers. Stations have equal weight."
+  }
+]

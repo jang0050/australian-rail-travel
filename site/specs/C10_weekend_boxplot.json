@@ -1,0 +1,466 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 600,
+  "height": 320,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "config": {
+    "font": "Source Sans 3",
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFontSize": 12,
+      "titleFontSize": 13,
+      "titleFontWeight": "normal",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "gridColor": "#e0e5e2",
+      "domain": false,
+      "tickColor": "#c6cfcb",
+      "labelPadding": 6,
+      "titlePadding": 12
+    },
+    "legend": {
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "titleFontWeight": "normal",
+      "orient": "bottom",
+      "labelColor": "#142f3c",
+      "titleColor": "#142f3c",
+      "padding": 0,
+      "offset": 16,
+      "layout": {
+        "anchor": "start",
+        "frame": "bounds"
+      }
+    },
+    "text": {
+      "font": "Source Sans 3",
+      "color": "#142f3c",
+      "fontSize": 13
+    }
+  },
+  "data": {
+    "url": "data/weekend.json"
+  },
+  "transform": [
+    {
+      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
+      "as": "display_financial_year"
+    },
+    {
+      "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
+      "as": "display_year"
+    },
+    {
+      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
+      "as": "display_label"
+    },
+    {
+      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
+      "as": "display_band"
+    }
+  ],
+  "layer": [
+    {
+      "transform": [
+        {
+          "joinaggregate": [
+            {
+              "op": "q1",
+              "field": "ratio",
+              "as": "lower_box_ratio"
+            },
+            {
+              "op": "q3",
+              "field": "ratio",
+              "as": "upper_box_ratio"
+            }
+          ],
+          "groupby": [
+            "display_year"
+          ]
+        }
+      ],
+      "layer": [
+        {
+          "transform": [
+            {
+              "filter": "(datum['ratio'] < datum['lower_box_ratio'] - 1.5 * (datum['upper_box_ratio'] - datum['lower_box_ratio'])) || (datum['ratio'] > datum['upper_box_ratio'] + 1.5 * (datum['upper_box_ratio'] - datum['lower_box_ratio']))"
+            }
+          ],
+          "mark": {
+            "type": "point",
+            "style": "boxplot-outliers",
+            "size": 20,
+            "opacity": 0.65
+          },
+          "encoding": {
+            "y": {
+              "field": "ratio",
+              "type": "quantitative",
+              "title": "Weekend-to-weekday daily-entry ratio",
+              "scale": {
+                "zero": true
+              }
+            },
+            "x": {
+              "field": "display_year",
+              "type": "ordinal",
+              "title": "Financial year",
+              "axis": {
+                "title": null,
+                "labelAngle": 0,
+                "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
+              }
+            },
+            "color": {
+              "value": "#21647a"
+            },
+            "tooltip": [
+              {
+                "field": "display_year",
+                "type": "nominal",
+                "title": "Financial year"
+              },
+              {
+                "field": "ratio",
+                "type": "quantitative",
+                "title": "Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              }
+            ]
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(datum['lower_box_ratio'] - 1.5 * (datum['upper_box_ratio'] - datum['lower_box_ratio']) <= datum['ratio']) && (datum['ratio'] <= datum['upper_box_ratio'] + 1.5 * (datum['upper_box_ratio'] - datum['lower_box_ratio']))"
+            },
+            {
+              "aggregate": [
+                {
+                  "op": "min",
+                  "field": "ratio",
+                  "as": "lower_whisker_ratio"
+                },
+                {
+                  "op": "max",
+                  "field": "ratio",
+                  "as": "upper_whisker_ratio"
+                },
+                {
+                  "op": "min",
+                  "field": "lower_box_ratio",
+                  "as": "lower_box_ratio"
+                },
+                {
+                  "op": "max",
+                  "field": "upper_box_ratio",
+                  "as": "upper_box_ratio"
+                }
+              ],
+              "groupby": [
+                "display_year"
+              ]
+            }
+          ],
+          "layer": [
+            {
+              "mark": {
+                "type": "rule",
+                "aria": false,
+                "style": "boxplot-rule"
+              },
+              "encoding": {
+                "y": {
+                  "field": "lower_whisker_ratio",
+                  "type": "quantitative",
+                  "title": "Weekend-to-weekday daily-entry ratio",
+                  "scale": {
+                    "zero": true
+                  }
+                },
+                "y2": {
+                  "field": "lower_box_ratio",
+                  "title": "Weekend-to-weekday daily-entry ratio"
+                },
+                "x": {
+                  "field": "display_year",
+                  "type": "ordinal",
+                  "title": "Financial year",
+                  "axis": {
+                    "title": null,
+                    "labelAngle": 0,
+                    "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
+                  }
+                },
+                "tooltip": [
+                  {
+                    "field": "upper_whisker_ratio",
+                    "type": "quantitative",
+                    "title": "Upper whisker of Weekend-to-weekday daily-entry ratio",
+                    "format": ".2f"
+                  },
+                  {
+                    "field": "lower_whisker_ratio",
+                    "type": "quantitative",
+                    "title": "Lower whisker of Weekend-to-weekday daily-entry ratio",
+                    "format": ".2f"
+                  },
+                  {
+                    "field": "display_year",
+                    "type": "ordinal",
+                    "title": "Financial year"
+                  }
+                ]
+              }
+            },
+            {
+              "mark": {
+                "type": "rule",
+                "aria": false,
+                "style": "boxplot-rule"
+              },
+              "encoding": {
+                "y": {
+                  "field": "upper_box_ratio",
+                  "type": "quantitative",
+                  "title": "Weekend-to-weekday daily-entry ratio",
+                  "scale": {
+                    "zero": true
+                  }
+                },
+                "y2": {
+                  "field": "upper_whisker_ratio"
+                },
+                "x": {
+                  "field": "display_year",
+                  "type": "ordinal",
+                  "title": "Financial year",
+                  "axis": {
+                    "title": null,
+                    "labelAngle": 0,
+                    "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
+                  }
+                },
+                "tooltip": [
+                  {
+                    "field": "upper_whisker_ratio",
+                    "type": "quantitative",
+                    "title": "Upper whisker of Weekend-to-weekday daily-entry ratio",
+                    "format": ".2f"
+                  },
+                  {
+                    "field": "lower_whisker_ratio",
+                    "type": "quantitative",
+                    "title": "Lower whisker of Weekend-to-weekday daily-entry ratio",
+                    "format": ".2f"
+                  },
+                  {
+                    "field": "display_year",
+                    "type": "ordinal",
+                    "title": "Financial year"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "q1",
+              "field": "ratio",
+              "as": "lower_box_ratio"
+            },
+            {
+              "op": "q3",
+              "field": "ratio",
+              "as": "upper_box_ratio"
+            },
+            {
+              "op": "median",
+              "field": "ratio",
+              "as": "mid_box_ratio"
+            },
+            {
+              "op": "min",
+              "field": "ratio",
+              "as": "min_ratio"
+            },
+            {
+              "op": "max",
+              "field": "ratio",
+              "as": "max_ratio"
+            }
+          ],
+          "groupby": [
+            "display_year"
+          ]
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "bar",
+            "size": 55,
+            "orient": "vertical",
+            "ariaRoleDescription": "box",
+            "style": "boxplot-box",
+            "description": {
+              "expr": "'Financial year: ' + datum.display_year + '; Lower quartile ratio: ' + format(datum.lower_box_ratio, '.2f') + '; Median ratio: ' + format(datum.mid_box_ratio, '.2f') + '; Upper quartile ratio: ' + format(datum.upper_box_ratio, '.2f')"
+            }
+          },
+          "encoding": {
+            "y": {
+              "field": "lower_box_ratio",
+              "type": "quantitative",
+              "title": "Weekend-to-weekday daily-entry ratio",
+              "scale": {
+                "zero": true
+              }
+            },
+            "y2": {
+              "field": "upper_box_ratio",
+              "title": "Weekend-to-weekday daily-entry ratio"
+            },
+            "x": {
+              "field": "display_year",
+              "type": "ordinal",
+              "title": "Financial year",
+              "axis": {
+                "title": null,
+                "labelAngle": 0,
+                "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
+              }
+            },
+            "color": {
+              "value": "#21647a"
+            },
+            "tooltip": [
+              {
+                "field": "max_ratio",
+                "type": "quantitative",
+                "title": "Maximum of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "upper_box_ratio",
+                "type": "quantitative",
+                "title": "Upper quartile of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "mid_box_ratio",
+                "type": "quantitative",
+                "title": "Median of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "lower_box_ratio",
+                "type": "quantitative",
+                "title": "Lower quartile of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "min_ratio",
+                "type": "quantitative",
+                "title": "Minimum of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "display_year",
+                "type": "ordinal",
+                "title": "Financial year"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "color": "white",
+            "type": "tick",
+            "size": 55,
+            "orient": "horizontal",
+            "aria": false,
+            "style": "boxplot-median",
+            "strokeWidth": 2
+          },
+          "encoding": {
+            "y": {
+              "field": "mid_box_ratio",
+              "type": "quantitative",
+              "title": "Weekend-to-weekday daily-entry ratio",
+              "scale": {
+                "zero": true
+              }
+            },
+            "x": {
+              "field": "display_year",
+              "type": "ordinal",
+              "title": "Financial year",
+              "axis": {
+                "title": null,
+                "labelAngle": 0,
+                "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
+              }
+            },
+            "color": {
+              "condition": {
+                "test": "datum['lower_box_ratio'] >= datum['upper_box_ratio']",
+                "value": "#21647a"
+              }
+            },
+            "tooltip": [
+              {
+                "field": "max_ratio",
+                "type": "quantitative",
+                "title": "Maximum of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "upper_box_ratio",
+                "type": "quantitative",
+                "title": "Upper quartile of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "mid_box_ratio",
+                "type": "quantitative",
+                "title": "Median of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "lower_box_ratio",
+                "type": "quantitative",
+                "title": "Lower quartile of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "min_ratio",
+                "type": "quantitative",
+                "title": "Minimum of Weekend-to-weekday daily-entry ratio",
+                "format": ".2f"
+              },
+              {
+                "field": "display_year",
+                "type": "ordinal",
+                "title": "Financial year"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "description": "Same 191 eligible stations each year. Ratio is average of Saturday and Sunday daily entries divided by weekday daily entries. Boxes show middle half; line is median; whiskers 1.5 interquartile range (the width of the middle half of values); points are outliers. Stations have equal weight."
+}
