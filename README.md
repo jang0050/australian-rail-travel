@@ -2,6 +2,12 @@
 
 A single scrolling Vega/Vega-Lite website about Australian rail travel. The website source, readable chart specifications, compact derived data, and licence notices are in `site/`.
 
+## View the webpage
+
+**[Open the Australian Rail Travel webpage](https://jang0050.github.io/australian-rail-travel/)**
+
+This is a progress version. The student hand sketch, tutor feedback, and final authorship details remain pending.
+
 ## View locally
 
 From this directory, run `python3 -m http.server 8000 --directory site` and open `http://localhost:8000/`.

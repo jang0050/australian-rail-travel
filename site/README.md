@@ -5,7 +5,7 @@ An original single-scroll FIT3179 Topic 19 visual story. Twelve authored Vega/Ve
 ## View locally
 From the repository root: `python3 -m http.server 8000 --directory site`, then open http://localhost:8000/.
 
-All browser assets are local; there are no live-data API calls, analytics or external font dependencies. Use an HTTP server, not file://. Paths support a GitHub Pages project subdirectory. No publication or deployment has occurred.
+All browser assets are local; there are no live-data API calls, analytics or external font dependencies. Use an HTTP server, not file://. Paths support the [GitHub Pages project URL](https://jang0050.github.io/australian-rail-travel/). The published page is a progress version.
 
 ## Evidence and limitations
 - Complete DTP station and monthly CSVs; no preview/sample records used as a network dataset.
