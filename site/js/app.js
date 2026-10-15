@@ -8,6 +8,18 @@ async function readJSON(path) {
   return cache.get(path);
 }
 const views = new Map();
+const finalizers = new Map();
+function positionChartActions(element,id) {
+  // SVG padding and legends are outside the visible plotting area.
+  const selector = ['C01','C05','C06'].includes(id) ? 'svg .mark-shape.role-mark' :
+    id === 'C07' ? 'svg .mark-rect.role-mark' : 'svg .role-frame > g > path.background';
+  const plot = element.querySelector(selector);
+  if (!plot) return;
+  const bounds = plot.getBoundingClientRect();
+  const container = element.getBoundingClientRect();
+  element.style.setProperty('--actions-top',`${bounds.top-container.top}px`);
+  element.style.setProperty('--actions-right',`${container.right-bounds.right+8}px`);
+}
 const state = {cityFocus:'All cities', shareYear:'2024-25', baselineMin:5000, grid:'5'};
 async function localise(value) {
   if (Array.isArray(value)) return Promise.all(value.map(localise));
@@ -53,8 +65,11 @@ async function render(entry) {
     if (id === 'C08' && width < 500) spec.encoding.x.axis.labelAngle=-45;
     if (id === 'C06') spec.layer.find(l=>l.name==='grid').data.values=(await readJSON(`data/bins_${state.grid}.geojson`)).features;
     for (const p of spec.params ?? []) if(p.name in state) p.value=state[p.name];
-    views.get(id)?.finalize(); element.replaceChildren();
-    const embedded = await window.vegaEmbed(element,spec,{mode:isLite?'vega-lite':'vega',renderer:'svg',actions:false});
+    finalizers.get(id)?.(); element.replaceChildren();
+    const embedded = await window.vegaEmbed(element,spec,{mode:isLite?'vega-lite':'vega',renderer:'svg',actions:true});
+    finalizers.set(id,embedded.finalize);
+    element.querySelector('summary').setAttribute('aria-label',`Actions for figure ${element.closest('figure').dataset.figureNumber}`);
+    positionChartActions(element,id);
     views.set(id,embedded.view); element.dataset.renderStatus='rendered';
     element.dataset.renderWidth=String(width); results.set(id,{id,status:'rendered'});
   } catch(error) { console.error(id,error);fail(id,error); }
@@ -120,6 +135,6 @@ const tooltipCreationObserver=new MutationObserver(attachTooltipBounds);
 tooltipCreationObserver.observe(document.body,{childList:true,subtree:true});
 attachTooltipBounds();
 window.addEventListener('resize',boundTooltip);
-window.addEventListener('pagehide',()=>{observer.disconnect();tooltipCreationObserver.disconnect();tooltipBoundsObserver.disconnect();window.removeEventListener('resize',boundTooltip);clearTimeout(timer);for(const view of views.values())view.finalize();},{once:true});
+window.addEventListener('pagehide',()=>{observer.disconnect();tooltipCreationObserver.disconnect();tooltipBoundsObserver.disconnect();window.removeEventListener('resize',boundTooltip);clearTimeout(timer);for(const finalize of finalizers.values())finalize();},{once:true});
 // Read-only handles support repeatable browser assertions of actual Vega signals and data.
 window.__railViews=views;

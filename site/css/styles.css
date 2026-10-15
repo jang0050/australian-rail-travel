@@ -94,3 +94,13 @@ body #vg-tooltip-element table tr td.key{color:var(--muted)}
 .hero .figure h3{font-size:20px}
 .hero .figure .chart{margin:12px 0}
 .hero .figure .source{margin-bottom:0}
+
+/* Compact actions overlay the chart corner without adding toolbar space. */
+.chart.vega-embed.has-actions{padding:0}
+.chart.vega-embed summary{opacity:1!important;top:calc(var(--actions-top,0px) - 39px);right:var(--actions-right,8px);z-index:1000;width:28px;height:28px;padding:6px;color:var(--ink);background:var(--paper);border-color:var(--line)}
+.chart.vega-embed summary:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+.chart.vega-embed .vega-actions{top:calc(var(--actions-top,0px) - 5px);right:var(--actions-right,8px);background:var(--paper);border-color:var(--line)}
+.chart.vega-embed .vega-actions a{font-family:'Source Sans 3',sans-serif;color:var(--ink)}
+/* The hero caption sits close to its map: keep its actions below that text. */
+#C01.vega-embed summary{top:calc(var(--actions-top,0px) + 8px);right:calc(var(--actions-right,8px) - 30px)}
+#C01.vega-embed .vega-actions{top:calc(var(--actions-top,0px) + 42px);right:calc(var(--actions-right,8px) - 30px)}
