@@ -2,7 +2,12 @@
   "$schema": "https://vega.github.io/schema/vega/v6.json",
   "width": 900,
   "height": 290,
-  "padding": 2,
+  "padding": {
+    "left": 2,
+    "right": 2,
+    "top": 40,
+    "bottom": 2
+  },
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -36,7 +41,7 @@
           ],
           "paddingInner": 3,
           "paddingOuter": 1,
-          "paddingTop": 20,
+          "paddingTop": 1,
           "round": true
         }
       ]
@@ -212,7 +217,7 @@
             "field": "x0"
           },
           "y": {
-            "signal": "datum.y0 + 2"
+            "signal": "datum.y0 - 18"
           },
           "text": {
             "signal": "datum.x1-datum.x0>130 ? replace(datum.name, /^NSW /, 'New South Wales ') : ''"
