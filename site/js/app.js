@@ -27,7 +27,7 @@ function fail(id,error) {
   const element = document.getElementById(id);
   element.replaceChildren();
   const message = document.createElement('p'); message.className = 'error'; message.setAttribute('role','alert');
-  message.textContent = `Figure ${element.closest('figure').dataset.figureNumber} could not load. Try again using the button below. The data table remains available.`;
+  message.textContent = `Figure ${element.closest('figure').dataset.figureNumber} could not load. Try again using the button below. The source data link remains available below.`;
   const retry = document.createElement('button'); retry.className = 'retry'; retry.textContent = 'Retry chart';
   retry.onclick = () => render(registry.find(r => r.id === id));
   element.append(message,retry); element.dataset.renderStatus='failed';
