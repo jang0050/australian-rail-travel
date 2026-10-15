@@ -84,3 +84,13 @@ body #vg-tooltip-element table tr td.key{color:var(--muted)}
 #figure-C08>figcaption{width:100%}
 
 @media(forced-colors:active){.control select{appearance:auto;-webkit-appearance:auto;background-image:none;padding-right:12px}}
+
+/* The opening thesis leads; a compact locator map supports it. */
+.hero-copy{padding-bottom:0}
+.hero-copy h1{margin-bottom:16px}
+.hero-copy .subtitle{max-width:none;font-size:clamp(22px,2.2vw,28px);line-height:1.25;margin:0 0 20px;text-wrap:balance}
+.hero-copy .lead{font-size:18px;line-height:1.6;font-weight:400;color:var(--muted);margin:0}
+.hero .figure{margin:0}
+.hero .figure h3{font-size:20px}
+.hero .figure .chart{margin:12px 0}
+.hero .figure .source{margin-bottom:0}

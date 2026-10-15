@@ -44,7 +44,11 @@ async function render(entry) {
     // Leave 2px per side for the waffle's rectangle strokes; keep all cells square.
     if (id === 'C04') {spec.width=width-4;spec.height=spec.width;}
     if (id === 'C12') spec.height = width + 46;
-    if (id === 'C01') spec.height = width < 430 ? 350 : 420;
+    if (id === 'C01') {
+      spec.height = width < 430 ? 320 : 340;
+      // Anchor the outside city labels inward on narrow phones.
+      if (width < 340) spec.layer[2].mark.align = {expr:"datum.city === 'Perth' ? 'left' : datum.city === 'Brisbane' ? 'right' : 'center'"};
+    }
     if (id === 'C05' || id === 'C06') spec.height = width + 64;
     if (id === 'C08' && width < 500) spec.encoding.x.axis.labelAngle=-45;
     if (id === 'C06') spec.layer.find(l=>l.name==='grid').data.values=(await readJSON(`data/bins_${state.grid}.geojson`)).features;
