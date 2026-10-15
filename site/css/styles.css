@@ -52,3 +52,6 @@ body #vg-tooltip-element table tr td.key{color:var(--muted)}
   .two-up>.figure .figure-heading{display:flex;flex-direction:column;height:100%}
   .two-up>.figure .figure-heading .figure-kind{margin-top:auto}
 }
+
+/* Compact footer heading; narrative headings remain unchanged. */
+.footer-title{font-size:20px;line-height:1.35;letter-spacing:0;margin:0 0 12px}
