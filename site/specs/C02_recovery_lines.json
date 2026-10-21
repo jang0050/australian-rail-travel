@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 400,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,68 +28,41 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
   "params": [
-    {
-      "name": "cityFocus",
-      "value": "All cities"
-    }
+    {"name": "cityFocus", "value": "All cities"}
   ],
   "layer": [
     {
       "data": {
         "values": [
-          {
-            "ref": 100
-          }
+          {"ref": 100}
         ]
       },
       "mark": {
         "type": "rule",
-        "strokeDash": [
-          4,
-          4
-        ],
+        "strokeDash": [4, 4],
         "color": "#586177"
       },
       "encoding": {
-        "y": {
-          "field": "ref",
-          "type": "quantitative",
-          "title": "Recovery index (2018–2019 = 100)"
-        }
+        "y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}
       }
     },
     {
-      "data": {
-        "url": "data/national_history.json"
-      },
+      "data": {"url": "data/national_history.json"},
       "mark": {
         "type": "line",
-        "point": {
-          "filled": true,
-          "size": 24
-        },
+        "point": {"filled": true, "size": 24},
         "strokeWidth": 2
       },
       "encoding": {
         "x": {
           "field": "year_end",
           "type": "ordinal",
-          "axis": {
-            "title": "Year ending in June",
-            "labelAngle": 0
-          },
+          "axis": {"title": "Year ending in June", "labelAngle": 0},
           "title": "Year ending in June"
         },
         "y": {
@@ -102,30 +70,15 @@
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
           "scale": {
-            "domain": [
-              0,
-              120
-            ]
+            "domain": [0, 120]
           }
         },
         "color": {
           "field": "city",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Sydney",
-              "Melbourne",
-              "Brisbane",
-              "Perth",
-              "Adelaide"
-            ],
-            "range": [
-              "#596d9b",
-              "#a97c50",
-              "#5e8384",
-              "#82749b",
-              "#ae7885"
-            ]
+            "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
+            "range": ["#596d9b", "#a97c50", "#5e8384", "#82749b", "#ae7885"]
           },
           "legend": null,
           "title": "City"
@@ -134,61 +87,25 @@
           "field": "city",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Sydney",
-              "Melbourne",
-              "Brisbane",
-              "Perth",
-              "Adelaide"
-            ],
+            "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
             "range": [
-              [
-                1,
-                0
-              ],
-              [
-                7,
-                3
-              ],
-              [
-                2,
-                3
-              ],
-              [
-                10,
-                3,
-                2,
-                3
-              ],
-              [
-                5,
-                2,
-                1,
-                2
-              ]
+              [1, 0],
+              [7, 3],
+              [2, 3],
+              [10, 3, 2, 3],
+              [5, 2, 1, 2]
             ]
           },
           "legend": null,
           "title": "City"
         },
         "opacity": {
-          "condition": {
-            "test": "cityFocus === 'All cities' || datum.city === cityFocus",
-            "value": 0.9
-          },
+          "condition": {"test": "cityFocus === 'All cities' || datum.city === cityFocus", "value": 0.9},
           "value": 0.18
         },
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "display_financial_year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
           {
             "field": "trips_million",
             "type": "quantitative",
@@ -213,67 +130,35 @@
     {
       "data": {
         "values": [
-          {
-            "year_end": 2019,
-            "ref": 100,
-            "label": "2018–2019 level"
-          }
+          {"year_end": 2019, "ref": 100, "label": "2018–2019 level"}
         ]
       },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dy": -13,
-        "fontSize": 13,
-        "color": "#586177"
-      },
+      "mark": {"type": "text", "align": "left", "dy": -13, "fontSize": 13, "color": "#586177"},
       "encoding": {
-        "x": {
-          "field": "year_end",
-          "type": "ordinal",
-          "title": "Year ending in June"
-        },
-        "y": {
-          "field": "ref",
-          "type": "quantitative",
-          "title": "Recovery index (2018–2019 = 100)"
-        },
-        "text": {
-          "field": "label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+        "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"},
+        "y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"},
+        "text": {"field": "label", "type": "nominal", "title": "City or total"}
       }
     },
     {
-      "data": {
-        "url": "data/national_history.json"
-      },
+      "data": {"url": "data/national_history.json"},
       "transform": [
         {
           "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
           "as": "display_financial_year"
         },
-        {
-          "filter": "cityFocus !== 'All cities' && datum.city === cityFocus"
-        }
+        {"filter": "cityFocus !== 'All cities' && datum.city === cityFocus"}
       ],
       "mark": {
         "type": "line",
-        "point": {
-          "filled": true,
-          "size": 55
-        },
+        "point": {"filled": true, "size": 55},
         "strokeWidth": 3.5
       },
       "encoding": {
         "x": {
           "field": "year_end",
           "type": "ordinal",
-          "axis": {
-            "title": "Year ending in June",
-            "labelAngle": 0
-          },
+          "axis": {"title": "Year ending in June", "labelAngle": 0},
           "title": "Year ending in June"
         },
         "y": {
@@ -281,30 +166,15 @@
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
           "scale": {
-            "domain": [
-              0,
-              120
-            ]
+            "domain": [0, 120]
           }
         },
         "color": {
           "field": "city",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Sydney",
-              "Melbourne",
-              "Brisbane",
-              "Perth",
-              "Adelaide"
-            ],
-            "range": [
-              "#596d9b",
-              "#a97c50",
-              "#5e8384",
-              "#82749b",
-              "#ae7885"
-            ]
+            "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
+            "range": ["#596d9b", "#a97c50", "#5e8384", "#82749b", "#ae7885"]
           },
           "legend": null,
           "title": "City"
@@ -313,54 +183,21 @@
           "field": "city",
           "type": "nominal",
           "scale": {
-            "domain": [
-              "Sydney",
-              "Melbourne",
-              "Brisbane",
-              "Perth",
-              "Adelaide"
-            ],
+            "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
             "range": [
-              [
-                1,
-                0
-              ],
-              [
-                7,
-                3
-              ],
-              [
-                2,
-                3
-              ],
-              [
-                10,
-                3,
-                2,
-                3
-              ],
-              [
-                5,
-                2,
-                1,
-                2
-              ]
+              [1, 0],
+              [7, 3],
+              [2, 3],
+              [10, 3, 2, 3],
+              [5, 2, 1, 2]
             ]
           },
           "legend": null,
           "title": "City"
         },
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "display_financial_year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
           {
             "field": "trips_million",
             "type": "quantitative",
@@ -377,38 +214,21 @@
       }
     },
     {
-      "data": {
-        "url": "data/national_history.json"
-      },
+      "data": {"url": "data/national_history.json"},
       "transform": [
         {
           "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
           "as": "display_financial_year"
         },
-        {
-          "filter": "datum.year_end === 2025 && cityFocus !== 'All cities' && datum.city === cityFocus"
-        },
-        {
-          "calculate": "datum.city + ' ' + format(datum.recovery_index,'.1f')",
-          "as": "endpoint_label"
-        }
+        {"filter": "datum.year_end === 2025 && cityFocus !== 'All cities' && datum.city === cityFocus"},
+        {"calculate": "datum.city + ' ' + format(datum.recovery_index,'.1f')", "as": "endpoint_label"}
       ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dx": -10,
-        "dy": -15,
-        "fontSize": 14,
-        "fontWeight": 600
-      },
+      "mark": {"type": "text", "align": "right", "dx": -10, "dy": -15, "fontSize": 14, "fontWeight": 600},
       "encoding": {
         "x": {
           "field": "year_end",
           "type": "ordinal",
-          "axis": {
-            "title": "Year ending in June",
-            "labelAngle": 0
-          },
+          "axis": {"title": "Year ending in June", "labelAngle": 0},
           "title": "Year ending in June"
         },
         "y": {
@@ -416,27 +236,13 @@
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
           "scale": {
-            "domain": [
-              0,
-              120
-            ]
+            "domain": [0, 120]
           }
         },
-        "text": {
-          "field": "endpoint_label",
-          "type": "nominal"
-        },
+        "text": {"field": "endpoint_label", "type": "nominal"},
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "display_financial_year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
           {
             "field": "trips_million",
             "type": "quantitative",
@@ -453,127 +259,63 @@
       }
     },
     {
-      "data": {
-        "url": "data/national_history.json"
-      },
+      "data": {"url": "data/national_history.json"},
       "transform": [
         {
           "pivot": "city",
           "value": "recovery_index",
-          "groupby": [
-            "year_end"
-          ]
+          "groupby": ["year_end"]
         },
-        {
-          "calculate": "(datum.year_end - 1) + '–' + datum.year_end",
-          "as": "year_label"
-        }
+        {"calculate": "(datum.year_end - 1) + '–' + datum.year_end", "as": "year_label"}
       ],
       "params": [
         {
           "name": "inspectYear",
           "select": {
             "type": "point",
-            "fields": [
-              "year_end"
-            ],
+            "fields": ["year_end"],
             "nearest": true,
-            "encodings": [
-              "x"
-            ],
+            "encodings": ["x"],
             "on": "pointerover",
             "clear": "pointerout"
           }
         }
       ],
-      "mark": {
-        "type": "point",
-        "opacity": 0,
-        "size": 1
-      },
+      "mark": {"type": "point", "opacity": 0, "size": 1},
       "encoding": {
-        "x": {
-          "field": "year_end",
-          "type": "ordinal",
-          "title": "Year ending in June"
-        },
-        "y": {
-          "value": 0
-        },
+        "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"},
+        "y": {"value": 0},
         "tooltip": [
-          {
-            "field": "year_label",
-            "type": "nominal",
-            "title": "Financial year"
-          },
-          {
-            "field": "Sydney",
-            "type": "quantitative",
-            "title": "Sydney · recovery index",
-            "format": ".1f"
-          },
+          {"field": "year_label", "type": "nominal", "title": "Financial year"},
+          {"field": "Sydney", "type": "quantitative", "title": "Sydney · recovery index", "format": ".1f"},
           {
             "field": "Melbourne",
             "type": "quantitative",
             "title": "Melbourne · recovery index",
             "format": ".1f"
           },
-          {
-            "field": "Brisbane",
-            "type": "quantitative",
-            "title": "Brisbane · recovery index",
-            "format": ".1f"
-          },
-          {
-            "field": "Perth",
-            "type": "quantitative",
-            "title": "Perth · recovery index",
-            "format": ".1f"
-          },
-          {
-            "field": "Adelaide",
-            "type": "quantitative",
-            "title": "Adelaide · recovery index",
-            "format": ".1f"
-          }
+          {"field": "Brisbane", "type": "quantitative", "title": "Brisbane · recovery index", "format": ".1f"},
+          {"field": "Perth", "type": "quantitative", "title": "Perth · recovery index", "format": ".1f"},
+          {"field": "Adelaide", "type": "quantitative", "title": "Adelaide · recovery index", "format": ".1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/national_history.json"
-      },
+      "data": {"url": "data/national_history.json"},
       "transform": [
         {
           "pivot": "city",
           "value": "recovery_index",
-          "groupby": [
-            "year_end"
-          ]
+          "groupby": ["year_end"]
         },
+        {"calculate": "(datum.year_end - 1) + '–' + datum.year_end", "as": "year_label"},
         {
-          "calculate": "(datum.year_end - 1) + '–' + datum.year_end",
-          "as": "year_label"
-        },
-        {
-          "filter": {
-            "param": "inspectYear",
-            "empty": false
-          }
+          "filter": {"param": "inspectYear", "empty": false}
         }
       ],
-      "mark": {
-        "type": "rule",
-        "color": "#586177",
-        "strokeWidth": 1,
-        "opacity": 0.5
-      },
+      "mark": {"type": "rule", "color": "#586177", "strokeWidth": 1, "opacity": 0.5},
       "encoding": {
-        "x": {
-          "field": "year_end",
-          "type": "ordinal",
-          "title": "Year ending in June"
-        }
+        "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"}
       }
     }
   ],

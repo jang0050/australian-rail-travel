@@ -1,14 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "autosize": {
-    "type": "pad"
-  },
+  "autosize": {"type": "pad"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -30,30 +26,18 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "data": {
-    "url": "data/waffle.json"
-  },
+  "data": {"url": "data/waffle.json"},
   "padding": 2,
   "spacing": 16,
   "facet": {
     "column": {
       "field": "display_financial_year",
       "type": "ordinal",
-      "sort": [
-        "2018–2019",
-        "2024–2025"
-      ],
+      "sort": ["2018–2019", "2024–2025"],
       "title": "Financial year",
       "header": {
         "title": null,
@@ -68,70 +52,26 @@
   "spec": {
     "width": 250,
     "height": 250,
-    "mark": {
-      "type": "rect",
-      "stroke": "#f6f7fb",
-      "strokeWidth": 1.5
-    },
+    "mark": {"type": "rect", "stroke": "#f6f7fb", "strokeWidth": 1.5},
     "encoding": {
-      "x": {
-        "field": "col",
-        "type": "ordinal",
-        "axis": null,
-        "title": "Column"
-      },
-      "y": {
-        "field": "row",
-        "type": "ordinal",
-        "axis": null,
-        "title": "Row"
-      },
+      "x": {"field": "col", "type": "ordinal", "axis": null, "title": "Column"},
+      "y": {"field": "row", "type": "ordinal", "axis": null, "title": "Row"},
       "color": {
         "field": "service",
         "type": "nominal",
-        "scale": {
-          "domain": [
-            "Metropolitan",
-            "Regional"
-          ],
-          "range": [
-            "#66768d",
-            "#9c7a8b"
-          ]
-        },
-        "legend": {
-          "title": null,
-          "symbolType": "square",
-          "columns": 2,
-          "columnPadding": 18
-        },
+        "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#66768d", "#9c7a8b"]},
+        "legend": {"title": null, "symbolType": "square", "columns": 2, "columnPadding": 18},
         "title": "Service"
       },
       "tooltip": [
-        {
-          "field": "service",
-          "type": "nominal",
-          "title": "Service"
-        },
-        {
-          "field": "display_financial_year",
-          "type": "nominal",
-          "title": "Financial year"
-        },
-        {
-          "field": "regional_share",
-          "type": "quantitative",
-          "title": "Regional share (percent)",
-          "format": ".2f"
-        }
+        {"field": "service", "type": "nominal", "title": "Service"},
+        {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
+        {"field": "regional_share", "type": "quantitative", "title": "Regional share (percent)", "format": ".2f"}
       ]
     }
   },
   "transform": [
-    {
-      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_financial_year"
-    }
+    {"calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null", "as": "display_financial_year"}
   ],
   "description": "Two simultaneous 100-square grids compare metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact regional shares are labelled. Both panels form one waffle comparison."
 }

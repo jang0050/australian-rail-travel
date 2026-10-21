@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 600,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,259 +28,94 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "middle",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "middle", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "projection": {
-    "type": "conicEqualArea",
-    "parallels": [
-      -18,
-      -36
-    ],
-    "rotate": [
-      -134,
-      0,
-      0
-    ],
-    "center": [
-      0,
-      -27
-    ]
-  },
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-134, 0, 0], "center": [0, -27]},
   "layer": [
     {
-      "data": {
-        "url": "data/australia.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#e3e5eb",
-        "stroke": "#f6f7fb",
-        "strokeWidth": 1
-      }
+      "data": {"url": "data/australia.geojson", "format": {"type": "json", "property": "features"}},
+      "mark": {"type": "geoshape", "fill": "#e3e5eb", "stroke": "#f6f7fb", "strokeWidth": 1}
     },
     {
-      "data": {
-        "url": "data/national_current.json"
-      },
-      "mark": {
-        "type": "circle",
-        "color": "#737d91",
-        "opacity": 0.9,
-        "stroke": "#f6f7fb",
-        "strokeWidth": 1
-      },
+      "data": {"url": "data/national_current.json"},
+      "mark": {"type": "circle", "color": "#737d91", "opacity": 0.9, "stroke": "#f6f7fb", "strokeWidth": 1},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
         "size": {
           "field": "journeys_million",
           "type": "quantitative",
-          "scale": {
-            "domain": [
-              0,
-              400
-            ],
-            "range": [
-              0,
-              4200
-            ]
-          },
+          "scale": {"domain": [0, 400], "range": [0, 4200]},
           "legend": {
             "title": "Urban heavy-rail journeys (million)",
-            "values": [
-              50,
-              200,
-              350
-            ],
+            "values": [50, 200, 350],
             "symbolFillColor": "#737d91"
           },
           "title": "Train journeys (million)"
         },
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "journeys_million",
-            "type": "quantitative",
-            "title": "Urban heavy-rail journeys (million)",
-            "format": ",.1f"
-          }
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "journeys_million", "type": "quantitative", "title": "Urban heavy-rail journeys (million)", "format": ",.1f"}
         ]
       },
-      "transform": [
-        {
-          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
-          "as": "city_value"
-        }
-      ]
+      "transform": [{"calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')", "as": "city_value"}]
     },
     {
-      "data": {
-        "url": "data/national_current.json"
-      },
+      "data": {"url": "data/national_current.json"},
       "transform": [
-        {
-          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
-          "as": "city_value"
-        },
-        {
-          "filter": "datum.city !== 'Melbourne' && datum.city !== 'Adelaide'"
-        }
+        {"calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')", "as": "city_value"},
+        {"filter": "datum.city !== 'Melbourne' && datum.city !== 'Adelaide'"}
       ],
       "mark": {
         "type": "text",
-        "dy": {
-          "expr": "datum.city === 'Sydney' ? -54 : -32"
-        },
-        "dx": {
-          "expr": "datum.city === 'Sydney' ? -55 : 0"
-        },
+        "dy": {"expr": "datum.city === 'Sydney' ? -54 : -32"},
+        "dx": {"expr": "datum.city === 'Sydney' ? -55 : 0"},
         "fontWeight": 600,
         "fontSize": 15
       },
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "city_value",
-          "type": "nominal"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "city_value", "type": "nominal"},
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "journeys_million",
-            "type": "quantitative",
-            "title": "Urban heavy-rail journeys (million)",
-            "format": ",.1f"
-          }
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "journeys_million", "type": "quantitative", "title": "Urban heavy-rail journeys (million)", "format": ",.1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/national_current.json"
-      },
+      "data": {"url": "data/national_current.json"},
       "transform": [
-        {
-          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
-          "as": "city_value"
-        },
-        {
-          "filter": "datum.city === 'Melbourne'"
-        }
+        {"calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')", "as": "city_value"},
+        {"filter": "datum.city === 'Melbourne'"}
       ],
-      "mark": {
-        "type": "text",
-        "dy": 48,
-        "dx": 15,
-        "fontWeight": 600,
-        "fontSize": 15
-      },
+      "mark": {"type": "text", "dy": 48, "dx": 15, "fontWeight": 600, "fontSize": 15},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "city_value",
-          "type": "nominal"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "city_value", "type": "nominal"},
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "journeys_million",
-            "type": "quantitative",
-            "title": "Urban heavy-rail journeys (million)",
-            "format": ",.1f"
-          }
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "journeys_million", "type": "quantitative", "title": "Urban heavy-rail journeys (million)", "format": ",.1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/national_current.json"
-      },
+      "data": {"url": "data/national_current.json"},
       "transform": [
-        {
-          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
-          "as": "city_value"
-        },
-        {
-          "filter": "datum.city === 'Adelaide'"
-        }
+        {"calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')", "as": "city_value"},
+        {"filter": "datum.city === 'Adelaide'"}
       ],
-      "mark": {
-        "type": "text",
-        "dy": 24,
-        "dx": -58,
-        "fontWeight": 600,
-        "fontSize": 15
-      },
+      "mark": {"type": "text", "dy": 24, "dx": -58, "fontWeight": 600, "fontSize": 15},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "city_value",
-          "type": "nominal"
-        },
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "city_value", "type": "nominal"},
         "tooltip": [
-          {
-            "field": "city",
-            "type": "nominal",
-            "title": "City"
-          },
-          {
-            "field": "journeys_million",
-            "type": "quantitative",
-            "title": "Urban heavy-rail journeys (million)",
-            "format": ",.1f"
-          }
+          {"field": "city", "type": "nominal", "title": "City"},
+          {"field": "journeys_million", "type": "quantitative", "title": "Urban heavy-rail journeys (million)", "format": ",.1f"}
         ]
       }
     }

@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 440,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,90 +28,33 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "projection": {
-    "type": "azimuthalEqualArea",
-    "rotate": [
-      -145,
-      38,
-      0
-    ],
-    "center": [
-      0,
-      0
-    ]
-  },
+  "projection": {"type": "azimuthalEqualArea", "rotate": [-145, 38, 0], "center": [0, 0]},
   "layer": [
     {
-      "data": {
-        "url": "data/lga_recovery.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
+      "data": {"url": "data/lga_recovery.geojson", "format": {"type": "json", "property": "features"}},
       "transform": [
-        {
-          "filter": "!isValid(datum.properties.recovery_index)"
-        },
-        {
-          "calculate": "'No eligible matched stations'",
-          "as": "recovery_status"
-        }
+        {"filter": "!isValid(datum.properties.recovery_index)"},
+        {"calculate": "'No eligible matched stations'", "as": "recovery_status"}
       ],
-      "mark": {
-        "type": "geoshape",
-        "fill": "#e3e5eb",
-        "stroke": "white",
-        "strokeWidth": 0.6
-      },
+      "mark": {"type": "geoshape", "fill": "#e3e5eb", "stroke": "white", "strokeWidth": 0.6},
       "encoding": {
         "tooltip": [
-          {
-            "field": "properties.lga_name",
-            "type": "nominal",
-            "title": "Local government area"
-          },
-          {
-            "field": "recovery_status",
-            "type": "nominal",
-            "title": "Recovery status"
-          }
+          {"field": "properties.lga_name", "type": "nominal", "title": "Local government area"},
+          {"field": "recovery_status", "type": "nominal", "title": "Recovery status"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/lga_recovery.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
+      "data": {"url": "data/lga_recovery.geojson", "format": {"type": "json", "property": "features"}},
       "transform": [
-        {
-          "filter": "isValid(datum.properties.recovery_index)"
-        },
-        {
-          "calculate": "datum.properties.recovery_index < 60 ? 'Below 60' : datum.properties.recovery_index < 80 ? '60 to below 80' : datum.properties.recovery_index < 100 ? '80 to below 100' : '100 or above'",
-          "as": "recovery_class"
-        }
+        {"filter": "isValid(datum.properties.recovery_index)"},
+        {"calculate": "datum.properties.recovery_index < 60 ? 'Below 60' : datum.properties.recovery_index < 80 ? '60 to below 80' : datum.properties.recovery_index < 100 ? '80 to below 100' : '100 or above'", "as": "recovery_class"}
       ],
-      "mark": {
-        "type": "geoshape",
-        "stroke": "white",
-        "strokeWidth": 0.8
-      },
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
       "encoding": {
         "color": {
           "field": "recovery_class",
@@ -137,13 +75,7 @@
               "100 or above",
               "No eligible matched stations"
             ],
-            "range": [
-              "#ac573b",
-              "#ce947b",
-              "#ead9cb",
-              "#2e6f95",
-              "#e3e5eb"
-            ]
+            "range": ["#ac573b", "#ce947b", "#ead9cb", "#2e6f95", "#e3e5eb"]
           },
           "legend": {
             "orient": "bottom",
@@ -151,10 +83,7 @@
             "columns": 2,
             "columnPadding": 28,
             "rowPadding": 8,
-            "title": [
-              "Recovery index · 2018–2019 = 100",
-              "100 = full recovery"
-            ],
+            "title": ["Recovery index · 2018–2019 = 100", "100 = full recovery"],
             "titleLineHeight": 18,
             "labelLineHeight": 18,
             "titlePadding": 10,
@@ -165,119 +94,41 @@
           }
         },
         "tooltip": [
-          {
-            "field": "properties.lga_name",
-            "type": "nominal",
-            "title": "Local government area"
-          },
-          {
-            "field": "properties.recovery_index",
-            "type": "quantitative",
-            "title": "Recovery index (2018–2019 = 100)",
-            "format": ".1f"
-          },
-          {
-            "field": "properties.station_count",
-            "type": "quantitative",
-            "title": "Matched stations",
-            "format": ",.0f"
-          },
-          {
-            "field": "properties.baseline_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2018–2019)",
-            "format": ",.0f"
-          },
-          {
-            "field": "properties.current_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2024–2025)",
-            "format": ",.0f"
-          }
+          {"field": "properties.lga_name", "type": "nominal", "title": "Local government area"},
+          {"field": "properties.recovery_index", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)", "format": ".1f"},
+          {"field": "properties.station_count", "type": "quantitative", "title": "Matched stations", "format": ",.0f"},
+          {"field": "properties.baseline_entries", "type": "quantitative", "title": "Annual station entries (2018–2019)", "format": ",.0f"},
+          {"field": "properties.current_entries", "type": "quantitative", "title": "Annual station entries (2024–2025)", "format": ",.0f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/stations.json"
-      },
-      "mark": {
-        "type": "circle",
-        "size": 7,
-        "color": "#282e46",
-        "opacity": 0.5
-      },
+      "data": {"url": "data/stations.json"},
+      "mark": {"type": "circle", "size": 7, "color": "#282e46", "opacity": 0.5},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"}
       }
     },
     {
-      "data": {
-        "url": "data/stations.json"
-      },
-      "transform": [
-        {
-          "filter": "datum.station_name === 'Flinders Street'"
-        }
-      ],
-      "mark": {
-        "type": "rule",
-        "color": "#586177",
-        "strokeWidth": 1
-      },
+      "data": {"url": "data/stations.json"},
+      "transform": [{"filter": "datum.station_name === 'Flinders Street'"}],
+      "mark": {"type": "rule", "color": "#586177", "strokeWidth": 1},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "datum": 144.83
-        },
-        "latitude2": {
-          "datum": -37.99
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"datum": 144.83},
+        "latitude2": {"datum": -37.99}
       }
     },
     {
-      "data": {
-        "url": "data/stations.json"
-      },
-      "transform": [
-        {
-          "filter": "datum.station_name === 'Flinders Street'"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "fontWeight": 600,
-        "fontSize": 13,
-        "lineHeight": 16
-      },
+      "data": {"url": "data/stations.json"},
+      "transform": [{"filter": "datum.station_name === 'Flinders Street'"}],
+      "mark": {"type": "text", "align": "center", "fontWeight": 600, "fontSize": 13, "lineHeight": 16},
       "encoding": {
-        "longitude": {
-          "datum": 144.83
-        },
-        "latitude": {
-          "datum": -38.02
-        },
-        "text": {
-          "value": [
-            "Central",
-            "Melbourne"
-          ]
-        }
+        "longitude": {"datum": 144.83},
+        "latitude": {"datum": -38.02},
+        "text": {"value": ["Central", "Melbourne"]}
       }
     },
     {
@@ -290,10 +141,7 @@
             "label_longitude": 145.1827021928372,
             "label_latitude": -37.97535350794815,
             "side": "right",
-            "annotation_lines": [
-              "Casey",
-              "114.9"
-            ]
+            "annotation_lines": ["Casey", "114.9"]
           },
           {
             "name": "Mornington Peninsula",
@@ -302,35 +150,16 @@
             "label_longitude": 144.88252099803583,
             "label_latitude": -38.21039492549165,
             "side": "left",
-            "annotation_lines": [
-              "Mornington Peninsula",
-              "59.8"
-            ]
+            "annotation_lines": ["Mornington Peninsula", "59.8"]
           }
         ]
       },
-      "mark": {
-        "type": "rule",
-        "color": "#586177",
-        "strokeWidth": 1
-      },
+      "mark": {"type": "rule", "color": "#586177", "strokeWidth": 1},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "field": "label_longitude",
-          "type": "quantitative"
-        },
-        "latitude2": {
-          "field": "label_latitude",
-          "type": "quantitative"
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"field": "label_longitude", "type": "quantitative"},
+        "latitude2": {"field": "label_latitude", "type": "quantitative"}
       }
     },
     {
@@ -343,10 +172,7 @@
             "label_longitude": 145.1827021928372,
             "label_latitude": -37.97535350794815,
             "side": "right",
-            "annotation_lines": [
-              "Casey",
-              "114.9"
-            ]
+            "annotation_lines": ["Casey", "114.9"]
           },
           {
             "name": "Mornington Peninsula",
@@ -355,38 +181,22 @@
             "label_longitude": 144.88252099803583,
             "label_latitude": -38.21039492549165,
             "side": "left",
-            "annotation_lines": [
-              "Mornington Peninsula",
-              "59.8"
-            ]
+            "annotation_lines": ["Mornington Peninsula", "59.8"]
           }
         ]
       },
       "mark": {
         "type": "text",
-        "align": {
-          "expr": "datum.side === 'left' ? 'center' : 'right'"
-        },
-        "dx": {
-          "expr": "datum.side === 'left' ? 0 : -4"
-        },
+        "align": {"expr": "datum.side === 'left' ? 'center' : 'right'"},
+        "dx": {"expr": "datum.side === 'left' ? 0 : -4"},
         "fontSize": 12,
         "fontWeight": 600,
         "lineHeight": 15
       },
       "encoding": {
-        "longitude": {
-          "field": "label_longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "label_latitude",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "annotation_lines",
-          "type": "nominal"
-        }
+        "longitude": {"field": "label_longitude", "type": "quantitative"},
+        "latitude": {"field": "label_latitude", "type": "quantitative"},
+        "text": {"field": "annotation_lines", "type": "nominal"}
       }
     }
   ],

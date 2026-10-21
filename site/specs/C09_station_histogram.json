@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 320,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,124 +28,47 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "data": {
-    "url": "data/stations.json"
-  },
-  "params": [
-    {
-      "name": "baselineMin",
-      "value": 5000
-    }
-  ],
-  "transform": [
-    {
-      "filter": "datum.baseline_entries >= baselineMin && isValid(datum.recovery_index)"
-    }
-  ],
+  "data": {"url": "data/stations.json"},
+  "params": [{"name": "baselineMin", "value": 5000}],
+  "transform": [{"filter": "datum.baseline_entries >= baselineMin && isValid(datum.recovery_index)"}],
   "layer": [
     {
-      "mark": {
-        "type": "bar",
-        "color": "#737d91",
-        "binSpacing": 1
-      },
+      "mark": {"type": "bar", "color": "#737d91", "binSpacing": 1},
       "encoding": {
         "x": {
           "field": "recovery_index",
           "type": "quantitative",
-          "bin": {
-            "step": 20
-          },
+          "bin": {"step": 20},
           "title": "Recovery index (2018–2019 = 100)"
         },
-        "y": {
-          "aggregate": "count",
-          "type": "quantitative",
-          "title": "Number of matched stations"
-        },
+        "y": {"aggregate": "count", "type": "quantitative", "title": "Number of matched stations"},
         "tooltip": [
           {
-            "bin": {
-              "step": 20
-            },
+            "bin": {"step": 20},
             "field": "recovery_index",
             "type": "quantitative",
             "title": "Recovery index interval"
           },
-          {
-            "aggregate": "count",
-            "type": "quantitative",
-            "title": "Number of matched stations"
-          }
+          {"aggregate": "count", "type": "quantitative", "title": "Number of matched stations"}
         ]
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "ref": 100
-          }
-        ]
-      },
-      "mark": {
-        "type": "rule",
-        "strokeDash": [
-          4,
-          3
-        ],
-        "color": "#586177",
-        "strokeWidth": 1.5
-      },
-      "encoding": {
-        "x": {
-          "field": "ref",
-          "type": "quantitative",
-          "title": "Recovery index (2018–2019 = 100)"
-        }
-      }
+      "data": {"values": [{"ref": 100}]},
+      "mark": {"type": "rule", "strokeDash": [4, 3], "color": "#586177", "strokeWidth": 1.5},
+      "encoding": {"x": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}}
     },
     {
-      "data": {
-        "values": [
-          {
-            "ref": 100,
-            "label": "Back to baseline"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 5,
-        "dy": -7,
-        "color": "#586177"
-      },
+      "data": {"values": [{"ref": 100, "label": "Back to baseline"}]},
+      "mark": {"type": "text", "align": "left", "dx": 5, "dy": -7, "color": "#586177"},
       "encoding": {
-        "x": {
-          "field": "ref",
-          "type": "quantitative",
-          "title": "Recovery index (2018–2019 = 100)"
-        },
-        "y": {
-          "value": 18
-        },
-        "text": {
-          "field": "label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+        "x": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"},
+        "y": {"value": 18},
+        "text": {"field": "label", "type": "nominal", "title": "City or total"}
       }
     }
   ],

@@ -5,10 +5,7 @@
     "idiom": "Proportional-symbol map",
     "advanced": true,
     "data": "data/national_current.json",
-    "columns": {
-      "city": "City",
-      "journeys_million": "Urban heavy-rail journeys (million)"
-    },
+    "columns": {"city": "City", "journeys_million": "Urban heavy-rail journeys (million)"},
     "description": "Urban heavy rail journeys in 2024–2025. Circle area encodes journeys; Australian Bureau of Statistics Greater Capital City Statistical Area representative points locate cities, not trip origins."
   },
   {
@@ -73,10 +70,7 @@
     "idiom": "Hierarchical treemap",
     "advanced": true,
     "data": "data/nonurban.json",
-    "columns": {
-      "name": "Service or state",
-      "value": "Train journeys (million)"
-    },
+    "columns": {"name": "Service or state", "value": "Train journeys (million)"},
     "description": "Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total."
   },
   {

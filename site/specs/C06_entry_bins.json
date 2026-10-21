@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 440,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,173 +28,59 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "projection": {
-    "type": "azimuthalEqualArea",
-    "rotate": [
-      -145,
-      38,
-      0
-    ],
-    "center": [
-      0,
-      0
-    ]
-  },
+  "projection": {"type": "azimuthalEqualArea", "rotate": [-145, 38, 0], "center": [0, 0]},
   "layer": [
     {
-      "data": {
-        "url": "data/lga_recovery.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
-      "mark": {
-        "type": "geoshape",
-        "fill": "#e3e5eb",
-        "stroke": "white",
-        "strokeWidth": 0.6
-      }
+      "data": {"url": "data/lga_recovery.geojson", "format": {"type": "json", "property": "features"}},
+      "mark": {"type": "geoshape", "fill": "#e3e5eb", "stroke": "white", "strokeWidth": 0.6}
     },
     {
-      "data": {
-        "url": "data/bins_5.geojson",
-        "format": {
-          "type": "json",
-          "property": "features"
-        }
-      },
+      "data": {"url": "data/bins_5.geojson", "format": {"type": "json", "property": "features"}},
       "name": "grid",
-      "mark": {
-        "type": "geoshape",
-        "stroke": "#9a8eb3",
-        "strokeWidth": 0.5
-      },
+      "mark": {"type": "geoshape", "stroke": "#9a8eb3", "strokeWidth": 0.5},
       "encoding": {
         "color": {
           "field": "properties.entries_million",
           "type": "quantitative",
           "title": "Annual station entries (million)",
-          "scale": {
-            "type": "sqrt",
-            "domain": [
-              0,
-              80
-            ],
-            "range": [
-              "#e5e2ed",
-              "#b9b0cd",
-              "#8d7eaa",
-              "#604f7e"
-            ]
-          },
+          "scale": {"type": "sqrt", "domain": [0, 80], "range": ["#e5e2ed", "#b9b0cd", "#8d7eaa", "#604f7e"]},
           "legend": {
             "orient": "bottom",
             "gradientLength": 240,
-            "title": [
-              "Annual station entries (million)",
-              "Square-root scale · fixed across grids"
-            ]
+            "title": ["Annual station entries (million)", "Square-root scale · fixed across grids"]
           }
         },
         "tooltip": [
-          {
-            "field": "properties.bin_id",
-            "type": "nominal",
-            "title": "Grid cell"
-          },
-          {
-            "field": "properties.annual_entries",
-            "type": "quantitative",
-            "title": "2024–2025 entries",
-            "format": ",.0f"
-          },
-          {
-            "field": "properties.station_count",
-            "type": "quantitative",
-            "title": "Station count",
-            "format": ",.0f"
-          },
-          {
-            "field": "properties.cell_width_km",
-            "type": "quantitative",
-            "title": "Grid cell width (kilometres)",
-            "format": ".1f"
-          }
+          {"field": "properties.bin_id", "type": "nominal", "title": "Grid cell"},
+          {"field": "properties.annual_entries", "type": "quantitative", "title": "2024–2025 entries", "format": ",.0f"},
+          {"field": "properties.station_count", "type": "quantitative", "title": "Station count", "format": ",.0f"},
+          {"field": "properties.cell_width_km", "type": "quantitative", "title": "Grid cell width (kilometres)", "format": ".1f"}
         ]
       }
     },
     {
-      "data": {
-        "url": "data/stations.json"
-      },
-      "transform": [
-        {
-          "filter": "datum.station_name === 'Flinders Street'"
-        }
-      ],
-      "mark": {
-        "type": "rule",
-        "color": "#586177",
-        "strokeWidth": 1
-      },
+      "data": {"url": "data/stations.json"},
+      "transform": [{"filter": "datum.station_name === 'Flinders Street'"}],
+      "mark": {"type": "rule", "color": "#586177", "strokeWidth": 1},
       "encoding": {
-        "longitude": {
-          "field": "longitude",
-          "type": "quantitative"
-        },
-        "latitude": {
-          "field": "latitude",
-          "type": "quantitative"
-        },
-        "longitude2": {
-          "datum": 144.83
-        },
-        "latitude2": {
-          "datum": -37.99
-        }
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "longitude2": {"datum": 144.83},
+        "latitude2": {"datum": -37.99}
       }
     },
     {
-      "data": {
-        "url": "data/stations.json"
-      },
-      "transform": [
-        {
-          "filter": "datum.station_name === 'Flinders Street'"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "center",
-        "fontWeight": 600,
-        "fontSize": 13,
-        "lineHeight": 16
-      },
+      "data": {"url": "data/stations.json"},
+      "transform": [{"filter": "datum.station_name === 'Flinders Street'"}],
+      "mark": {"type": "text", "align": "center", "fontWeight": 600, "fontSize": 13, "lineHeight": 16},
       "encoding": {
-        "longitude": {
-          "datum": 144.83
-        },
-        "latitude": {
-          "datum": -38.02
-        },
-        "text": {
-          "value": [
-            "Central",
-            "Melbourne"
-          ]
-        }
+        "longitude": {"datum": 144.83},
+        "latitude": {"datum": -38.02},
+        "text": {"value": ["Central", "Melbourne"]}
       }
     }
   ],

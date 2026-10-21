@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 250,
-  "autosize": {
-    "type": "fit-x",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit-x", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,45 +28,19 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "padding": {
-    "left": 5,
-    "right": 5,
-    "top": 37,
-    "bottom": 5
-  },
-  "data": {
-    "url": "data/victoria_annual.json"
-  },
+  "padding": {"left": 5, "right": 5, "top": 37, "bottom": 5},
+  "data": {"url": "data/victoria_annual.json"},
   "transform": [
-    {
-      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_financial_year"
-    },
-    {
-      "filter": "datum.financial_year !== '2025-26'"
-    }
+    {"calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null", "as": "display_financial_year"},
+    {"filter": "datum.financial_year !== '2025-26'"}
   ],
   "layer": [
     {
-      "mark": {
-        "type": "line",
-        "strokeWidth": 3,
-        "point": {
-          "filled": true,
-          "size": 75
-        }
-      },
+      "mark": {"type": "line", "strokeWidth": 3, "point": {"filled": true, "size": 75}},
       "encoding": {
         "x": {
           "field": "display_financial_year",
@@ -82,224 +51,83 @@
             "labelExpr": "replace(datum.label, /[–-](\\d{2})$/, '–20$1')"
           },
           "title": "Financial year",
-          "scale": {
-            "padding": 0.4
-          }
+          "scale": {"padding": 0.4}
         },
         "y": {
           "field": "recovery_index",
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
-          "scale": {
-            "domain": [
-              50,
-              140
-            ]
-          },
-          "axis": {
-            "tickCount": 5
-          }
+          "scale": {"domain": [50, 140]},
+          "axis": {"tickCount": 5}
         },
         "color": {
           "field": "service",
           "type": "nominal",
-          "scale": {
-            "domain": [
-              "Metropolitan",
-              "Regional"
-            ],
-            "range": [
-              "#66768d",
-              "#9c7a8b"
-            ]
-          },
-          "legend": {
-            "title": null,
-            "symbolType": "stroke",
-            "columns": 2,
-            "columnPadding": 18
-          },
+          "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#66768d", "#9c7a8b"]},
+          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 18},
           "title": "Service"
         },
         "strokeDash": {
           "field": "service",
           "type": "nominal",
-          "scale": {
-            "domain": [
-              "Metropolitan",
-              "Regional"
-            ],
-            "range": [
-              [
-                1,
-                0
-              ],
-              [
-                6,
-                3
-              ]
-            ]
-          },
-          "legend": {
-            "title": null,
-            "symbolType": "stroke",
-            "columns": 2,
-            "columnPadding": 18
-          },
+          "scale": {"domain": ["Metropolitan", "Regional"], "range": [[1, 0], [6, 3]]},
+          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 18},
           "title": "Service"
         },
         "tooltip": [
-          {
-            "field": "service",
-            "type": "nominal",
-            "title": "Service"
-          },
-          {
-            "field": "display_financial_year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
-          {
-            "field": "journeys_million",
-            "type": "quantitative",
-            "title": "Train journeys (million)",
-            "format": ".2f"
-          },
-          {
-            "field": "recovery_index",
-            "type": "quantitative",
-            "title": "Recovery index (2018–2019 = 100)",
-            "format": ".1f"
-          }
+          {"field": "service", "type": "nominal", "title": "Service"},
+          {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
+          {"field": "journeys_million", "type": "quantitative", "title": "Train journeys (million)", "format": ".2f"},
+          {"field": "recovery_index", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)", "format": ".1f"}
         ]
       }
     },
     {
       "transform": [
-        {
-          "filter": "datum.financial_year === '2024-25'"
-        },
-        {
-          "calculate": "(datum.service === 'Regional' ? 'V/Line' : 'Metropolitan') + ' ' + format(datum.recovery_index, '.1f')",
-          "as": "label"
-        }
+        {"filter": "datum.financial_year === '2024-25'"},
+        {"calculate": "(datum.service === 'Regional' ? 'V/Line' : 'Metropolitan') + ' ' + format(datum.recovery_index, '.1f')", "as": "label"}
       ],
       "mark": {
         "type": "text",
         "dx": -8,
-        "dy": {
-          "expr": "datum.service === 'Metropolitan' ? 20 : -18"
-        },
+        "dy": {"expr": "datum.service === 'Metropolitan' ? 20 : -18"},
         "align": "right",
         "fontWeight": 600,
         "fontSize": 14
       },
       "encoding": {
-        "x": {
-          "field": "display_financial_year",
-          "type": "ordinal",
-          "title": "Financial year"
-        },
+        "x": {"field": "display_financial_year", "type": "ordinal", "title": "Financial year"},
         "y": {
           "field": "recovery_index",
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)"
         },
-        "text": {
-          "field": "label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+        "text": {"field": "label", "type": "nominal", "title": "City or total"}
       }
     },
     {
-      "data": {
-        "values": [
-          {
-            "ref": 100
-          }
-        ]
-      },
-      "mark": {
-        "type": "rule",
-        "strokeDash": [
-          4,
-          4
-        ],
-        "color": "#586177"
-      },
-      "encoding": {
-        "y": {
-          "field": "ref",
-          "type": "quantitative",
-          "title": "Recovery index (2018–2019 = 100)"
-        }
-      }
+      "data": {"values": [{"ref": 100}]},
+      "mark": {"type": "rule", "strokeDash": [4, 4], "color": "#586177"},
+      "encoding": {"y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}}
     },
     {
       "name": "shared_baseline_hover",
       "transform": [
-        {
-          "filter": "datum.financial_year === '2018-19'"
-        },
-        {
-          "pivot": "service",
-          "value": "journeys_million",
-          "groupby": [
-            "display_financial_year"
-          ]
-        },
-        {
-          "calculate": "'Metropolitan and Regional'",
-          "as": "services_label"
-        },
-        {
-          "calculate": "'100.0 for both services'",
-          "as": "index_label"
-        }
+        {"filter": "datum.financial_year === '2018-19'"},
+        {"pivot": "service", "value": "journeys_million", "groupby": ["display_financial_year"]},
+        {"calculate": "'Metropolitan and Regional'", "as": "services_label"},
+        {"calculate": "'100.0 for both services'", "as": "index_label"}
       ],
-      "mark": {
-        "type": "point",
-        "opacity": 0,
-        "size": 220
-      },
+      "mark": {"type": "point", "opacity": 0, "size": 220},
       "encoding": {
-        "x": {
-          "field": "display_financial_year",
-          "type": "ordinal",
-          "title": "Financial year"
-        },
-        "y": {
-          "datum": 100
-        },
+        "x": {"field": "display_financial_year", "type": "ordinal", "title": "Financial year"},
+        "y": {"datum": 100},
         "tooltip": [
-          {
-            "field": "services_label",
-            "type": "nominal",
-            "title": "Services"
-          },
-          {
-            "field": "display_financial_year",
-            "type": "nominal",
-            "title": "Financial year"
-          },
-          {
-            "field": "Metropolitan",
-            "type": "quantitative",
-            "title": "Metropolitan journeys (million)",
-            "format": ".2f"
-          },
-          {
-            "field": "Regional",
-            "type": "quantitative",
-            "title": "Regional journeys (million)",
-            "format": ".2f"
-          },
-          {
-            "field": "index_label",
-            "type": "nominal",
-            "title": "Recovery index (2018–2019 = 100)"
-          }
+          {"field": "services_label", "type": "nominal", "title": "Services"},
+          {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
+          {"field": "Metropolitan", "type": "quantitative", "title": "Metropolitan journeys (million)", "format": ".2f"},
+          {"field": "Regional", "type": "quantitative", "title": "Regional journeys (million)", "format": ".2f"},
+          {"field": "index_label", "type": "nominal", "title": "Recovery index (2018–2019 = 100)"}
         ]
       }
     }

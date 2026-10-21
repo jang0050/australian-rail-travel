@@ -1,1 +1,9 @@
-[{"label":"2018–19","start":0,"end":800.9,"change":800.9,"kind":"Total","order":0},{"label":"Sydney","start":800.9,"end":737.5,"change":-63.39999999999998,"kind":"Decrease","order":1},{"label":"Melbourne","start":737.5,"end":684.3,"change":-53.19999999999999,"kind":"Decrease","order":2},{"label":"Brisbane","start":684.3,"end":682.5999999999999,"change":-1.7000000000000028,"kind":"Decrease","order":3},{"label":"Adelaide","start":682.5999999999999,"end":681.4999999999999,"change":-1.0999999999999996,"kind":"Decrease","order":4},{"label":"Perth","start":681.4999999999999,"end":681.8999999999999,"change":0.3999999999999986,"kind":"Increase","order":5},{"label":"2024–25","start":0,"end":681.8999999999999,"change":681.8999999999999,"kind":"Total","order":6}]
+[
+  {"label": "2018–19", "start": 0, "end": 800.9, "change": 800.9, "kind": "Total", "order": 0},
+  {"label": "Sydney", "start": 800.9, "end": 737.5, "change": -63.39999999999998, "kind": "Decrease", "order": 1},
+  {"label": "Melbourne", "start": 737.5, "end": 684.3, "change": -53.19999999999999, "kind": "Decrease", "order": 2},
+  {"label": "Brisbane", "start": 684.3, "end": 682.5999999999999, "change": -1.7000000000000028, "kind": "Decrease", "order": 3},
+  {"label": "Adelaide", "start": 682.5999999999999, "end": 681.4999999999999, "change": -1.0999999999999996, "kind": "Decrease", "order": 4},
+  {"label": "Perth", "start": 681.4999999999999, "end": 681.8999999999999, "change": 0.3999999999999986, "kind": "Increase", "order": 5},
+  {"label": "2024–25", "start": 0, "end": 681.8999999999999, "change": 681.8999999999999, "kind": "Total", "order": 6}
+]

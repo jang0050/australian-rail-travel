@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 440,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,56 +28,25 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "padding": {
-    "left": 28,
-    "right": 8,
-    "top": 8,
-    "bottom": 8
-  },
-  "data": {
-    "url": "data/profiles.json"
-  },
+  "padding": {"left": 28, "right": 8, "top": 8, "bottom": 8},
+  "data": {"url": "data/profiles.json"},
   "transform": [
-    {
-      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-      "as": "display_band"
-    }
+    {"calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band", "as": "display_band"}
   ],
   "layer": [
     {
-      "mark": {
-        "type": "rect",
-        "stroke": "#f6f7fb",
-        "strokeWidth": 2
-      },
+      "mark": {"type": "rect", "stroke": "#f6f7fb", "strokeWidth": 2},
       "encoding": {
         "x": {
           "field": "display_band",
           "type": "ordinal",
-          "sort": [
-            "Before morning peak",
-            "Morning peak",
-            "Between peaks",
-            "Afternoon peak",
-            "Evening"
-          ],
+          "sort": ["Before morning peak", "Morning peak", "Between peaks", "Afternoon peak", "Evening"],
           "title": "Time band",
-          "axis": {
-            "labelAngle": 0,
-            "labelLimit": 180,
-            "title": null
-          }
+          "axis": {"labelAngle": 0, "labelLimit": 180, "title": null}
         },
         "y": {
           "field": "station_name",
@@ -102,91 +66,35 @@
             "Dandenong"
           ],
           "title": "Station",
-          "axis": {
-            "labelLimit": 155,
-            "title": null
-          }
+          "axis": {"labelLimit": 155, "title": null}
         },
         "color": {
           "field": "share",
           "type": "quantitative",
           "title": "Share of five-band total (percent)",
-          "scale": {
-            "type": "sqrt",
-            "domain": [
-              0,
-              70
-            ],
-            "range": [
-              "#e5e2ed",
-              "#b9b0cd",
-              "#8d7eaa",
-              "#604f7e"
-            ]
-          },
-          "legend": {
-            "gradientLength": 240,
-            "title": [
-              "Share of five-band entries (%)",
-              "Square-root scale"
-            ]
-          }
+          "scale": {"type": "sqrt", "domain": [0, 70], "range": ["#e5e2ed", "#b9b0cd", "#8d7eaa", "#604f7e"]},
+          "legend": {"gradientLength": 240, "title": ["Share of five-band entries (%)", "Square-root scale"]}
         },
         "tooltip": [
-          {
-            "field": "station_name",
-            "type": "nominal",
-            "title": "Station"
-          },
-          {
-            "field": "display_band",
-            "type": "nominal",
-            "title": "Time band"
-          },
-          {
-            "field": "share",
-            "type": "quantitative",
-            "title": "Share of five-band total (percent)",
-            "format": ".1f"
-          },
-          {
-            "field": "entries",
-            "type": "quantitative",
-            "title": "Rounded entries in time band",
-            "format": ",.0f"
-          }
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "display_band", "type": "nominal", "title": "Time band"},
+          {"field": "share", "type": "quantitative", "title": "Share of five-band total (percent)", "format": ".1f"},
+          {"field": "entries", "type": "quantitative", "title": "Rounded entries in time band", "format": ",.0f"}
         ]
       }
     },
     {
       "transform": [
-        {
-          "filter": "(datum.station_name === 'Footscray' || datum.station_name === 'Flinders Street') && datum.band === 'AM peak'"
-        }
+        {"filter": "(datum.station_name === 'Footscray' || datum.station_name === 'Flinders Street') && datum.band === 'AM peak'"}
       ],
-      "mark": {
-        "type": "rect",
-        "fillOpacity": 0,
-        "stroke": "#282e46",
-        "strokeWidth": 2
-      },
+      "mark": {"type": "rect", "fillOpacity": 0, "stroke": "#282e46", "strokeWidth": 2},
       "encoding": {
         "x": {
           "field": "display_band",
           "type": "ordinal",
-          "sort": [
-            "Before morning peak",
-            "Morning peak",
-            "Between peaks",
-            "Afternoon peak",
-            "Evening"
-          ],
+          "sort": ["Before morning peak", "Morning peak", "Between peaks", "Afternoon peak", "Evening"],
           "title": "Time band",
-          "axis": {
-            "labelAngle": 0,
-            "labelLimit": 180,
-            "title": null
-          }
+          "axis": {"labelAngle": 0, "labelLimit": 180, "title": null}
         },
         "y": {
           "field": "station_name",
@@ -206,34 +114,13 @@
             "Dandenong"
           ],
           "title": "Station",
-          "axis": {
-            "labelLimit": 155,
-            "title": null
-          }
+          "axis": {"labelLimit": 155, "title": null}
         },
         "tooltip": [
-          {
-            "field": "station_name",
-            "type": "nominal",
-            "title": "Station"
-          },
-          {
-            "field": "display_band",
-            "type": "nominal",
-            "title": "Time band"
-          },
-          {
-            "field": "share",
-            "type": "quantitative",
-            "title": "Share of five-band total (percent)",
-            "format": ".1f"
-          },
-          {
-            "field": "entries",
-            "type": "quantitative",
-            "title": "Rounded entries in time band",
-            "format": ",.0f"
-          }
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "display_band", "type": "nominal", "title": "Time band"},
+          {"field": "share", "type": "quantitative", "title": "Share of five-band total (percent)", "format": ".1f"},
+          {"field": "entries", "type": "quantitative", "title": "Rounded entries in time band", "format": ",.0f"}
         ]
       }
     }

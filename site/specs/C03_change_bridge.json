@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 380,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,283 +28,118 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "padding": {
-    "left": 20,
-    "right": 5,
-    "top": 11,
-    "bottom": 5
-  },
-  "data": {
-    "url": "data/waterfall.json"
-  },
+  "padding": {"left": 20, "right": 5, "top": 11, "bottom": 5},
+  "data": {"url": "data/waterfall.json"},
   "layer": [
     {
       "transform": [
         {
-          "window": [
-            {
-              "op": "lead",
-              "field": "display_label",
-              "as": "next_label",
-              "title": "City or total"
-            }
-          ],
-          "sort": [
-            {
-              "field": "order",
-              "order": "ascending"
-            }
-          ]
+          "window": [{"op": "lead", "field": "display_label", "as": "next_label", "title": "City or total"}],
+          "sort": [{"field": "order", "order": "ascending"}]
         },
-        {
-          "filter": "isValid(datum.next_label)"
-        }
+        {"filter": "isValid(datum.next_label)"}
       ],
-      "mark": {
-        "type": "rule",
-        "color": "#b2b8c8",
-        "strokeWidth": 1,
-        "strokeDash": [
-          3,
-          3
-        ]
-      },
+      "mark": {"type": "rule", "color": "#b2b8c8", "strokeWidth": 1, "strokeDash": [3, 3]},
       "encoding": {
         "x": {
           "field": "end",
           "type": "quantitative",
           "title": "Estimated heavy-rail journeys (million)",
-          "axis": {
-            "title": "Estimated heavy-rail journeys (million)",
-            "tickCount": 5,
-            "grid": true
-          }
+          "axis": {"title": "Estimated heavy-rail journeys (million)", "tickCount": 5, "grid": true}
         },
         "y": {
           "field": "display_label",
           "type": "nominal",
-          "sort": [
-            "2018–2019",
-            "Sydney",
-            "Melbourne",
-            "Brisbane",
-            "Adelaide",
-            "Perth",
-            "2024–2025"
-          ],
+          "sort": ["2018–2019", "Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth", "2024–2025"],
           "title": "City or total"
         },
-        "y2": {
-          "field": "next_label"
-        }
+        "y2": {"field": "next_label"}
       }
     },
     {
-      "mark": {
-        "type": "bar",
-        "size": 25
-      },
+      "mark": {"type": "bar", "size": 25},
       "encoding": {
         "y": {
           "field": "display_label",
           "type": "nominal",
-          "sort": [
-            "2018–2019",
-            "Sydney",
-            "Melbourne",
-            "Brisbane",
-            "Adelaide",
-            "Perth",
-            "2024–2025"
-          ],
+          "sort": ["2018–2019", "Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth", "2024–2025"],
           "title": "City or total",
-          "axis": {
-            "labelExpr": "replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2')",
-            "title": null
-          }
+          "axis": {"labelExpr": "replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2')", "title": null}
         },
         "x": {
           "field": "start",
           "type": "quantitative",
           "title": "Estimated heavy-rail journeys (million)",
-          "scale": {
-            "domain": [
-              0,
-              900
-            ]
-          },
-          "axis": {
-            "title": "Estimated heavy-rail journeys (million)",
-            "tickCount": 5,
-            "grid": true
-          }
+          "scale": {"domain": [0, 900]},
+          "axis": {"title": "Estimated heavy-rail journeys (million)", "tickCount": 5, "grid": true}
         },
-        "x2": {
-          "field": "end",
-          "title": "Running total after contribution (million)"
-        },
+        "x2": {"field": "end", "title": "Running total after contribution (million)"},
         "color": {
           "field": "kind",
           "type": "nominal",
-          "scale": {
-            "domain": [
-              "Total",
-              "Decrease",
-              "Increase"
-            ],
-            "range": [
-              "#282e46",
-              "#ac573b",
-              "#2e6f95"
-            ]
-          },
+          "scale": {"domain": ["Total", "Decrease", "Increase"], "range": ["#282e46", "#ac573b", "#2e6f95"]},
           "legend": null,
           "title": "Contribution type"
         },
         "tooltip": [
-          {
-            "field": "display_label",
-            "type": "nominal",
-            "title": "City or total"
-          },
-          {
-            "field": "display_change",
-            "type": "nominal",
-            "title": "Total or signed contribution (million)"
-          }
+          {"field": "display_label", "type": "nominal", "title": "City or total"},
+          {"field": "display_change", "type": "nominal", "title": "Total or signed contribution (million)"}
         ]
       }
     },
     {
       "transform": [
-        {
-          "calculate": "datum.kind === 'Total' ? format(datum.end, '.1f') : format(datum.change, '+.1f')",
-          "as": "valueLabel"
-        },
-        {
-          "calculate": "max(datum.start,datum.end)",
-          "as": "labelPosition"
-        }
+        {"calculate": "datum.kind === 'Total' ? format(datum.end, '.1f') : format(datum.change, '+.1f')", "as": "valueLabel"},
+        {"calculate": "max(datum.start,datum.end)", "as": "labelPosition"}
       ],
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 6,
-        "fontSize": 14
-      },
+      "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 14},
       "encoding": {
         "y": {
           "field": "display_label",
           "type": "nominal",
-          "sort": [
-            "2018–2019",
-            "Sydney",
-            "Melbourne",
-            "Brisbane",
-            "Adelaide",
-            "Perth",
-            "2024–2025"
-          ],
+          "sort": ["2018–2019", "Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth", "2024–2025"],
           "title": "City or total"
         },
         "x": {
           "field": "labelPosition",
           "type": "quantitative",
           "title": "Estimated heavy-rail journeys (million)",
-          "axis": {
-            "title": "Estimated heavy-rail journeys (million)",
-            "tickCount": 5,
-            "grid": true
-          }
+          "axis": {"title": "Estimated heavy-rail journeys (million)", "tickCount": 5, "grid": true}
         },
-        "text": {
-          "field": "valueLabel",
-          "type": "nominal",
-          "title": "Contribution label"
-        }
+        "text": {"field": "valueLabel", "type": "nominal", "title": "Contribution label"}
       }
     },
     {
       "name": "contribution_hover",
-      "mark": {
-        "type": "rect",
-        "opacity": 0,
-        "height": 32
-      },
+      "mark": {"type": "rect", "opacity": 0, "height": 32},
       "transform": [
-        {
-          "calculate": "datum.kind === 'Total' ? format(datum.change, '.1f') : format(datum.change, '+.1f')",
-          "as": "display_change"
-        }
+        {"calculate": "datum.kind === 'Total' ? format(datum.change, '.1f') : format(datum.change, '+.1f')", "as": "display_change"}
       ],
       "encoding": {
         "y": {
           "field": "display_label",
           "type": "nominal",
-          "sort": [
-            "2018–2019",
-            "Sydney",
-            "Melbourne",
-            "Brisbane",
-            "Adelaide",
-            "Perth",
-            "2024–2025"
-          ],
+          "sort": ["2018–2019", "Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth", "2024–2025"],
           "title": "City or total"
         },
-        "x": {
-          "value": 0
-        },
-        "x2": {
-          "value": {
-            "expr": "width"
-          }
-        },
+        "x": {"value": 0},
+        "x2": {"value": {"expr": "width"}},
         "tooltip": [
-          {
-            "field": "display_label",
-            "type": "nominal",
-            "title": "City or total"
-          },
-          {
-            "field": "start",
-            "type": "quantitative",
-            "title": "Running total before contribution (million)"
-          },
-          {
-            "field": "end",
-            "type": "quantitative",
-            "title": "Running total after contribution (million)"
-          },
-          {
-            "field": "display_change",
-            "type": "nominal",
-            "title": "Total or signed contribution (million)"
-          }
+          {"field": "display_label", "type": "nominal", "title": "City or total"},
+          {"field": "start", "type": "quantitative", "title": "Running total before contribution (million)"},
+          {"field": "end", "type": "quantitative", "title": "Running total after contribution (million)"},
+          {"field": "display_change", "type": "nominal", "title": "Total or signed contribution (million)"}
         ]
       }
     }
   ],
   "transform": [
-    {
-      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-      "as": "display_label"
-    },
-    {
-      "calculate": "datum.kind === 'Total' ? format(datum.change,'.1f') : format(datum.change,'+.1f')",
-      "as": "display_change"
-    }
+    {"calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null", "as": "display_label"},
+    {"calculate": "datum.kind === 'Total' ? format(datum.change,'.1f') : format(datum.change,'+.1f')", "as": "display_change"}
   ],
   "description": "Arithmetic bridge using only the same Yearbook series as C02. Floating intervals add each city’s signed contribution to the combined total."
 }

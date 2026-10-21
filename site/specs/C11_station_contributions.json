@@ -2,16 +2,11 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
   "height": 340,
-  "autosize": {
-    "type": "fit",
-    "contains": "padding"
-  },
+  "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
     "background": "transparent",
-    "view": {
-      "stroke": null
-    },
+    "view": {"stroke": null},
     "axis": {
       "labelFontSize": 14,
       "titleFontSize": 14,
@@ -33,32 +28,15 @@
       "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
-      "layout": {
-        "anchor": "start",
-        "frame": "bounds"
-      }
+      "layout": {"anchor": "start", "frame": "bounds"}
     },
-    "text": {
-      "font": "Source Sans 3",
-      "color": "#282e46",
-      "fontSize": 13
-    }
+    "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "padding": {
-    "left": 28,
-    "right": 12,
-    "top": 8,
-    "bottom": 8
-  },
-  "data": {
-    "url": "data/station_changes.json"
-  },
+  "padding": {"left": 28, "right": 12, "top": 8, "bottom": 8},
+  "data": {"url": "data/station_changes.json"},
   "layer": [
     {
-      "mark": {
-        "type": "bar",
-        "size": 20
-      },
+      "mark": {"type": "bar", "size": 20},
       "encoding": {
         "y": {
           "field": "station_name",
@@ -76,71 +54,27 @@
             "Craigieburn"
           ],
           "title": "Station",
-          "axis": {
-            "labelLimit": 160,
-            "title": null
-          }
+          "axis": {"labelLimit": 160, "title": null}
         },
         "x": {
           "field": "change_million",
           "type": "quantitative",
           "title": "Change in annual station entries (million)",
-          "axis": {
-            "tickCount": 5
-          },
-          "scale": {
-            "domain": [
-              -11,
-              2
-            ]
-          }
+          "axis": {"tickCount": 5},
+          "scale": {"domain": [-11, 2]}
         },
-        "color": {
-          "condition": {
-            "test": "datum.change_entries >= 0",
-            "value": "#2e6f95"
-          },
-          "value": "#ac573b"
-        },
+        "color": {"condition": {"test": "datum.change_entries >= 0", "value": "#2e6f95"}, "value": "#ac573b"},
         "tooltip": [
-          {
-            "field": "station_name",
-            "type": "nominal",
-            "title": "Station"
-          },
-          {
-            "field": "baseline_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2018–2019)",
-            "format": ",.0f"
-          },
-          {
-            "field": "current_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2024–2025)",
-            "format": ",.0f"
-          },
-          {
-            "field": "change_entries",
-            "type": "quantitative",
-            "title": "Change in annual station entries",
-            "format": "+,.0f"
-          }
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "baseline_entries", "type": "quantitative", "title": "Annual station entries (2018–2019)", "format": ",.0f"},
+          {"field": "current_entries", "type": "quantitative", "title": "Annual station entries (2024–2025)", "format": ",.0f"},
+          {"field": "change_entries", "type": "quantitative", "title": "Change in annual station entries", "format": "+,.0f"}
         ]
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.change_entries >= 0"
-        }
-      ],
-      "mark": {
-        "type": "point",
-        "filled": true,
-        "size": 55,
-        "color": "#2e6f95"
-      },
+      "transform": [{"filter": "datum.change_entries >= 0"}],
+      "mark": {"type": "point", "filled": true, "size": 55, "color": "#2e6f95"},
       "encoding": {
         "y": {
           "field": "station_name",
@@ -162,44 +96,20 @@
         "x": {
           "field": "change_million",
           "type": "quantitative",
-          "scale": {
-            "domain": [
-              -11,
-              2
-            ]
-          },
+          "scale": {"domain": [-11, 2]},
           "title": "Change in annual station entries (million)"
         },
         "tooltip": [
-          {
-            "field": "station_name",
-            "type": "nominal",
-            "title": "Station"
-          },
-          {
-            "field": "change_entries",
-            "type": "quantitative",
-            "title": "Change in annual station entries",
-            "format": "+,.0f"
-          }
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "change_entries", "type": "quantitative", "title": "Change in annual station entries", "format": "+,.0f"}
         ]
       }
     },
     {
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dx": -5,
-        "fontSize": 12
-      },
+      "mark": {"type": "text", "align": "right", "dx": -5, "fontSize": 12},
       "transform": [
-        {
-          "filter": "datum.change_entries < 0"
-        },
-        {
-          "calculate": "format(datum.change_million, '+.2f')",
-          "as": "label"
-        }
+        {"filter": "datum.change_entries < 0"},
+        {"calculate": "format(datum.change_million, '+.2f')", "as": "label"}
       ],
       "encoding": {
         "y": {
@@ -224,28 +134,14 @@
           "type": "quantitative",
           "title": "Change in annual station entries (million)"
         },
-        "text": {
-          "field": "label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+        "text": {"field": "label", "type": "nominal", "title": "City or total"}
       }
     },
     {
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 8,
-        "fontSize": 12
-      },
+      "mark": {"type": "text", "align": "left", "dx": 8, "fontSize": 12},
       "transform": [
-        {
-          "filter": "datum.change_entries >= 0"
-        },
-        {
-          "calculate": "format(datum.change_million, '+.2f')",
-          "as": "label"
-        }
+        {"filter": "datum.change_entries >= 0"},
+        {"calculate": "format(datum.change_million, '+.2f')", "as": "label"}
       ],
       "encoding": {
         "y": {
@@ -270,20 +166,12 @@
           "type": "quantitative",
           "title": "Change in annual station entries (million)"
         },
-        "text": {
-          "field": "label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+        "text": {"field": "label", "type": "nominal", "title": "City or total"}
       }
     },
     {
       "name": "station_change_hover",
-      "mark": {
-        "type": "rect",
-        "opacity": 0,
-        "height": 28
-      },
+      "mark": {"type": "rect", "opacity": 0, "height": 28},
       "encoding": {
         "y": {
           "field": "station_name",
@@ -302,38 +190,13 @@
           ],
           "title": "Station"
         },
-        "x": {
-          "value": 0
-        },
-        "x2": {
-          "value": {
-            "expr": "width"
-          }
-        },
+        "x": {"value": 0},
+        "x2": {"value": {"expr": "width"}},
         "tooltip": [
-          {
-            "field": "station_name",
-            "type": "nominal",
-            "title": "Station"
-          },
-          {
-            "field": "baseline_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2018–2019)",
-            "format": ",.0f"
-          },
-          {
-            "field": "current_entries",
-            "type": "quantitative",
-            "title": "Annual station entries (2024–2025)",
-            "format": ",.0f"
-          },
-          {
-            "field": "change_entries",
-            "type": "quantitative",
-            "title": "Change in annual station entries",
-            "format": "+,.0f"
-          }
+          {"field": "station_name", "type": "nominal", "title": "Station"},
+          {"field": "baseline_entries", "type": "quantitative", "title": "Annual station entries (2018–2019)", "format": ",.0f"},
+          {"field": "current_entries", "type": "quantitative", "title": "Annual station entries (2024–2025)", "format": ",.0f"},
+          {"field": "change_entries", "type": "quantitative", "title": "Change in annual station entries", "format": "+,.0f"}
         ]
       }
     }
