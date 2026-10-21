@@ -32,32 +32,16 @@
     },
     "text": {"font": "Source Sans 3", "color": "#282e46", "fontSize": 13}
   },
-  "params": [
-    {"name": "cityFocus", "value": "All cities"}
-  ],
+  "params": [{"name": "cityFocus", "value": "All cities"}],
   "layer": [
     {
-      "data": {
-        "values": [
-          {"ref": 100}
-        ]
-      },
-      "mark": {
-        "type": "rule",
-        "strokeDash": [4, 4],
-        "color": "#586177"
-      },
-      "encoding": {
-        "y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}
-      }
+      "data": {"values": [{"ref": 100}]},
+      "mark": {"type": "rule", "strokeDash": [4, 4], "color": "#586177"},
+      "encoding": {"y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}}
     },
     {
       "data": {"url": "data/national_history.json"},
-      "mark": {
-        "type": "line",
-        "point": {"filled": true, "size": 24},
-        "strokeWidth": 2
-      },
+      "mark": {"type": "line", "point": {"filled": true, "size": 24}, "strokeWidth": 2},
       "encoding": {
         "x": {
           "field": "year_end",
@@ -69,9 +53,7 @@
           "field": "recovery_index",
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
-          "scale": {
-            "domain": [0, 120]
-          }
+          "scale": {"domain": [0, 120]}
         },
         "color": {
           "field": "city",
@@ -88,13 +70,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
-            "range": [
-              [1, 0],
-              [7, 3],
-              [2, 3],
-              [10, 3, 2, 3],
-              [5, 2, 1, 2]
-            ]
+            "range": [[1, 0], [7, 3], [2, 3], [10, 3, 2, 3], [5, 2, 1, 2]]
           },
           "legend": null,
           "title": "City"
@@ -106,33 +82,16 @@
         "tooltip": [
           {"field": "city", "type": "nominal", "title": "City"},
           {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
-          {
-            "field": "trips_million",
-            "type": "quantitative",
-            "title": "Estimated heavy-rail journeys (million)",
-            "format": ",.1f"
-          },
-          {
-            "field": "recovery_index",
-            "type": "quantitative",
-            "title": "Recovery index (2018–2019 = 100)",
-            "format": ".1f"
-          }
+          {"field": "trips_million", "type": "quantitative", "title": "Estimated heavy-rail journeys (million)", "format": ",.1f"},
+          {"field": "recovery_index", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)", "format": ".1f"}
         ]
       },
       "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        }
+        {"calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null", "as": "display_financial_year"}
       ]
     },
     {
-      "data": {
-        "values": [
-          {"year_end": 2019, "ref": 100, "label": "2018–2019 level"}
-        ]
-      },
+      "data": {"values": [{"year_end": 2019, "ref": 100, "label": "2018–2019 level"}]},
       "mark": {"type": "text", "align": "left", "dy": -13, "fontSize": 13, "color": "#586177"},
       "encoding": {
         "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"},
@@ -143,17 +102,10 @@
     {
       "data": {"url": "data/national_history.json"},
       "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
+        {"calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null", "as": "display_financial_year"},
         {"filter": "cityFocus !== 'All cities' && datum.city === cityFocus"}
       ],
-      "mark": {
-        "type": "line",
-        "point": {"filled": true, "size": 55},
-        "strokeWidth": 3.5
-      },
+      "mark": {"type": "line", "point": {"filled": true, "size": 55}, "strokeWidth": 3.5},
       "encoding": {
         "x": {
           "field": "year_end",
@@ -165,9 +117,7 @@
           "field": "recovery_index",
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
-          "scale": {
-            "domain": [0, 120]
-          }
+          "scale": {"domain": [0, 120]}
         },
         "color": {
           "field": "city",
@@ -184,13 +134,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
-            "range": [
-              [1, 0],
-              [7, 3],
-              [2, 3],
-              [10, 3, 2, 3],
-              [5, 2, 1, 2]
-            ]
+            "range": [[1, 0], [7, 3], [2, 3], [10, 3, 2, 3], [5, 2, 1, 2]]
           },
           "legend": null,
           "title": "City"
@@ -198,28 +142,15 @@
         "tooltip": [
           {"field": "city", "type": "nominal", "title": "City"},
           {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
-          {
-            "field": "trips_million",
-            "type": "quantitative",
-            "title": "Estimated heavy-rail journeys (million)",
-            "format": ",.1f"
-          },
-          {
-            "field": "recovery_index",
-            "type": "quantitative",
-            "title": "Recovery index (2018–2019 = 100)",
-            "format": ".1f"
-          }
+          {"field": "trips_million", "type": "quantitative", "title": "Estimated heavy-rail journeys (million)", "format": ",.1f"},
+          {"field": "recovery_index", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)", "format": ".1f"}
         ]
       }
     },
     {
       "data": {"url": "data/national_history.json"},
       "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
+        {"calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null", "as": "display_financial_year"},
         {"filter": "datum.year_end === 2025 && cityFocus !== 'All cities' && datum.city === cityFocus"},
         {"calculate": "datum.city + ' ' + format(datum.recovery_index,'.1f')", "as": "endpoint_label"}
       ],
@@ -235,37 +166,21 @@
           "field": "recovery_index",
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)",
-          "scale": {
-            "domain": [0, 120]
-          }
+          "scale": {"domain": [0, 120]}
         },
         "text": {"field": "endpoint_label", "type": "nominal"},
         "tooltip": [
           {"field": "city", "type": "nominal", "title": "City"},
           {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
-          {
-            "field": "trips_million",
-            "type": "quantitative",
-            "title": "Estimated heavy-rail journeys (million)",
-            "format": ",.1f"
-          },
-          {
-            "field": "recovery_index",
-            "type": "quantitative",
-            "title": "Recovery index (2018–2019 = 100)",
-            "format": ".1f"
-          }
+          {"field": "trips_million", "type": "quantitative", "title": "Estimated heavy-rail journeys (million)", "format": ",.1f"},
+          {"field": "recovery_index", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)", "format": ".1f"}
         ]
       }
     },
     {
       "data": {"url": "data/national_history.json"},
       "transform": [
-        {
-          "pivot": "city",
-          "value": "recovery_index",
-          "groupby": ["year_end"]
-        },
+        {"pivot": "city", "value": "recovery_index", "groupby": ["year_end"]},
         {"calculate": "(datum.year_end - 1) + '–' + datum.year_end", "as": "year_label"}
       ],
       "params": [
@@ -288,12 +203,7 @@
         "tooltip": [
           {"field": "year_label", "type": "nominal", "title": "Financial year"},
           {"field": "Sydney", "type": "quantitative", "title": "Sydney · recovery index", "format": ".1f"},
-          {
-            "field": "Melbourne",
-            "type": "quantitative",
-            "title": "Melbourne · recovery index",
-            "format": ".1f"
-          },
+          {"field": "Melbourne", "type": "quantitative", "title": "Melbourne · recovery index", "format": ".1f"},
           {"field": "Brisbane", "type": "quantitative", "title": "Brisbane · recovery index", "format": ".1f"},
           {"field": "Perth", "type": "quantitative", "title": "Perth · recovery index", "format": ".1f"},
           {"field": "Adelaide", "type": "quantitative", "title": "Adelaide · recovery index", "format": ".1f"}
@@ -303,20 +213,12 @@
     {
       "data": {"url": "data/national_history.json"},
       "transform": [
-        {
-          "pivot": "city",
-          "value": "recovery_index",
-          "groupby": ["year_end"]
-        },
+        {"pivot": "city", "value": "recovery_index", "groupby": ["year_end"]},
         {"calculate": "(datum.year_end - 1) + '–' + datum.year_end", "as": "year_label"},
-        {
-          "filter": {"param": "inspectYear", "empty": false}
-        }
+        {"filter": {"param": "inspectYear", "empty": false}}
       ],
       "mark": {"type": "rule", "color": "#586177", "strokeWidth": 1, "opacity": 0.5},
-      "encoding": {
-        "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"}
-      }
+      "encoding": {"x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"}}
     }
   ],
   "description": "Separate Yearbook 2025 city estimates; five overlaid indexed series share a 2018–2019 baseline. City selection retains context. Nearest-year tooltips compare all cities on the same index."

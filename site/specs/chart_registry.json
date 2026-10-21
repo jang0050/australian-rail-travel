@@ -38,7 +38,16 @@
   },
   {
     "id": "C04",
-    "spec": "specs/C04_victoria_waffle.json",
+    "spec": "specs/C04_nonurban_treemap.json",
+    "idiom": "Hierarchical treemap",
+    "advanced": true,
+    "data": "data/nonurban.json",
+    "columns": {"name": "Service or state", "value": "Train journeys (million)"},
+    "description": "Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total."
+  },
+  {
+    "id": "C05",
+    "spec": "specs/C05_victoria_waffle.json",
     "idiom": "Waffle",
     "advanced": true,
     "data": "data/victoria_annual.json",
@@ -51,8 +60,8 @@
     "description": "Two simultaneous 100-square grids compare metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact regional shares are labelled. Both panels form one waffle comparison."
   },
   {
-    "id": "C12",
-    "spec": "specs/C12_victoria_slope.json",
+    "id": "C06",
+    "spec": "specs/C06_victoria_slope.json",
     "idiom": "Slopegraph",
     "advanced": "candidate",
     "data": "data/victoria_annual.json",
@@ -66,16 +75,7 @@
   },
   {
     "id": "C07",
-    "spec": "specs/C07_nonurban_treemap.json",
-    "idiom": "Hierarchical treemap",
-    "advanced": true,
-    "data": "data/nonurban.json",
-    "columns": {"name": "Service or state", "value": "Train journeys (million)"},
-    "description": "Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total."
-  },
-  {
-    "id": "C05",
-    "spec": "specs/C05_lga_recovery.json",
+    "spec": "specs/C07_lga_recovery.json",
     "idiom": "Choropleth map",
     "advanced": true,
     "data": "data/lga_recovery.json",
@@ -89,8 +89,8 @@
     "description": "Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations."
   },
   {
-    "id": "C06",
-    "spec": "specs/C06_entry_bins.json",
+    "id": "C08",
+    "spec": "specs/C08_entry_bins.json",
     "idiom": "Equal-area bin map",
     "advanced": true,
     "data": "data/bins_5.geojson",
@@ -103,8 +103,8 @@
     "description": "Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size."
   },
   {
-    "id": "C11",
-    "spec": "specs/C11_station_contributions.json",
+    "id": "C09",
+    "spec": "specs/C09_station_contributions.json",
     "idiom": "Diverging bar chart",
     "advanced": false,
     "data": "data/station_changes.json",
@@ -117,8 +117,8 @@
     "description": "Five largest positive and five largest negative absolute changes among 220 matched station identifiers. Other 210 stations omitted from this selected-extremes view."
   },
   {
-    "id": "C08",
-    "spec": "specs/C08_time_heatmap.json",
+    "id": "C10",
+    "spec": "specs/C10_time_heatmap.json",
     "idiom": "Heatmap",
     "advanced": true,
     "data": "data/profiles.json",
@@ -131,8 +131,8 @@
     "description": "Twelve largest annual-entry stations passing profile screens. Unequal-duration bands show shares of the published five-band sum, not an hourly arrival rate."
   },
   {
-    "id": "C09",
-    "spec": "specs/C09_station_histogram.json",
+    "id": "C11",
+    "spec": "specs/C11_station_histogram.json",
     "idiom": "Histogram",
     "advanced": true,
     "data": "data/stations.json",
@@ -144,8 +144,8 @@
     "description": "Frequency distribution in 20-point intervals; baseline threshold is selectable. All eligible extremes retained; each station counts once."
   },
   {
-    "id": "C10",
-    "spec": "specs/C10_weekend_boxplot.json",
+    "id": "C12",
+    "spec": "specs/C12_weekend_boxplot.json",
     "idiom": "Boxplot",
     "advanced": true,
     "data": "data/weekend.json",
