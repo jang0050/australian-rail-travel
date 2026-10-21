@@ -1,19 +1,19 @@
 {
-  "installed_at": "2026-09-16T09:10:16.659Z",
+  "installed_at": "2026-10-16T08:01:36.756Z",
   "packages": [
     {
       "name": "vega",
-      "version": "6.4.0",
+      "version": "5.33.1",
       "source": "node_modules/vega/build/vega.min.js"
     },
     {
       "name": "vega-lite",
-      "version": "6.4.3",
+      "version": "5.23.0",
       "source": "node_modules/vega-lite/build/vega-lite.min.js"
     },
     {
       "name": "vega-embed",
-      "version": "7.2.0",
+      "version": "6.29.0",
       "source": "node_modules/vega-embed/build/vega-embed.min.js"
     }
   ]
