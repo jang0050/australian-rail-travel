@@ -16,11 +16,11 @@
       "labelFontSize": 14,
       "titleFontSize": 14,
       "titleFontWeight": "normal",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
-      "gridColor": "#e0e5e2",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
+      "gridColor": "#e1e4ed",
       "domain": false,
-      "tickColor": "#ccd5d1",
+      "tickColor": "#cfd3df",
       "labelPadding": 6,
       "titlePadding": 12
     },
@@ -29,8 +29,8 @@
       "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
       "layout": {
@@ -40,7 +40,7 @@
     },
     "text": {
       "font": "Source Sans 3",
-      "color": "#142f3c",
+      "color": "#282e46",
       "fontSize": 13
     }
   },
@@ -63,7 +63,7 @@
     {
       "mark": {
         "type": "rect",
-        "stroke": "#fafaf4",
+        "stroke": "#f6f7fb",
         "strokeWidth": 2
       },
       "encoding": {
@@ -118,9 +118,10 @@
               70
             ],
             "range": [
-              "#dadaeb",
-              "#9e9ac8",
-              "#54278f"
+              "#e5e2ed",
+              "#b9b0cd",
+              "#8d7eaa",
+              "#604f7e"
             ]
           },
           "legend": {
@@ -166,7 +167,7 @@
       "mark": {
         "type": "rect",
         "fillOpacity": 0,
-        "stroke": "#142f3c",
+        "stroke": "#282e46",
         "strokeWidth": 2
       },
       "encoding": {

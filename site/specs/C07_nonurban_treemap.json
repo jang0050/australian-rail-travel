@@ -175,10 +175,10 @@
         "Western Australia"
       ],
       "range": [
-        "#705287",
-        "#82672f",
-        "#3d745e",
-        "#656870"
+        "#596d9b",
+        "#5e8384",
+        "#e3b29a",
+        "#82749b"
       ]
     }
   ],
@@ -208,7 +208,7 @@
             "value": 14
           },
           "fill": {
-            "value": "#4e656d"
+            "value": "#586177"
           }
         }
       }
@@ -238,7 +238,7 @@
             "signal": "scale('states', datum.parent)"
           },
           "stroke": {
-            "value": "#fafaf4"
+            "value": "#f6f7fb"
           },
           "strokeWidth": {
             "value": 1
@@ -277,7 +277,7 @@
             "value": 0
           },
           "stroke": {
-            "value": "#fafaf4"
+            "value": "#f6f7fb"
           },
           "strokeWidth": {
             "value": 2
@@ -313,7 +313,7 @@
             "value": 400
           },
           "fill": {
-            "value": "#ffffff"
+            "signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"
           },
           "baseline": {
             "value": "top"
@@ -349,7 +349,7 @@
             "value": 600
           },
           "fill": {
-            "value": "#ffffff"
+            "signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"
           },
           "baseline": {
             "value": "top"
@@ -388,7 +388,7 @@
             "value": 600
           },
           "fill": {
-            "value": "#ffffff"
+            "signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"
           },
           "baseline": {
             "value": "top"
@@ -424,7 +424,7 @@
             "value": 400
           },
           "fill": {
-            "value": "#ffffff"
+            "signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"
           },
           "baseline": {
             "value": "top"
@@ -454,7 +454,7 @@
             "value": 84
           },
           "fill": {
-            "value": "#fafaf4"
+            "value": "#f6f7fb"
           },
           "fillOpacity": {
             "value": 0
@@ -523,7 +523,7 @@
             "value": 600
           },
           "fill": {
-            "value": "#142f3c"
+            "value": "#282e46"
           },
           "baseline": {
             "value": "top"
@@ -562,7 +562,7 @@
             "value": 400
           },
           "fill": {
-            "value": "#4e656d"
+            "value": "#586177"
           },
           "baseline": {
             "value": "top"
@@ -598,7 +598,7 @@
             "value": 400
           },
           "fill": {
-            "value": "#142f3c"
+            "value": "#282e46"
           },
           "baseline": {
             "value": "top"
@@ -664,7 +664,7 @@
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 30"
           },
           "stroke": {
-            "value": "#142f3c"
+            "value": "#282e46"
           },
           "strokeWidth": {
             "value": 1

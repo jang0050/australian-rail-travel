@@ -16,11 +16,11 @@
       "labelFontSize": 14,
       "titleFontSize": 14,
       "titleFontWeight": "normal",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
-      "gridColor": "#e0e5e2",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
+      "gridColor": "#e1e4ed",
       "domain": false,
-      "tickColor": "#ccd5d1",
+      "tickColor": "#cfd3df",
       "labelPadding": 6,
       "titlePadding": 12
     },
@@ -29,8 +29,8 @@
       "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
       "layout": {
@@ -40,7 +40,7 @@
     },
     "text": {
       "font": "Source Sans 3",
-      "color": "#142f3c",
+      "color": "#282e46",
       "fontSize": 13
     }
   },
@@ -98,9 +98,9 @@
         "color": {
           "condition": {
             "test": "datum.change_entries >= 0",
-            "value": "#21647a"
+            "value": "#2e6f95"
           },
-          "value": "#a34e2e"
+          "value": "#ac573b"
         },
         "tooltip": [
           {
@@ -139,7 +139,7 @@
         "type": "point",
         "filled": true,
         "size": 55,
-        "color": "#21647a"
+        "color": "#2e6f95"
       },
       "encoding": {
         "y": {

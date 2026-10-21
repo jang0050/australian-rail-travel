@@ -13,11 +13,11 @@
       "labelFontSize": 14,
       "titleFontSize": 14,
       "titleFontWeight": "normal",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
-      "gridColor": "#e0e5e2",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
+      "gridColor": "#e1e4ed",
       "domain": false,
-      "tickColor": "#ccd5d1",
+      "tickColor": "#cfd3df",
       "labelPadding": 6,
       "titlePadding": 12
     },
@@ -26,8 +26,8 @@
       "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
-      "labelColor": "#142f3c",
-      "titleColor": "#142f3c",
+      "labelColor": "#282e46",
+      "titleColor": "#282e46",
       "padding": 0,
       "offset": 16,
       "layout": {
@@ -37,7 +37,7 @@
     },
     "text": {
       "font": "Source Sans 3",
-      "color": "#142f3c",
+      "color": "#282e46",
       "fontSize": 13
     }
   },
@@ -70,7 +70,7 @@
     "height": 250,
     "mark": {
       "type": "rect",
-      "stroke": "#fafaf4",
+      "stroke": "#f6f7fb",
       "strokeWidth": 1.5
     },
     "encoding": {
@@ -95,8 +95,8 @@
             "Regional"
           ],
           "range": [
-            "#526779",
-            "#8c5279"
+            "#66768d",
+            "#9c7a8b"
           ]
         },
         "legend": {
