@@ -23,7 +23,7 @@
       "trips_million": "Estimated heavy-rail journeys (million)",
       "recovery_index": "Recovery index (2018–2019 = 100)"
     },
-    "description": "Separate Bureau of Infrastructure and Transport Research Economics Yearbook 2025 Chapter 2 city estimates. All five cities share their own 2018–2019 baseline; not spliced with Trainline."
+    "description": "Separate Yearbook 2025 city estimates; five overlaid indexed series share a 2018–2019 baseline. City selection retains context. Nearest-year tooltips compare all cities on the same index."
   },
   {
     "id": "C03",
@@ -51,7 +51,7 @@
       "journeys": "Train journeys",
       "recovery_index": "Recovery index (2018–2019 = 100)"
     },
-    "description": "100 squares represent all metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact shares are shown in text."
+    "description": "Two simultaneous 100-square grids compare metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact regional shares are labelled. Both panels form one waffle comparison."
   },
   {
     "id": "C12",
@@ -77,7 +77,7 @@
       "name": "Service or state",
       "value": "Train journeys (million)"
     },
-    "description": "Area encodes journeys within state groups. Complete Trainline 13 Table 23, 2024–2025, excludes operators not reported by the source."
+    "description": "Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total."
   },
   {
     "id": "C05",
@@ -131,7 +131,7 @@
     "columns": {
       "station_name": "Station",
       "band": "Time band",
-      "entries": "Rounded normal-weekday station entries",
+      "entries": "Rounded entries in time band",
       "share": "Share of five-band total (percent)"
     },
     "description": "Twelve largest annual-entry stations passing profile screens. Unequal-duration bands show shares of the published five-band sum, not an hourly arrival rate."

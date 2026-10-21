@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -65,30 +65,35 @@
           "property": "features"
         }
       },
+      "transform": [
+        {
+          "filter": "!isValid(datum.properties.recovery_index)"
+        },
+        {
+          "calculate": "'No eligible matched stations'",
+          "as": "recovery_status"
+        }
+      ],
       "mark": {
         "type": "geoshape",
         "fill": "#e3e7e5",
         "stroke": "white",
         "strokeWidth": 0.6
       },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "properties.lga_name",
+            "type": "nominal",
+            "title": "Local government area"
+          },
+          {
+            "field": "recovery_status",
+            "type": "nominal",
+            "title": "Recovery status"
+          }
+        ]
+      }
     },
     {
       "data": {
@@ -100,23 +105,11 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        },
-        {
           "filter": "isValid(datum.properties.recovery_index)"
+        },
+        {
+          "calculate": "datum.properties.recovery_index < 60 ? 'Below 60' : datum.properties.recovery_index < 80 ? '60 to below 80' : datum.properties.recovery_index < 100 ? '80 to below 100' : '100 or above'",
+          "as": "recovery_class"
         }
       ],
       "mark": {
@@ -126,28 +119,49 @@
       },
       "encoding": {
         "color": {
-          "field": "properties.recovery_index",
-          "type": "quantitative",
+          "field": "recovery_class",
+          "type": "ordinal",
+          "sort": [
+            "Below 60",
+            "60 to below 80",
+            "80 to below 100",
+            "100 or above",
+            "No eligible matched stations"
+          ],
           "title": "Recovery index (2018–2019 = 100)",
           "scale": {
-            "type": "threshold",
             "domain": [
-              60,
-              80,
-              100
+              "Below 60",
+              "60 to below 80",
+              "80 to below 100",
+              "100 or above",
+              "No eligible matched stations"
             ],
             "range": [
               "#a34e2e",
               "#d39871",
               "#f2dfc5",
-              "#21647a"
+              "#21647a",
+              "#e3e7e5"
             ]
           },
           "legend": {
             "orient": "bottom",
             "direction": "horizontal",
-            "titleLimit": 350,
-            "labelFontSize": 11
+            "columns": 2,
+            "columnPadding": 28,
+            "rowPadding": 8,
+            "title": [
+              "Recovery index · 2018–2019 = 100",
+              "100 = full recovery"
+            ],
+            "titleLineHeight": 18,
+            "labelLineHeight": 18,
+            "titlePadding": 10,
+            "titleLimit": 500,
+            "labelLimit": 300,
+            "labelFontSize": 13,
+            "symbolType": "square"
           }
         },
         "tooltip": [
@@ -202,25 +216,7 @@
           "field": "latitude",
           "type": "quantitative"
         }
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     },
     {
       "data": {
@@ -228,31 +224,13 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        },
-        {
           "filter": "datum.station_name === 'Flinders Street'"
         }
       ],
       "mark": {
-        "type": "text",
-        "align": "right",
-        "dx": -8,
-        "dy": -9,
-        "fontWeight": 600
+        "type": "rule",
+        "color": "#4e656d",
+        "strokeWidth": 1
       },
       "encoding": {
         "longitude": {
@@ -263,8 +241,151 @@
           "field": "latitude",
           "type": "quantitative"
         },
+        "longitude2": {
+          "datum": 144.83
+        },
+        "latitude2": {
+          "datum": -37.99
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/stations.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.station_name === 'Flinders Street'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontWeight": 600,
+        "fontSize": 13,
+        "lineHeight": 16
+      },
+      "encoding": {
+        "longitude": {
+          "datum": 144.83
+        },
+        "latitude": {
+          "datum": -38.02
+        },
         "text": {
-          "value": "Central Melbourne"
+          "value": [
+            "Central",
+            "Melbourne"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "name": "Casey",
+            "longitude": 145.3127021928372,
+            "latitude": -38.09535350794815,
+            "label_longitude": 145.1827021928372,
+            "label_latitude": -37.97535350794815,
+            "side": "right",
+            "annotation_lines": [
+              "Casey",
+              "114.9"
+            ]
+          },
+          {
+            "name": "Mornington Peninsula",
+            "longitude": 145.08252099803582,
+            "latitude": -38.330394925491646,
+            "label_longitude": 144.88252099803583,
+            "label_latitude": -38.21039492549165,
+            "side": "left",
+            "annotation_lines": [
+              "Mornington Peninsula",
+              "59.8"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#4e656d",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude2": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "name": "Casey",
+            "longitude": 145.3127021928372,
+            "latitude": -38.09535350794815,
+            "label_longitude": 145.1827021928372,
+            "label_latitude": -37.97535350794815,
+            "side": "right",
+            "annotation_lines": [
+              "Casey",
+              "114.9"
+            ]
+          },
+          {
+            "name": "Mornington Peninsula",
+            "longitude": 145.08252099803582,
+            "latitude": -38.330394925491646,
+            "label_longitude": 144.88252099803583,
+            "label_latitude": -38.21039492549165,
+            "side": "left",
+            "annotation_lines": [
+              "Mornington Peninsula",
+              "59.8"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": {
+          "expr": "datum.side === 'left' ? 'center' : 'right'"
+        },
+        "dx": {
+          "expr": "datum.side === 'left' ? 0 : -4"
+        },
+        "fontSize": 12,
+        "fontWeight": 600,
+        "lineHeight": 15
+      },
+      "encoding": {
+        "longitude": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "annotation_lines",
+          "type": "nominal"
         }
       }
     }

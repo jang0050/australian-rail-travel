@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -70,25 +70,7 @@
         "fill": "#e3e7e5",
         "stroke": "white",
         "strokeWidth": 0.6
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     },
     {
       "data": {
@@ -101,8 +83,8 @@
       "name": "grid",
       "mark": {
         "type": "geoshape",
-        "stroke": "#fff",
-        "strokeWidth": 0.4
+        "stroke": "#777397",
+        "strokeWidth": 0.5
       },
       "encoding": {
         "color": {
@@ -116,14 +98,18 @@
               80
             ],
             "range": [
-              "#d5e5e8",
-              "#21647a",
-              "#142f3c"
+              "#dadaeb",
+              "#9e9ac8",
+              "#54278f"
             ]
           },
           "legend": {
             "orient": "bottom",
-            "gradientLength": 200
+            "gradientLength": 240,
+            "title": [
+              "Annual station entries (million)",
+              "Square-root scale · fixed across grids"
+            ]
           }
         },
         "tooltip": [
@@ -151,25 +137,7 @@
             "format": ".1f"
           }
         ]
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     },
     {
       "data": {
@@ -177,31 +145,13 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        },
-        {
           "filter": "datum.station_name === 'Flinders Street'"
         }
       ],
       "mark": {
-        "type": "text",
-        "align": "right",
-        "dx": -12,
-        "dy": -10,
-        "fontWeight": 600
+        "type": "rule",
+        "color": "#4e656d",
+        "strokeWidth": 1
       },
       "encoding": {
         "longitude": {
@@ -212,8 +162,42 @@
           "field": "latitude",
           "type": "quantitative"
         },
+        "longitude2": {
+          "datum": 144.83
+        },
+        "latitude2": {
+          "datum": -37.99
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "data/stations.json"
+      },
+      "transform": [
+        {
+          "filter": "datum.station_name === 'Flinders Street'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "fontWeight": 600,
+        "fontSize": 13,
+        "lineHeight": 16
+      },
+      "encoding": {
+        "longitude": {
+          "datum": 144.83
+        },
+        "latitude": {
+          "datum": -38.02
+        },
         "text": {
-          "value": "Central Melbourne"
+          "value": [
+            "Central",
+            "Melbourne"
+          ]
         }
       }
     }

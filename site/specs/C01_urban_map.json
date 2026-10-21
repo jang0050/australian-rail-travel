@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
-  "height": 340,
+  "height": 600,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -34,7 +34,7 @@
       "padding": 0,
       "offset": 16,
       "layout": {
-        "anchor": "start",
+        "anchor": "middle",
         "frame": "bounds"
       }
     },
@@ -74,25 +74,7 @@
         "fill": "#e3e7e5",
         "stroke": "#fafaf4",
         "strokeWidth": 1
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     },
     {
       "data": {
@@ -100,9 +82,9 @@
       },
       "mark": {
         "type": "circle",
-        "color": "#21647a",
-        "opacity": 0.72,
-        "stroke": "#fff",
+        "color": "#61737c",
+        "opacity": 0.9,
+        "stroke": "#fafaf4",
         "strokeWidth": 1
       },
       "encoding": {
@@ -134,7 +116,7 @@
               200,
               350
             ],
-            "symbolFillColor": "#21647a"
+            "symbolFillColor": "#61737c"
           },
           "title": "Train journeys (million)"
         },
@@ -154,20 +136,8 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
+          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
+          "as": "city_value"
         }
       ]
     },
@@ -177,20 +147,8 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
+          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
+          "as": "city_value"
         },
         {
           "filter": "datum.city !== 'Melbourne' && datum.city !== 'Adelaide'"
@@ -198,9 +156,14 @@
       ],
       "mark": {
         "type": "text",
-        "dy": -37,
+        "dy": {
+          "expr": "datum.city === 'Sydney' ? -54 : -32"
+        },
+        "dx": {
+          "expr": "datum.city === 'Sydney' ? -55 : 0"
+        },
         "fontWeight": 600,
-        "fontSize": 13
+        "fontSize": 15
       },
       "encoding": {
         "longitude": {
@@ -212,10 +175,22 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "display_label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+          "field": "city_value",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "journeys_million",
+            "type": "quantitative",
+            "title": "Urban heavy-rail journeys (million)",
+            "format": ",.1f"
+          }
+        ]
       }
     },
     {
@@ -224,20 +199,8 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
+          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
+          "as": "city_value"
         },
         {
           "filter": "datum.city === 'Melbourne'"
@@ -245,10 +208,10 @@
       ],
       "mark": {
         "type": "text",
-        "dy": 37,
+        "dy": 48,
         "dx": 15,
         "fontWeight": 600,
-        "fontSize": 13
+        "fontSize": 15
       },
       "encoding": {
         "longitude": {
@@ -260,10 +223,22 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "display_label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+          "field": "city_value",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "journeys_million",
+            "type": "quantitative",
+            "title": "Urban heavy-rail journeys (million)",
+            "format": ",.1f"
+          }
+        ]
       }
     },
     {
@@ -272,20 +247,8 @@
       },
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
+          "calculate": "datum.city + ' ' + format(datum.journeys_million,'.1f')",
+          "as": "city_value"
         },
         {
           "filter": "datum.city === 'Adelaide'"
@@ -293,10 +256,10 @@
       ],
       "mark": {
         "type": "text",
-        "dy": 22,
-        "dx": -40,
+        "dy": 24,
+        "dx": -58,
         "fontWeight": 600,
-        "fontSize": 13
+        "fontSize": 15
       },
       "encoding": {
         "longitude": {
@@ -308,10 +271,22 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "display_label",
-          "type": "nominal",
-          "title": "City or total"
-        }
+          "field": "city_value",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "city",
+            "type": "nominal",
+            "title": "City"
+          },
+          {
+            "field": "journeys_million",
+            "type": "quantitative",
+            "title": "Urban heavy-rail journeys (million)",
+            "format": ",.1f"
+          }
+        ]
       }
     }
   ],

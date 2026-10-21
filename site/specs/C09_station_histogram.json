@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -55,22 +55,6 @@
   ],
   "transform": [
     {
-      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_financial_year"
-    },
-    {
-      "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_year"
-    },
-    {
-      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-      "as": "display_label"
-    },
-    {
-      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-      "as": "display_band"
-    },
-    {
       "filter": "datum.baseline_entries >= baselineMin && isValid(datum.recovery_index)"
     }
   ],
@@ -78,7 +62,7 @@
     {
       "mark": {
         "type": "bar",
-        "color": "#21647a",
+        "color": "#61737c",
         "binSpacing": 1
       },
       "encoding": {
@@ -135,25 +119,7 @@
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)"
         }
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     },
     {
       "data": {
@@ -185,25 +151,7 @@
           "type": "nominal",
           "title": "City or total"
         }
-      },
-      "transform": [
-        {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
-        },
-        {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
-        },
-        {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
-        },
-        {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
-        }
-      ]
+      }
     }
   ],
   "description": "Frequency distribution in 20-point intervals; baseline threshold is selectable. All eligible extremes retained; each station counts once."

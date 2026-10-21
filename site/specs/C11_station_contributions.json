@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -45,7 +45,7 @@
     }
   },
   "padding": {
-    "left": 18,
+    "left": 28,
     "right": 12,
     "top": 8,
     "bottom": 8
@@ -130,6 +130,62 @@
       }
     },
     {
+      "transform": [
+        {
+          "filter": "datum.change_entries >= 0"
+        }
+      ],
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 55,
+        "color": "#21647a"
+      },
+      "encoding": {
+        "y": {
+          "field": "station_name",
+          "type": "nominal",
+          "sort": [
+            "Flinders Street",
+            "Southern Cross",
+            "Parliament",
+            "Melbourne Central",
+            "Flagstaff",
+            "Hughesdale",
+            "Berwick",
+            "Cranbourne",
+            "Merinda Park",
+            "Craigieburn"
+          ],
+          "title": "Station"
+        },
+        "x": {
+          "field": "change_million",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -11,
+              2
+            ]
+          },
+          "title": "Change in annual station entries (million)"
+        },
+        "tooltip": [
+          {
+            "field": "station_name",
+            "type": "nominal",
+            "title": "Station"
+          },
+          {
+            "field": "change_entries",
+            "type": "quantitative",
+            "title": "Change in annual station entries",
+            "format": "+,.0f"
+          }
+        ]
+      }
+    },
+    {
       "mark": {
         "type": "text",
         "align": "right",
@@ -179,7 +235,7 @@
       "mark": {
         "type": "text",
         "align": "left",
-        "dx": 5,
+        "dx": 8,
         "fontSize": 12
       },
       "transform": [
@@ -220,24 +276,66 @@
           "title": "City or total"
         }
       }
-    }
-  ],
-  "transform": [
-    {
-      "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_financial_year"
     },
     {
-      "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_year"
-    },
-    {
-      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-      "as": "display_label"
-    },
-    {
-      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-      "as": "display_band"
+      "name": "station_change_hover",
+      "mark": {
+        "type": "rect",
+        "opacity": 0,
+        "height": 28
+      },
+      "encoding": {
+        "y": {
+          "field": "station_name",
+          "type": "nominal",
+          "sort": [
+            "Flinders Street",
+            "Southern Cross",
+            "Parliament",
+            "Melbourne Central",
+            "Flagstaff",
+            "Hughesdale",
+            "Berwick",
+            "Cranbourne",
+            "Merinda Park",
+            "Craigieburn"
+          ],
+          "title": "Station"
+        },
+        "x": {
+          "value": 0
+        },
+        "x2": {
+          "value": {
+            "expr": "width"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "station_name",
+            "type": "nominal",
+            "title": "Station"
+          },
+          {
+            "field": "baseline_entries",
+            "type": "quantitative",
+            "title": "Annual station entries (2018–2019)",
+            "format": ",.0f"
+          },
+          {
+            "field": "current_entries",
+            "type": "quantitative",
+            "title": "Annual station entries (2024–2025)",
+            "format": ",.0f"
+          },
+          {
+            "field": "change_entries",
+            "type": "quantitative",
+            "title": "Change in annual station entries",
+            "format": "+,.0f"
+          }
+        ]
+      }
     }
   ],
   "description": "Five largest positive and five largest negative absolute changes among 220 matched station identifiers. Other 210 stations omitted from this selected-extremes view."

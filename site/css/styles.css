@@ -2,105 +2,50 @@
 @font-face{font-family:'Source Sans 3';src:url('../fonts/source-sans-3-latin-400-normal.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:'Source Sans 3';src:url('../fonts/source-sans-3-latin-600-normal.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
 @font-face{font-family:'Source Sans 3';src:url('../fonts/source-sans-3-latin-400-italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
-:root{--paper:#fafaf4;--ink:#142f3c;--blue:#21647a;--rust:#a34e2e;--muted:#4e656d;--line:#ccd5d1;--tint:#edf1eb;--column-gap:48px;--section-space:64px;--figure-gap:48px;font-family:'Source Sans 3',sans-serif;color:var(--ink);background:var(--paper);font-size:18px;line-height:1.55;font-synthesis:none;scroll-behavior:smooth;scrollbar-color:#7c939a var(--paper)}
-*{box-sizing:border-box}body{margin:0}::selection{background:#f0caae;color:var(--ink)}a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:var(--rust)}button,input,select{font:inherit;color:var(--ink);accent-color:var(--blue);caret-color:var(--rust)}a:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--rust);outline-offset:5px}
-.wrap{width:min(1160px,calc(100% - 80px));margin-inline:auto}.masthead{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:23px;border-bottom:1px solid var(--ink)}.wordmark{font-weight:600;font-family:'Source Serif 4',Georgia,serif;font-size:20px;color:var(--ink);text-decoration:none;white-space:nowrap}nav{display:flex;flex-wrap:wrap;gap:12px 24px;font-size:14px}nav a{color:var(--ink);text-decoration:none}nav a:hover{text-decoration:underline}
-.hero{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--column-gap);align-items:center;padding-block:48px 64px}.hero-copy{padding-bottom:16px}h1,h2,h3{font-family:'Source Serif 4',Georgia,serif;font-weight:600;text-wrap:balance}h1{font-size:clamp(64px,7.5vw,96px);line-height:1.05;letter-spacing:-.035em;margin:0 0 23px}h1 span{color:var(--rust)}.subtitle{font-weight:600;font-family:'Source Serif 4',Georgia,serif;font-size:30px;line-height:1.16;margin-bottom:25px;max-width:20ch}.lead{font-size:21px;line-height:1.5;max-width:58ch}.hero .figure h3{font-size:23px}.hero .figure p{font-size:16px}.hero .figure .chart-note,.hero .figure .source{font-size:13px}
-h2{font-size:clamp(32px,4vw,46px);line-height:1.1;letter-spacing:-.015em;margin:0}h3{font-size:25px;line-height:1.2;margin:0 0 12px}p{margin:0 0 17px;max-width:60ch}strong{font-weight:600}.chapter{padding-block:var(--section-space);border-top:1px solid var(--line);scroll-margin-top:25px}.chapter-tint{background:var(--tint)}.chapter-intro{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start;margin-bottom:48px}.chapter-intro p{font-size:20px;margin:0}.two-up{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--column-gap);align-items:start}.figure{margin:0 0 var(--figure-gap);min-width:0}.figure figcaption p{min-height:0}.hero .figure figcaption p{min-height:0}.figure .chart{margin:16px 0;width:100%;min-width:0;min-height:260px}.vega-embed{width:100%;min-width:0}.vega-embed>div{width:100%;min-width:0}.vega-embed svg{display:block}.chart-note{font-size:14px;color:var(--muted);line-height:1.5}.source{font-size:13px;color:var(--muted);line-height:1.5}.source a{color:inherit}.source a:hover{color:var(--blue)}.method-strip{font-size:16px;padding:24px 0 0;border-top:1px solid var(--line);max-width:none}.method-strip strong{color:var(--ink)}.method-strip p{font-size:16px;margin:0;max-width:60ch}.control{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 8px;font-size:15px;min-height:38px}.control label{font-weight:600}.control select{appearance:none;-webkit-appearance:none;border:1px solid #9aadaf;border-radius:6px;background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23142f3c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:14px 14px;min-height:44px;padding:5px 40px 5px 12px;max-width:100%;font-size:15px}.control-status{font-size:14px;color:var(--muted);min-height:22px;margin-bottom:4px;font-variant-numeric:tabular-nums}.figure-controls:not(:empty){padding-top:8px}.wide-figure{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--column-gap);margin-top:0}.wide-figure aside{padding-top:0}.wide-figure aside p{font-size:18px}.ending{padding-block:80px;border-top:1px solid var(--line)}.ending h2{font-size:clamp(36px,4.8vw,58px);margin-bottom:25px;max-width:25ch}.ending .lead{max-width:60ch}.methods{padding-block:50px;border-top:1px solid var(--ink)}.methods h2{margin-bottom:32px}.methods h3{font-size:24px}.methods p,.source-list{font-size:16px}.source-list{padding-left:20px;max-width:100ch}.source-list li{margin-block:10px}footer{border-top:1px solid var(--ink);padding-block:24px 38px}footer p{font-size:14px;max-width:90ch}.loading{color:var(--muted);padding:30px 0}.error{color:#71311c;background:#f8e9d9;border:1px solid #b4532a;padding:20px;font-size:16px}.retry{border:1px solid var(--rust);background:var(--paper);padding:6px 14px;cursor:pointer}.skip{position:absolute;left:20px;top:-100px;background:var(--paper);padding:12px;z-index:10}.skip:focus{top:10px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:1050px){:root{--column-gap:32px}.wrap{width:calc(100% - 48px)}.hero,.two-up,.wide-figure{gap:var(--column-gap)}.masthead{align-items:start}nav{gap:7px 18px;max-width:390px}.subtitle{font-size:27px}.lead{font-size:19px}}
-@media(max-width:760px){:root{--column-gap:24px;--section-space:40px;--figure-gap:32px}.wrap{width:calc(100% - 36px)}.masthead{display:block}.wordmark{display:block;margin-bottom:15px}nav{max-width:none;font-size:13px;gap:8px 18px}.hero,.chapter-intro,.two-up,.wide-figure{grid-template-columns:minmax(0,1fr)}.hero{padding-block:38px 26px;gap:26px}.hero-copy{padding-bottom:0}h1{font-size:clamp(60px,18vw,76px);line-height:1.05}.subtitle{max-width:none;font-size:27px}.lead{font-size:20px}.chapter{padding-block:40px}.chapter-intro{gap:20px;margin-bottom:30px}.chapter-intro p{font-size:19px}.figure{margin-bottom:32px}.figure figcaption p{min-height:0}.two-up{gap:0}.wide-figure{gap:8px;margin-top:0}.wide-figure aside{padding:0 0 20px}.ending{padding-block:50px}.methods{padding-block:36px}.chart-note{font-size:14px}.source{font-size:13px}h3{font-size:24px}}
+/* Shared editorial tokens. Chart equivalents live in scripts/build_specs.py. */
+:root{--paper:#fafaf4;--ink:#142f3c;--blue:#21647a;--rust:#a34e2e;--muted:#4e656d;--neutral:#61737c;--magnitude-edge:#777397;--line:#ccd5d1;--tint:#f0f1ed;--column-gap:40px;--section-space:64px;--figure-gap:48px;--measure:54ch;font-family:'Source Sans 3',sans-serif;font-size:18px;line-height:1.55;color:var(--ink);background:var(--paper);font-synthesis:none;scroll-behavior:smooth;scrollbar-color:var(--muted) var(--paper)}
+*{box-sizing:border-box}body{margin:0}::selection{background:#ead5c7;color:var(--ink)}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:4px}a:hover{color:var(--rust)}button,input,select{font:inherit;color:var(--ink);accent-color:var(--blue);caret-color:var(--rust)}:is(a,select,button,summary):focus-visible{outline:3px solid var(--rust);outline-offset:4px}
+.wrap{width:min(1160px,calc(100% - 80px));margin-inline:auto;min-width:0}
+.masthead{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:22px;border-bottom:1px solid var(--ink)}
+.wordmark{font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap}nav{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:15px}nav a{color:var(--ink);text-decoration:none;padding-block:5px}nav a:hover{text-decoration:underline}
+h1,h2,h3{font-family:'Source Serif 4',Georgia,serif;font-weight:600;text-wrap:balance}h1{font-size:clamp(54px,6.5vw,80px);line-height:1.04;letter-spacing:-.035em;margin:0 0 12px}h1 span{color:var(--rust)}h2{font-size:clamp(32px,3.7vw,44px);line-height:1.15;letter-spacing:-.015em;margin:0}h3{font-size:27px;line-height:1.22;margin:0 0 12px}p{margin:0 0 16px;max-width:var(--measure);text-wrap:pretty}strong{font-weight:600}
+.hero{padding-block:36px 40px}.subtitle{font:600 clamp(24px,2.3vw,29px)/1.25 'Source Serif 4',Georgia,serif;max-width:none;margin:0 0 16px}.hero .lead{font-size:19px;line-height:1.55;color:var(--muted);margin:0;max-width:54ch}.lead{font-size:21px;line-height:1.5}
+.chapter{padding-block:var(--section-space);border-top:1px solid var(--line);scroll-margin-top:24px}.chapter-tint{background:var(--paper)}#national{padding-top:40px}.chapter-intro{display:grid;gap:16px;margin-bottom:36px}.chapter-intro p{font-size:20px;line-height:1.5;margin:0;max-width:54ch}.national-intro{margin-bottom:28px}.national-comparison-intro{padding-top:8px;margin-bottom:32px}
+.two-up{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--column-gap);align-items:start}.figure{margin:0 0 var(--figure-gap);min-width:0}.figure-heading h3{margin-bottom:12px}.figure-number{color:var(--muted)}.figure-body{font-size:18px;line-height:1.55}.figure-controls:empty,.chart-summary:empty{display:none}.figure-controls:not(:empty){margin:4px 0 12px}.chart-summary:not(:empty){margin:8px 0 12px}.control-status{font-size:15px;line-height:1.5;color:var(--muted);max-width:none;margin:0;font-variant-numeric:tabular-nums}
+.figure .chart{width:100%;min-width:0;margin:12px 0 16px;position:relative}.vega-embed,.vega-embed>div{width:100%;min-width:0}.vega-embed svg{display:block}.figure .chart-note{font-size:16px;line-height:1.5;margin:0 0 10px;color:var(--ink)}.source{font-size:14px;line-height:1.5;color:var(--muted);margin:0}.source a{color:inherit}.source a:hover{color:var(--blue)}
+/* Figure 1 keeps one headline, a reading column and a larger geographic frame. */
+.national-figure{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:auto auto auto minmax(0,1fr);gap:16px var(--column-gap);align-items:start}
+.national-figure>figcaption{display:contents}.national-figure .figure-heading{grid-column:1/-1;grid-row:1}.national-figure .figure-body{grid-column:1;grid-row:2;margin:0}.national-figure>.chart{grid-column:2/-1;grid-row:2/5;margin:0}.national-figure>.chart-note{grid-column:1;grid-row:3;margin:0;padding-top:16px;border-top:1px solid var(--line)}.national-figure>.source{grid-column:1;grid-row:4}
+/* One visible aggregation band serves the entry map, without a blank control row. */
+.map-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin:0 0 24px}.map-controls .control{flex:0 1 auto}.map-controls .control-status{flex:1 1 380px}
+/* Pair only figures that benefit from direct comparison; every figure has seven rows. */
+@media(min-width:901px){.two-up:has(>.figure){row-gap:0}.two-up>.figure{display:grid;grid-template-rows:subgrid;grid-row:span 7;align-items:start}.two-up>.figure>figcaption{display:contents}.map-pair>.figure{grid-row:span 5}.two-up>.figure>.figure-controls:empty,.two-up>.figure>.chart-summary:empty{display:block;height:0;margin:0}}
+.national-charts>.figure{padding-top:28px;border-top:1px solid var(--line)}
+.control{display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-size:16px}.control label{font-weight:600}.control select{appearance:none;-webkit-appearance:none;border:1px solid var(--muted);border-radius:7px;background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23142f3c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:14px;min-height:44px;padding:7px 46px 7px 14px;max-width:100%;font-size:16px}
+.city-legend{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:center;padding-right:36px}.city-legend button{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:5px 0;background:none;border:0;border-bottom:2px solid transparent;font-size:16px;cursor:pointer}.city-legend button[aria-pressed="true"]{border-bottom-color:var(--ink);font-weight:600}.city-legend button:hover{border-bottom-color:var(--muted)}.city-legend .legend-reset{color:var(--muted)}
+.emphasis-primary{color:var(--blue)}.emphasis-decline{color:var(--rust)}
+.method-strip{padding:20px 0 0;border-top:1px solid var(--line);font-size:16px}.method-strip p{font-size:16px;margin:0;max-width:var(--measure)}.wide-figure{display:block}.wide-figure aside h3{font-size:23px}.wide-figure aside p{font-size:16px}.ending{padding-block:56px;border-top:1px solid var(--ink)}.ending h2{max-width:30ch;margin-bottom:20px;font-size:clamp(34px,4.3vw,52px)}.ending .lead{max-width:54ch}.ending p:last-child{margin-bottom:0}
+.methods{padding-block:48px;border-top:1px solid var(--line)}.methods h2{margin-bottom:28px}.methods h3{font-size:23px}.methods p{font-size:16px}.method-details{margin:24px 0;border-block:1px solid var(--line);padding:16px 0}.method-details>summary{font-weight:600;cursor:pointer;width:fit-content}.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px var(--column-gap);margin-top:24px}.method-grid h3{font-size:22px}.method-grid .control-status{margin-top:12px}.source-list{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px var(--column-gap);margin:24px 0}.source-list li{min-width:0;font-size:16px}.source-list a{display:block;width:fit-content}.source-detail{display:block;color:var(--muted);font-size:14px;line-height:1.5}footer{border-top:1px solid var(--ink);padding-block:24px 32px}.footer-title{font-size:20px;line-height:1.35;letter-spacing:0;margin:0 0 10px}footer p{font-size:15px}
+.loading{color:var(--muted);padding:30px 0}.error{color:#71311c;background:#f8e9d9;border:1px solid var(--rust);padding:20px;font-size:16px}.retry{border:1px solid var(--rust);border-radius:7px;background:var(--paper);padding:8px 16px;min-height:44px;cursor:pointer}.skip{position:absolute;left:20px;top:-100px;background:var(--paper);padding:12px;z-index:1001}.skip:focus{top:10px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Compact always-visible actions overlay the plot; no toolbar row or caption overlap. */
+.chart.vega-embed.has-actions{padding:0}.chart.vega-embed summary{opacity:1!important;top:calc(var(--actions-top,0px) + var(--actions-offset,-44px));right:var(--actions-right,8px);z-index:5;width:28px;height:28px;padding:6px;color:var(--ink);background:var(--paper);border-color:var(--line)}.chart.vega-embed .vega-actions{top:calc(var(--actions-top,0px) + 42px);right:var(--actions-right,8px);z-index:6;background:var(--paper);border-color:var(--line)}.chart.vega-embed .vega-actions a{font-family:'Source Sans 3',sans-serif;color:var(--ink)}
+body #vg-tooltip-element{max-width:min(360px,calc(100vw - 24px));font-family:'Source Sans 3',sans-serif;font-size:14px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;pointer-events:none}body #vg-tooltip-element table{width:auto;table-layout:auto;margin:0;font:inherit}body #vg-tooltip-element table tr td.key{color:var(--muted)}
+@media(max-width:1080px){:root{--column-gap:32px}.wrap{width:calc(100% - 48px)}.masthead{align-items:start}nav{max-width:390px;gap:6px 18px}}
+@media(max-width:900px){.national-figure{display:block}.national-figure>figcaption{display:block}.national-figure .figure-body{margin-bottom:16px}.national-figure>.chart{margin:12px 0 16px}.national-figure>.chart-note{border:0;padding:0;margin:0 0 10px}:root{--section-space:48px;--figure-gap:36px;--column-gap:24px}.two-up,.wide-figure{grid-template-columns:minmax(0,1fr)}.wide-figure aside{margin-bottom:36px}.figure .chart{margin-top:12px}h3{font-size:26px}}
+@media(max-width:760px){.wrap{width:calc(100% - 36px)}.masthead{display:block;padding-block:18px}.wordmark{display:block;margin-bottom:12px}nav{max-width:none;font-size:14px;gap:4px 18px}.hero{padding-block:28px 32px}h1{font-size:clamp(52px,12vw,72px)}.subtitle{font-size:25px}.hero .lead{font-size:18px}.chapter-intro p{font-size:19px}.chapter-intro{margin-bottom:28px}#national{padding-top:32px}h3{font-size:25px}.figure-body{font-size:18px}.national-charts>.figure{padding-top:24px}.method-grid,.source-list{grid-template-columns:minmax(0,1fr)}.city-legend{gap:0 16px}.ending{padding-block:40px}.ending .lead{font-size:20px}.methods{padding-block:36px}}
+@media(forced-colors:active){.control select{appearance:auto;-webkit-appearance:auto;background-image:none;padding-right:14px}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}}
-@media print{nav,.control{display:none}.wrap{width:100%}.figure{break-inside:avoid}.chapter{padding-block:25px}body{background:white}.two-up{gap:24px}}
+@media print{nav,.control,.chart.vega-embed details{display:none}.wrap{width:100%}.figure{break-inside:avoid}.chapter{padding-block:24px}body{background:white}.two-up{gap:24px}}
+/* The drawn circle stays small; its surrounding touch target is44px. */
+.chart.vega-embed summary{width:44px;height:44px;padding:14px;background:none;border:0;box-shadow:none}
+.chart.vega-embed summary::before{content:'';position:absolute;inset:7px;border:1px solid var(--line);border-radius:50%;background:var(--paper);box-shadow:0 1px 3px #142f3c18;z-index:0}
+.chart.vega-embed summary>svg{position:relative;z-index:1}
+.chart.vega-embed .vega-actions{top:calc(var(--actions-top,0px) + var(--actions-offset,-44px) + 44px)}
+.chart.vega-embed .vega-actions a{min-height:44px;padding-block:10px}
 
-/* Equivalent figures share rows instead of fixed caption/control offsets. */
-@media(min-width:761px){
-  .two-up:has(>.figure){row-gap:0}
-  .two-up>.figure{display:grid;grid-template-rows:subgrid;grid-row:span 6;align-items:start}
-  .two-up>.figure>figcaption{display:contents}
-  .two-up>.figure>figcaption p{margin-bottom:16px}
-}
-.emphasis-primary,.emphasis-metro{color:var(--blue)}
-.figure-number{color:var(--muted)}
-.figure .figure-heading h3{margin-bottom:12px}
-.emphasis-decline,.emphasis-regional{color:var(--rust)}
-/* The square waffle shares the left sight-line instead of floating in its column. */
-#C04 svg{margin-inline:0}
-
-
-/* Keep the tables inside Vega tooltips compact and readable. */
-body #vg-tooltip-element{max-width:min(360px,calc(100vw - 24px));font-family:'Source Sans 3',sans-serif;font-size:13px;line-height:1.35;white-space:normal;overflow-wrap:anywhere}
-body #vg-tooltip-element table{width:auto;table-layout:auto;margin:0;font:inherit}
-body #vg-tooltip-element table tr td.key{color:var(--muted)}
-
-/* Reuse the two-column measure rather than introducing narrower text edges. */
-.figure figcaption p,.figure .chart-note,.figure .source,.wide-figure aside p,
-.methods .two-up p{max-width:none}
-@media(min-width:761px){
-  .chapter>.figure>figcaption,.chapter>.wrap>.figure>figcaption,
-  .chapter>.figure>.chart-note,.chapter>.wrap>.figure>.chart-note,
-  .chapter>.figure>.source,.chapter>.wrap>.figure>.source,
-  .method-strip p,.ending p,.methods>.source,footer p{
-    width:calc((100% - var(--column-gap))/2);max-width:none
-  }
-  .hero-copy>.lead{max-width:none}
-}
-/* Source bullets hang outside the common text edge, rather than indenting it. */
-.source-list{padding-left:0;list-style-position:outside;max-width:none}
-
-@media(min-width:761px){
-  .two-up>.figure .figure-heading{display:flex;flex-direction:column;height:100%}
-}
-
-/* Compact footer heading; narrative headings remain unchanged. */
-.footer-title{font-size:20px;line-height:1.35;letter-spacing:0;margin:0 0 12px}
-
-/* Keep chart statistics with their chart while retaining shared plot sight-lines. */
-.chart-summary{margin-top:16px;min-width:0}
-.chart-summary .control-status{max-width:none;width:100%;margin:0}
-/* Offset the empty SVG fit inset so statistics sit close to the visible map. */
-.map-pair .figure .chart{margin-top:-12px}
-@media(min-width:761px){.map-pair>.figure,.summary-pair>.figure{grid-row:span 7}}
-@media(max-width:760px){.chart-summary:empty{display:none}}
-
-.summary-pair .figure .chart{margin-top:4px}
-
-/* Source links share the page columns, with publication details on a separate line. */
-.source-list{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px var(--column-gap);margin:24px 0 16px}
-.source-list li{margin:0;min-width:0}
-.source-list a{display:block;width:fit-content}
-.source-detail{display:block;font-size:14px;line-height:1.5;color:var(--muted)}
-@media(max-width:760px){.source-list{grid-template-columns:minmax(0,1fr)}}
-
-/* Short reading lines across prose roles; charts retain their full column width. */
-:is(.hero-copy,.chapter-intro,.figure,.method-strip,.wide-figure,.ending,.methods,footer) p:not(.subtitle){max-width:48ch;text-wrap:pretty}
-.figure .figure-body,.chapter-intro p,.hero-copy .lead,.ending .lead,.chart-summary .control-status{text-wrap:balance}
-
-.chapter>.figure>.chart-note,.chapter>.wrap>.figure>.chart-note{max-width:48ch}
-
-/* Balance the distribution pair without changing heading text or type size. */
-@media(min-width:761px){#figure-C09 h3{max-width:26ch}}
-
-/* The full-width heatmap title uses the same width as its chart. */
-#figure-C08>figcaption{width:100%}
-
-@media(forced-colors:active){.control select{appearance:auto;-webkit-appearance:auto;background-image:none;padding-right:12px}}
-
-/* The opening thesis leads; a compact locator map supports it. */
-.hero-copy{padding-bottom:0}
-.hero-copy h1{margin-bottom:16px}
-.hero-copy .subtitle{max-width:none;font-size:clamp(22px,2.2vw,28px);line-height:1.25;margin:0 0 20px;text-wrap:balance}
-.hero-copy .lead{font-size:18px;line-height:1.6;font-weight:400;color:var(--muted);margin:0}
-.hero .figure{margin:0}
-.hero .figure h3{font-size:20px}
-.hero .figure .chart{margin:12px 0}
-.hero .figure .source{margin-bottom:0}
-
-/* Compact actions overlay the chart corner without adding toolbar space. */
-.chart.vega-embed.has-actions{padding:0}
-.chart.vega-embed summary{opacity:1!important;top:calc(var(--actions-top,0px) - 39px);right:var(--actions-right,8px);z-index:1000;width:28px;height:28px;padding:6px;color:var(--ink);background:var(--paper);border-color:var(--line)}
-.chart.vega-embed summary:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
-.chart.vega-embed .vega-actions{top:calc(var(--actions-top,0px) - 5px);right:var(--actions-right,8px);background:var(--paper);border-color:var(--line)}
-.chart.vega-embed .vega-actions a{font-family:'Source Sans 3',sans-serif;color:var(--ink)}
-/* The hero caption sits close to its map: keep its actions below that text. */
-#C01.vega-embed summary{top:calc(var(--actions-top,0px) + 8px);right:calc(var(--actions-right,8px) - 30px)}
-#C01.vega-embed .vega-actions{top:calc(var(--actions-top,0px) + 42px);right:calc(var(--actions-right,8px) - 30px)}
+#C01.vega-embed summary{top:calc(var(--actions-top,0px) + 8px)}
+#C01.vega-embed .vega-actions{top:calc(var(--actions-top,0px) + 52px)}
+.chart svg.marks:focus-visible{outline:3px solid var(--rust);outline-offset:4px}
+.chart .keyboard-reading{font-size:15px;line-height:1.5;max-width:54ch;margin:12px 0 0;color:var(--ink)}
+#C02 .layer_6_marks{pointer-events:none}

@@ -1,9 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
-  "height": 400,
+  "height": 250,
   "autosize": {
-    "type": "fit",
+    "type": "fit-x",
     "contains": "padding"
   },
   "config": {
@@ -13,20 +13,20 @@
       "stroke": null
     },
     "axis": {
-      "labelFontSize": 12,
-      "titleFontSize": 13,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "labelColor": "#142f3c",
       "titleColor": "#142f3c",
       "gridColor": "#e0e5e2",
       "domain": false,
-      "tickColor": "#c6cfcb",
+      "tickColor": "#ccd5d1",
       "labelPadding": 6,
       "titlePadding": 12
     },
     "legend": {
-      "labelFontSize": 12,
-      "titleFontSize": 12,
+      "labelFontSize": 14,
+      "titleFontSize": 14,
       "titleFontWeight": "normal",
       "orient": "bottom",
       "labelColor": "#142f3c",
@@ -44,6 +44,12 @@
       "fontSize": 13
     }
   },
+  "padding": {
+    "left": 5,
+    "right": 5,
+    "top": 37,
+    "bottom": 5
+  },
   "data": {
     "url": "data/victoria_annual.json"
   },
@@ -51,18 +57,6 @@
     {
       "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
       "as": "display_financial_year"
-    },
-    {
-      "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-      "as": "display_year"
-    },
-    {
-      "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-      "as": "display_label"
-    },
-    {
-      "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-      "as": "display_band"
     },
     {
       "filter": "datum.financial_year !== '2025-26'"
@@ -101,6 +95,9 @@
               50,
               140
             ]
+          },
+          "axis": {
+            "tickCount": 5
           }
         },
         "color": {
@@ -112,12 +109,42 @@
               "Regional"
             ],
             "range": [
-              "#21647a",
-              "#a34e2e"
+              "#526779",
+              "#8c5279"
             ]
           },
           "legend": {
-            "title": null
+            "title": null,
+            "symbolType": "stroke",
+            "columns": 2,
+            "columnPadding": 18
+          },
+          "title": "Service"
+        },
+        "strokeDash": {
+          "field": "service",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Metropolitan",
+              "Regional"
+            ],
+            "range": [
+              [
+                1,
+                0
+              ],
+              [
+                6,
+                3
+              ]
+            ]
+          },
+          "legend": {
+            "title": null,
+            "symbolType": "stroke",
+            "columns": 2,
+            "columnPadding": 18
           },
           "title": "Service"
         },
@@ -153,15 +180,19 @@
           "filter": "datum.financial_year === '2024-25'"
         },
         {
-          "calculate": "format(datum.recovery_index, '.1f')",
+          "calculate": "(datum.service === 'Regional' ? 'V/Line' : 'Metropolitan') + ' ' + format(datum.recovery_index, '.1f')",
           "as": "label"
         }
       ],
       "mark": {
         "type": "text",
-        "dx": 10,
-        "align": "left",
-        "fontWeight": 600
+        "dx": -8,
+        "dy": {
+          "expr": "datum.service === 'Metropolitan' ? 20 : -18"
+        },
+        "align": "right",
+        "fontWeight": 600,
+        "fontSize": 14
       },
       "encoding": {
         "x": {
@@ -203,25 +234,74 @@
           "type": "quantitative",
           "title": "Recovery index (2018–2019 = 100)"
         }
-      },
+      }
+    },
+    {
+      "name": "shared_baseline_hover",
       "transform": [
         {
-          "calculate": "isValid(datum.financial_year) ? replace(datum.financial_year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_financial_year"
+          "filter": "datum.financial_year === '2018-19'"
         },
         {
-          "calculate": "isValid(datum.year) ? replace(datum.year, /[–-](\\d{2})$/, '–20$1') : null",
-          "as": "display_year"
+          "pivot": "service",
+          "value": "journeys_million",
+          "groupby": [
+            "display_financial_year"
+          ]
         },
         {
-          "calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null",
-          "as": "display_label"
+          "calculate": "'Metropolitan and Regional'",
+          "as": "services_label"
         },
         {
-          "calculate": "datum.band === 'Before AM peak' ? 'Before morning peak' : datum.band === 'AM peak' ? 'Morning peak' : datum.band === 'PM peak' ? 'Afternoon peak' : datum.band",
-          "as": "display_band"
+          "calculate": "'100.0 for both services'",
+          "as": "index_label"
         }
-      ]
+      ],
+      "mark": {
+        "type": "point",
+        "opacity": 0,
+        "size": 220
+      },
+      "encoding": {
+        "x": {
+          "field": "display_financial_year",
+          "type": "ordinal",
+          "title": "Financial year"
+        },
+        "y": {
+          "datum": 100
+        },
+        "tooltip": [
+          {
+            "field": "services_label",
+            "type": "nominal",
+            "title": "Services"
+          },
+          {
+            "field": "display_financial_year",
+            "type": "nominal",
+            "title": "Financial year"
+          },
+          {
+            "field": "Metropolitan",
+            "type": "quantitative",
+            "title": "Metropolitan journeys (million)",
+            "format": ".2f"
+          },
+          {
+            "field": "Regional",
+            "type": "quantitative",
+            "title": "Regional journeys (million)",
+            "format": ".2f"
+          },
+          {
+            "field": "index_label",
+            "type": "nominal",
+            "title": "Recovery index (2018–2019 = 100)"
+          }
+        ]
+      }
     }
   ],
   "description": "Department of Transport and Planning monthly totals from two complete financial years. Endpoints only; intervening changes are not shown. Method for estimating train transaction rates changed in January 2021."
