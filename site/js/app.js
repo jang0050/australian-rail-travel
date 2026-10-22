@@ -24,11 +24,11 @@ const views = new Map();
 const finalizers = new Map();
 function positionChartActions(element, id) {
   // SVG padding and legends are outside the visible plotting area.
-  const selector = ["C01", "C07", "C08"].includes(id)
+  const selector = ["C01", "C06", "C07"].includes(id)
     ? "svg .mark-shape.role-mark"
     : "svg .role-frame > g > path.background";
   const plots =
-    id === "C05"
+    id === "C04"
       ? [...element.querySelectorAll("svg .mark-rect.role-mark")]
       : [element.querySelector(selector)].filter(Boolean);
   if (!plots.length) return;
@@ -41,7 +41,7 @@ function positionChartActions(element, id) {
   element.style.setProperty("--actions-top", `${bounds.top - container.top}px`);
   element.style.setProperty(
     "--actions-right",
-    `${id === "C05" && container.width < 430 ? 0 : container.right - bounds.right + 8}px`,
+    `${id === "C04" && container.width < 430 ? 0 : container.right - bounds.right + 8}px`,
   );
   element.style.removeProperty("--actions-offset");
   if (id !== "C01") {
@@ -76,7 +76,7 @@ function enableKeyboardInspection(element) {
   svg.addEventListener("keydown", (event) => {
     if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     const seen = new Set();
-    // Native Vega marks may omit per-item ARIA roles; inspect their real tooltip data too.
+    // Inspect the mark’s actual tooltip data for keyboard access.
     const marks = [...svg.querySelectorAll('[role="graphics-symbol"], .role-mark path')].filter((mark) => {
       const value = mark.__data__?.tooltip;
       if (!value || typeof value !== "object") return false;
@@ -117,7 +117,6 @@ function enableKeyboardInspection(element) {
     output.textContent = reading;
   });
   svg.addEventListener("blur", () => {
-    if (element.id === "C04") views.get("C04")?.signal("inspectService", null).runAsync();
     document.getElementById("vg-tooltip-element")?.classList.remove("visible");
     element.querySelector(".keyboard-reading")?.remove();
   });
@@ -168,14 +167,14 @@ async function render(entry) {
     const width = Math.floor(element.getBoundingClientRect().width);
     spec.width = width;
     // Both years remain visible; each facet retains a square 10-by-10 grid.
-    if (id === "C05") {
+    if (id === "C04") {
       delete spec.width;
       delete spec.height;
       spec.spec.width = Math.floor((width - 32) / 2);
       spec.spec.height = spec.spec.width;
       if (width < 340) spec.facet.column.header.labelFontSize = 12;
     }
-    if (id === "C06") {
+    if (id === "C05") {
       const paired =
         getComputedStyle(element.closest(".summary-pair")).gridTemplateColumns.split(" ").length === 2;
       const waffleSide = Math.floor((width - 32) / 2);
@@ -187,11 +186,6 @@ async function render(entry) {
           if (layer.encoding?.y?.field) {
             layer.encoding.y.title = ["Recovery index", "(2018–2019 = 100)"];
           }
-    }
-    if (id === "C04") {
-      spec.width = width - 4;
-      spec.height =
-        spec.width >= 760 ? 408 : (spec.width < 430 ? 270 : 340) + (spec.width >= 600 ? 148 : 320);
     }
     if (id === "C01") {
       spec.height = width < 430 ? 320 : width < 600 ? 460 : 600;
@@ -214,12 +208,12 @@ async function render(entry) {
     }
     // Equal plotting dimensions keep geographic scale and sight lines identical.
     // Legends add their own space below; they do not shrink either map.
-    if (["C07", "C08"].includes(id)) {
+    if (["C06", "C07"].includes(id)) {
       spec.autosize = { type: "pad" };
       // Both maps retain the same fit; a bounded height avoids giant stacked squares.
       spec.width = width - 12;
       spec.height = Math.min(spec.width, 600);
-      if (id === "C07" && width < 460) spec.layer[1].encoding.color.legend.columns = 1;
+      if (id === "C06" && width < 460) spec.layer[1].encoding.color.legend.columns = 1;
     }
     if (id === "C03" && width < 500) {
       for (const layer of spec.layer)
@@ -229,7 +223,7 @@ async function render(entry) {
           layer.encoding.x.axis = { title: ["Estimated heavy-rail journeys", "(million)"], tickCount: 4 };
         }
     }
-    if (id === "C09" && width < 340)
+    if (id === "C08" && width < 340)
       for (const layer of spec.layer.filter((l) => l.encoding?.x?.field)) {
         // Shared axes must agree on their title, including layered text marks.
         layer.encoding.x.title = ["Change in annual station entries", "(million)"];
@@ -242,7 +236,7 @@ async function render(entry) {
           layer.mark.dx = -6;
         }
       }
-    if (id === "C10") {
+    if (id === "C09") {
       spec.height = width < 500 ? 510 : 450;
       for (const layer of spec.layer ?? [spec]) {
         layer.encoding.x.axis.labelAngle = width < 500 ? -45 : 0;
@@ -256,7 +250,7 @@ async function render(entry) {
       spec.config.legend.labelFontSize = 13;
       spec.config.legend.titleFontSize = 13;
     }
-    if (id === "C08") spec.layer.find((l) => l.name === "grid").data.url = `data/bins_${state.grid}.geojson`;
+    if (id === "C07") spec.layer.find((l) => l.name === "grid").data.url = `data/bins_${state.grid}.geojson`;
     for (const p of spec.params ?? []) if (p.name in state) p.value = state[p.name];
     finalizers.get(id)?.();
     element.replaceChildren();
@@ -302,7 +296,7 @@ for (const button of document.querySelectorAll("[data-city]"))
       : "100 marks each city’s 2018–2019 level. Select a city for its latest result.";
   });
 document.getElementById("baseline-min").addEventListener("change", async (e) => {
-  await signal("C11", "baselineMin", Number(e.target.value));
+  await signal("C10", "baselineMin", Number(e.target.value));
   const s = (await readJSON("data/summary.json")).histogram_threshold_sensitivity[e.target.value];
   for (const id of ["hist-summary", "hist-method-summary"])
     document.getElementById(id).textContent =
@@ -313,7 +307,7 @@ document.getElementById("grid-size").addEventListener("change", async (e) => {
   const s = (await readJSON("data/summary.json")).grid_sensitivity.find((r) => r.grid === state.grid);
   document.getElementById("grid-summary").textContent =
     `${s.occupied_cells} occupied cells · 222 stations · 178.48 million entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
-  await render(registry.find((r) => r.id === "C08"));
+  await render(registry.find((r) => r.id === "C07"));
 });
 try {
   await document.fonts.ready;
@@ -360,7 +354,6 @@ attachTooltipBounds();
 let touchTooltipTarget;
 const clearTouchTooltip = () => {
   if (touchTooltipTarget) {
-    views.get("C04")?.signal("inspectService", null).runAsync();
     tooltipElement?.classList.remove("visible");
     touchTooltipTarget = undefined;
   }
@@ -404,10 +397,9 @@ window.addEventListener(
 // Read-only handles support repeatable browser assertions of actual Vega signals and data.
 window.__railViews = views;
 
-// Native details menus also dismiss predictably from the keyboard.
+// Chart details menus also dismiss predictably from the keyboard.
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  views.get("C04")?.signal("inspectService", null).runAsync();
   document.getElementById("vg-tooltip-element")?.classList.remove("visible");
   document.querySelectorAll(".keyboard-reading").forEach((e) => e.remove());
   const openMenus = [...document.querySelectorAll(".chart details[open]")];
