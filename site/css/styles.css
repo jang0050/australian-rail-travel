@@ -309,13 +309,13 @@ strong {
   grid-column: 1;
   grid-row: 4;
 }
-/* One visible aggregation band serves the entry map, without a blank control row. */
+/* The grid control sits with the entry map it changes. */
 .map-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 24px;
-  margin: 0 0 24px;
+  margin: 0;
 }
 .map-controls .control {
   flex: 0 1 auto;
@@ -338,7 +338,7 @@ strong {
     display: contents;
   }
   .map-pair > .figure {
-    grid-row: span 5;
+    grid-row: span 6;
   }
   .two-up > .figure > .figure-controls:empty,
   .two-up > .figure > .chart-summary:empty {

@@ -8,11 +8,11 @@
     <meta name="author" content="Jennifer Ang Ching Wei">
     <link rel="icon" href="data:,">
     <link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=6dda89457d7a">
-    <script src="vendor/vega.min.js?v=6dda89457d7a" defer></script>
-    <script src="vendor/vega-lite.min.js?v=6dda89457d7a" defer></script>
-    <script src="vendor/vega-embed.min.js?v=6dda89457d7a" defer></script>
-    <script type="module" src="js/app.js?v=6dda89457d7a"></script>
+    <link rel="stylesheet" href="css/styles.css?v=a47b30060274">
+    <script src="vendor/vega.min.js?v=a47b30060274" defer></script>
+    <script src="vendor/vega-lite.min.js?v=a47b30060274" defer></script>
+    <script src="vendor/vega-embed.min.js?v=a47b30060274" defer></script>
+    <script type="module" src="js/app.js?v=a47b30060274"></script>
   </head>
   <body><a class="skip" href="#main">Skip to the story</a>
     <header class="masthead wrap"><a class="wordmark" href="#top">Australian rail / 2024–2025</a>
@@ -140,10 +140,6 @@
           <h2>Where recovery lands</h2>
           <p><strong>Melbourne / Victoria case study.</strong> Across the same 220 metropolitan stations, annual entries are 77.1% of their 2018–2019 level. Compare relative recovery with the concentration of today’s entries.</p>
         </div>
-        <div class="map-controls" role="group" aria-label="Entry-map aggregation controls">
-          <div class="control"><label for="grid-size">Square cell width</label><select aria-controls="C07" aria-describedby="grid-summary" id="grid-size"><option value="5" selected>5 kilometres</option><option value="2.5">2.5 kilometres</option><option value="10">10 kilometres</option><option value="5-offset">5 kilometres · shifted origin</option></select></div>
-          <p class="control-status" id="grid-summary" aria-live="polite">78 occupied cells · 222 stations · 178.48 million entries · largest cell: 35.6%</p>
-        </div>
         <div class="two-up map-pair">
           <figure class="figure " id="figure-C06" data-figure-number="6">
             <figcaption>
@@ -152,6 +148,7 @@
               </div>
               <p class="figure-body">Across 30 local-government areas with matched stations, recovery ranges from <strong>59.8 to 114.9</strong> on a 2018–2019 = 100 scale.</p>
             </figcaption>
+            <div class="figure-controls"></div>
             <div class="chart" id="C06" role="group" aria-label="Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations." aria-describedby="note-C06">
               <p class="loading">Loading chart…</p>
             </div>
@@ -165,6 +162,12 @@
               </div>
               <p class="figure-body">A few cells contain a large share of current entries. Try a different grid to see how the aggregation changes the apparent concentration.</p>
             </figcaption>
+            <div class="figure-controls">
+              <div class="map-controls" role="group" aria-label="Entry-map aggregation controls">
+                <div class="control"><label for="grid-size">Square cell width</label><select aria-controls="C07" aria-describedby="grid-summary" id="grid-size"><option value="5" selected>5 kilometres</option><option value="2.5">2.5 kilometres</option><option value="10">10 kilometres</option><option value="5-offset">5 kilometres · shifted origin</option></select></div>
+                <p class="control-status" id="grid-summary" aria-live="polite">78 occupied cells · 222 stations · 178.48 million entries · largest cell: 35.6%</p>
+              </div>
+            </div>
             <div class="chart" id="C07" role="group" aria-label="Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size." aria-describedby="note-C07">
               <p class="loading">Loading chart…</p>
             </div>
