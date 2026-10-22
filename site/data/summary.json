@@ -15,8 +15,7 @@
   "grid_sensitivity": [
     {"grid": "5", "occupied_cells": 78, "entries": 178480700.0, "largest_cell_share": 35.582782900336, "top_five_share": 49.55479780166707},
     {"grid": "2.5", "occupied_cells": 130, "entries": 178480700.0, "largest_cell_share": 20.373519377725433, "top_five_share": 40.260151377711985},
-    {"grid": "10", "occupied_cells": 35, "entries": 178480700.0, "largest_cell_share": 42.97288166171468, "top_five_share": 67.98082369690393},
-    {"grid": "5-offset", "occupied_cells": 72, "entries": 178480700.0, "largest_cell_share": 22.9571040454234, "top_five_share": 49.715347373693625}
+    {"grid": "10", "occupied_cells": 35, "entries": 178480700.0, "largest_cell_share": 42.97288166171468, "top_five_share": 67.98082369690393}
   ],
   "monthly_first": [2018, 1],
   "monthly_last": [2026, 6],

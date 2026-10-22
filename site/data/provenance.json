@@ -1,5 +1,5 @@
 {
-  "built": "2026-09-16",
+  "built": "2026-10-22",
   "script": "scripts/build_data.py",
   "inputs": [
     {"path": "data/raw/dtp_monthly.csv", "sha256": "03843a4706ad06cdd19a24da66b38be663d580da2709a71c89961b3241df9242", "source_url": "https://opendata.transport.vic.gov.au/dataset/1ab35aa9-f21d-4f00-939b-60dade427d45/resource/07141b34-08f7-430e-bf83-99e9462cc59f/download/monthly_public_transport_patronage_by_mode.csv"},
@@ -32,7 +32,7 @@
     {"path": "data/verified_extracts/trainline13_urban_2024_25.csv", "sha256": "adf2a2e0ff609f61d4c19206379fe705b2cdbad09566713f3dcbb97424bd3166", "source_url": "https://www.bitre.gov.au/sites/default/files/documents/Trainline%2013.pdf"}
   ],
   "outputs": [
-    {"file": "summary.json", "bytes": 2760, "sha256": "9930abec39c5e7b2e24afaa715ef36980e60d4933ab01aacc34e20ba3ccd850c", "records": 17},
+    {"file": "summary.json", "bytes": 2610, "sha256": "d7233c8b9d8c931412f046049f0189dc1b1e8a163ff6b617accbfd514f2e1706", "records": 17},
     {"file": "national_history.json", "bytes": 17053, "sha256": "e15d9a8abad2c9894b05a7eead2ca22959755115bb3f748f90006e7e2e954bc5", "records": 35},
     {"file": "victoria_annual.json", "bytes": 875, "sha256": "cdd22eb8913a41d48068a6a168078078cb6314abd94925e5fd77996d9da78e4f", "records": 6},
     {"file": "nonurban.json", "bytes": 913, "sha256": "3623098b814f834b1d39e11f1017c3690240119d91c13d218e40eab14c07f54f", "records": 10},
@@ -45,7 +45,6 @@
     {"file": "profiles.json", "bytes": 17905, "sha256": "b416aa42f9bb7c42847da819ca29a1bfd8836a5a2627abadc4226c1b79151447", "records": 60},
     {"file": "stations.json", "bytes": 88903, "sha256": "7d5ab5d688dca36183db79a46442cb263b0ee604d6a3e60c9ae65e45d35261dd", "records": 220},
     {"file": "bins_5.geojson", "bytes": 33960, "sha256": "545669072ffc850b5315a837158efe257e22dcf58e2bacca777f002ec16281cc", "records": 78},
-    {"file": "bins_5-offset.geojson", "bytes": 31327, "sha256": "73638e6c037175b7bfc691ae595af07d5a0b097024b5fcd6ff25f14aeb9f00dc", "records": 72},
     {"file": "lga_recovery.geojson", "bytes": 133587, "sha256": "8f603be4ae6b716f63c1e1b2a2a6907d7ab09cb5c650d2102af739b3b2db55f0", "records": 41},
     {"file": "waterfall.json", "bytes": 866, "sha256": "4e889372383d27d901683144b6888d5ac51b022eef7667290f1d850c240f5126", "records": 7},
     {"file": "national_current.json", "bytes": 2401, "sha256": "ee73bb90c35fc488e76d09d28511a4301433cd86ebab15ed73770523c9cb4d64", "records": 5},
