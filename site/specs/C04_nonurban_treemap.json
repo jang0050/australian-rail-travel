@@ -1,0 +1,369 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "width": 900,
+  "height": 408,
+  "padding": {"left": 2, "right": 2, "top": 2, "bottom": 2},
+  "autosize": {"type": "pad"},
+  "background": "transparent",
+  "signals": [
+    {"name": "desktop", "update": "width >= 760"},
+    {"name": "plotTop", "value": 28},
+    {"name": "plotWidth", "update": "desktop ? width - 340 : width"},
+    {"name": "plotHeight", "update": "desktop ? 380 : width < 430 ? 270 : 340"},
+    {
+      "name": "inspectService",
+      "value": null,
+      "on": [
+        {"events": "@service_cells:pointerover, @service_cells:pointermove, @callout_hit:pointerover, @callout_hit:pointermove", "update": "datum.id"},
+        {"events": "@service_cells:pointerout, @callout_hit:pointerout", "update": "null"}
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "tree",
+      "url": "data/nonurban.json",
+      "transform": [
+        {"type": "stratify", "key": "id", "parentKey": "parent"},
+        {
+          "type": "treemap",
+          "field": "value",
+          "sort": {"field": "value", "order": "descending"},
+          "method": "squarify",
+          "size": [{"signal": "plotWidth"}, {"signal": "plotHeight"}],
+          "paddingInner": 0,
+          "paddingOuter": 0,
+          "paddingTop": 0,
+          "round": false
+        }
+      ]
+    },
+    {
+      "name": "leaves",
+      "source": "tree",
+      "transform": [
+        {"type": "filter", "expr": "!datum.children && datum.value > 0"},
+        {"type": "joinaggregate", "ops": ["sum"], "fields": ["value"], "as": ["total"]},
+        {"type": "formula", "expr": "100 * datum.value / datum.total", "as": "share"},
+        {"type": "formula", "expr": "datum.id === 'NSW TrainLink Regional' ? 'New South Wales TrainLink regional' : datum.name", "as": "service_label"},
+        {"type": "formula", "expr": "(datum.y0 + datum.y1) / 2", "as": "centreY"}
+      ]
+    },
+    {
+      "name": "states",
+      "source": "tree",
+      "transform": [{"type": "filter", "expr": "datum.depth === 1"}]
+    },
+    {
+      "name": "major",
+      "source": "leaves",
+      "transform": [{"type": "filter", "expr": "datum.value >= 10"}]
+    },
+    {
+      "name": "small",
+      "source": "leaves",
+      "transform": [
+        {"type": "filter", "expr": "datum.value < 10"},
+        {
+          "type": "window",
+          "sort": {"field": ["centreY", "id"], "order": ["ascending", "ascending"]},
+          "ops": ["row_number"],
+          "as": ["labelOrder"]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "states",
+      "type": "ordinal",
+      "domain": ["New South Wales", "Victoria", "Queensland", "Western Australia"],
+      "range": ["#596d9b", "#5e8384", "#e3b29a", "#82749b"]
+    }
+  ],
+  "marks": [
+    {
+      "name": "units",
+      "type": "text",
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"value": 0},
+          "y": {"value": 0},
+          "baseline": {"value": "top"},
+          "text": {"value": "Journeys (million)"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 14},
+          "fill": {"value": "#586177"}
+        }
+      }
+    },
+    {
+      "name": "service_cells",
+      "type": "rect",
+      "from": {"data": "leaves"},
+      "interactive": true,
+      "encode": {
+        "update": {
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"signal": "datum.y0 + plotTop"},
+          "y2": {"signal": "datum.y1 + plotTop"},
+          "fill": {"signal": "scale('states', datum.parent)"},
+          "stroke": {"value": "#f6f7fb"},
+          "strokeWidth": {"value": 1},
+          "tooltip": {
+            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share of reported total (%)':format(datum.share,'.2f')}"
+          },
+          "cursor": {"value": "pointer"}
+        }
+      }
+    },
+    {
+      "name": "state_boundaries",
+      "type": "rect",
+      "from": {"data": "states"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"signal": "datum.y0 + plotTop"},
+          "y2": {"signal": "datum.y1 + plotTop"},
+          "fillOpacity": {"value": 0},
+          "stroke": {"value": "#f6f7fb"},
+          "strokeWidth": {"value": 2}
+        }
+      }
+    },
+    {
+      "name": "major_states",
+      "type": "text",
+      "from": {"data": "major"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.x0 + 12"},
+          "y": {"signal": "datum.y0 + plotTop + 14"},
+          "text": {"signal": "datum.parent"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 12},
+          "fontWeight": {"value": 400},
+          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
+      "name": "major_names",
+      "type": "text",
+      "from": {"data": "major"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.x0 + 12"},
+          "y": {"signal": "datum.y0 + plotTop + 40"},
+          "text": {
+            "signal": "datum.parent === 'New South Wales' ? ['Sydney Trains','intercity'] : ['V/Line']"
+          },
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"signal": "desktop ? 20 : 16"},
+          "fontWeight": {"value": 600},
+          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "baseline": {"value": "top"},
+          "lineHeight": {"value": 23}
+        }
+      }
+    },
+    {
+      "name": "major_values",
+      "type": "text",
+      "from": {"data": "major"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.x0 + 12"},
+          "y": {"signal": "datum.y0 + plotTop + (desktop ? 104 : datum.parent === 'Victoria' ? 62 : 86)"},
+          "text": {"signal": "format(datum.value,'.1f')"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"signal": "desktop ? 30 : 25"},
+          "fontWeight": {"value": 600},
+          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
+      "name": "major_shares",
+      "type": "text",
+      "from": {"data": "major"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"signal": "datum.x0 + 12"},
+          "y": {
+            "signal": "datum.y0 + plotTop + (desktop ? 146 : datum.parent === 'Victoria' ? 98 : 122)"
+          },
+          "text": {"signal": "format(datum.share,'.2f') + '%'"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 15},
+          "fontWeight": {"value": 400},
+          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
+      "name": "callout_hit",
+      "type": "rect",
+      "from": {"data": "small"},
+      "interactive": true,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "desktop ? plotWidth + 24 : width >= 600 ? (datum.labelOrder - 1) * width / 3 : 0"
+          },
+          "y": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) - 8"
+          },
+          "width": {"signal": "desktop ? width - plotWidth - 24 : width >= 600 ? width / 3 - 8 : width"},
+          "height": {"value": 84},
+          "fill": {"value": "#f6f7fb"},
+          "fillOpacity": {"value": 0},
+          "tooltip": {
+            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share of reported total (%)':format(datum.share,'.2f')}"
+          },
+          "cursor": {"value": "pointer"}
+        }
+      }
+    },
+    {
+      "name": "callout_swatch",
+      "type": "rect",
+      "from": {"data": "small"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 18"
+          },
+          "y": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 4"
+          },
+          "width": {"value": 8},
+          "height": {"value": 8},
+          "fill": {"signal": "scale('states', datum.parent)"}
+        }
+      }
+    },
+    {
+      "name": "small_names",
+      "type": "text",
+      "from": {"data": "small"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+          },
+          "y": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96))"
+          },
+          "text": {
+            "signal": "datum.parent === 'New South Wales' ? ['New South Wales','TrainLink regional'] : [datum.service_label]"
+          },
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 16},
+          "fontWeight": {"value": 600},
+          "fill": {"value": "#282e46"},
+          "baseline": {"value": "top"},
+          "lineHeight": {"value": 19}
+        }
+      }
+    },
+    {
+      "name": "small_state",
+      "type": "text",
+      "from": {"data": "small"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+          },
+          "y": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 22"
+          },
+          "text": {"signal": "datum.parent === 'Western Australia' ? 'Western Australia' : ''"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": 400},
+          "fill": {"value": "#586177"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
+      "name": "small_values",
+      "type": "text",
+      "from": {"data": "small"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+          },
+          "y": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 46"
+          },
+          "text": {"signal": "format(datum.value,'.2f') + ' · ' + format(datum.share,'.2f') + '%'"},
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 15},
+          "fontWeight": {"value": 400},
+          "fill": {"value": "#282e46"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
+      "name": "inspection_outline",
+      "type": "rect",
+      "from": {"data": "leaves"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"field": "x0"},
+          "x2": {"field": "x1"},
+          "y": {"signal": "datum.y0 + plotTop"},
+          "y2": {"signal": "datum.y1 + plotTop"},
+          "fillOpacity": {"value": 0},
+          "stroke": {"value": "#111827"},
+          "strokeWidth": {"value": 2},
+          "opacity": {"signal": "inspectService === datum.id ? 1 : 0"}
+        }
+      }
+    },
+    {
+      "name": "inspection_link",
+      "type": "rule",
+      "from": {"data": "small"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"field": "x1"},
+          "y": {"signal": "datum.centreY + plotTop"},
+          "x2": {
+            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 8"
+          },
+          "y2": {
+            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 30"
+          },
+          "stroke": {"value": "#282e46"},
+          "strokeWidth": {"value": 1},
+          "opacity": {"signal": "desktop && inspectService === datum.id ? 1 : 0"}
+        }
+      }
+    }
+  ],
+  "description": "Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total."
+}

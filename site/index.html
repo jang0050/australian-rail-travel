@@ -8,11 +8,11 @@
     <meta name="author" content="Jennifer Ang Ching Wei">
     <link rel="icon" href="data:,">
     <link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=4f5b5cc08835">
-    <script src="vendor/vega.min.js?v=4f5b5cc08835" defer></script>
-    <script src="vendor/vega-lite.min.js?v=4f5b5cc08835" defer></script>
-    <script src="vendor/vega-embed.min.js?v=4f5b5cc08835" defer></script>
-    <script type="module" src="js/app.js?v=4f5b5cc08835"></script>
+    <link rel="stylesheet" href="css/styles.css?v=d0c93d305230">
+    <script src="vendor/vega.min.js?v=d0c93d305230" defer></script>
+    <script src="vendor/vega-lite.min.js?v=d0c93d305230" defer></script>
+    <script src="vendor/vega-embed.min.js?v=d0c93d305230" defer></script>
+    <script type="module" src="js/app.js?v=d0c93d305230"></script>
   </head>
   <body><a class="skip" href="#main">Skip to the story</a>
     <header class="masthead wrap"><a class="wordmark" href="#top">Australian rail / 2024–2025</a>
@@ -94,13 +94,28 @@
         <div class="wrap">
           <div class="chapter-intro">
             <h2>Different rail journeys</h2>
-            <p>Victoria’s metropolitan and V/Line trains have followed different paths. Compare their shares and recovery.</p>
+            <p>Australia’s trains serve city trips, regional commuters and longer-distance travel. Separating those tasks changes the recovery story.</p>
           </div>
+          <figure class="figure " id="figure-C04" data-figure-number="4">
+            <figcaption>
+              <div class="figure-heading">
+                <h3><span class="figure-number">4.</span> “Non-urban” does not mean a holiday train</h3>
+              </div>
+              <p class="figure-body">Sydney intercity and V/Line together account for <strong>96.3%</strong> of the journeys in the reported non-urban table. These service categories describe networks, not passengers’ reasons for travelling.</p>
+            </figcaption>
+            <div class="figure-controls"></div>
+            <div class="chart-summary"></div>
+            <div class="chart" id="C04" role="group" aria-label="Reported non-urban journeys by state and service, 2024–2025. Rectangle area is proportional to journeys. All five services have visible names and exact values; small-service labels provide larger tooltip targets. The two largest services account for 96.3% of the reported total." aria-describedby="note-C04">
+              <p class="loading">Loading chart…</p>
+            </div>
+            <p class="chart-note" id="note-C04">Area shows journeys within states. Smaller services are labelled outside; hover, tap or use arrow keys to locate them.</p>
+            <p class="source">Source: <a href="#source-trainline">Trainline 13</a>.</p>
+          </figure>
           <div class="two-up summary-pair">
-            <figure class="figure " id="figure-C04" data-figure-number="4">
+            <figure class="figure " id="figure-C05" data-figure-number="5">
               <figcaption>
                 <div class="figure-heading">
-                  <h3><span class="figure-number">4.</span> Regional rail takes a larger share</h3>
+                  <h3><span class="figure-number">5.</span> Regional rail takes a larger share</h3>
                 </div>
                 <p class="figure-body">V/Line remains the smaller part of Victoria’s train market, but its share grew as metropolitan journeys stayed below their earlier level.</p>
               </figcaption>
@@ -108,25 +123,25 @@
               <div class="chart-summary">
                 <p class="control-status" id="share-summary">Regional share: <strong>8.0% → 11.8%</strong> (+3.8 percentage points).</p>
               </div>
-              <div class="chart" id="C04" role="group" aria-label="Two simultaneous 100-square grids compare metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact regional shares are labelled. Both panels form one waffle comparison." aria-describedby="note-C04">
+              <div class="chart" id="C05" role="group" aria-label="Two simultaneous 100-square grids compare metropolitan and V/Line train journeys. Each square is approximately one percentage point; exact regional shares are labelled. Both panels form one waffle comparison." aria-describedby="note-C05">
                 <p class="loading">Loading chart…</p>
               </div>
-              <p class="chart-note" id="note-C04">Each square represents about 1% of train journeys. Exact percentages are labelled; squares are rounded.</p>
+              <p class="chart-note" id="note-C05">Each square represents about 1% of train journeys. Exact percentages are labelled; squares are rounded.</p>
               <p class="source">Source: <a href="#source-monthly">Victorian train patronage</a>.</p>
             </figure>
-            <figure class="figure " id="figure-C05" data-figure-number="5">
+            <figure class="figure " id="figure-C06" data-figure-number="6">
               <figcaption>
                 <div class="figure-heading">
-                  <h3><span class="figure-number">5.</span> The two services move apart</h3>
+                  <h3><span class="figure-number">6.</span> The two services move apart</h3>
                 </div>
                 <p class="figure-body">From 2018–2019 to 2024–2025, metropolitan train journeys fell <strong class="emphasis-decline">22.9%</strong>. V/Line train journeys rose <strong class="emphasis-primary">19.1%</strong>.</p>
               </figcaption>
               <div class="figure-controls"></div>
               <div class="chart-summary"></div>
-              <div class="chart" id="C05" role="group" aria-label="Department of Transport and Planning monthly totals from two complete financial years. Endpoints only; intervening changes are not shown. Method for estimating train transaction rates changed in January 2021." aria-describedby="note-C05">
+              <div class="chart" id="C06" role="group" aria-label="Department of Transport and Planning monthly totals from two complete financial years. Endpoints only; intervening changes are not shown. Method for estimating train transaction rates changed in January 2021." aria-describedby="note-C06">
                 <p class="loading">Loading chart…</p>
               </div>
-              <p class="chart-note" id="note-C05">Both services start at 100 in 2018–2019. Two endpoints show net change, not intervening journeys.</p>
+              <p class="chart-note" id="note-C06">Both services start at 100 in 2018–2019. Two endpoints show net change, not intervening journeys.</p>
               <p class="source">Source: <a href="#source-monthly">Victorian train patronage</a>.</p>
             </figure>
           </div>
@@ -141,54 +156,54 @@
           <p><strong>Melbourne / Victoria case study.</strong> Across the same 220 metropolitan stations, annual entries are 77.1% of their 2018–2019 level. Compare relative recovery with the concentration of today’s entries.</p>
         </div>
         <div class="two-up map-pair">
-          <figure class="figure " id="figure-C06" data-figure-number="6">
+          <figure class="figure " id="figure-C07" data-figure-number="7">
             <figcaption>
               <div class="figure-heading">
-                <h3><span class="figure-number">6.</span> Recovery varies between station locations</h3>
+                <h3><span class="figure-number">7.</span> Recovery varies between station locations</h3>
               </div>
               <p class="figure-body">Across 30 local-government areas with matched stations, recovery ranges from <strong>59.8 to 114.9</strong> on a 2018–2019 = 100 scale.</p>
             </figcaption>
             <div class="figure-controls"></div>
-            <div class="chart" id="C06" role="group" aria-label="Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations." aria-describedby="note-C06">
+            <div class="chart" id="C07" role="group" aria-label="Ratio of sums for stations matched by stable identifier and unchanged local government area, using original 2025 Australian Bureau of Statistics polygons. Colour measures recovery, not residents’ travel. Grey means no eligible matched stations." aria-describedby="note-C07">
               <p class="loading">Loading chart…</p>
             </div>
-            <p class="chart-note" id="note-C06">100 means full recovery. Colours compare matched stations located in each area, not residents’ travel.</p>
+            <p class="chart-note" id="note-C07">100 means full recovery. Colours compare matched stations located in each area, not residents’ travel.</p>
             <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
           </figure>
-          <figure class="figure " id="figure-C07" data-figure-number="7">
+          <figure class="figure " id="figure-C08" data-figure-number="8">
             <figcaption>
               <div class="figure-heading">
-                <h3><span class="figure-number">7.</span> Entries still cluster in central Melbourne</h3>
+                <h3><span class="figure-number">8.</span> Entries still cluster in central Melbourne</h3>
               </div>
               <p class="figure-body">A few cells contain a large share of current entries. Try a different grid to see how the aggregation changes the apparent concentration.</p>
             </figcaption>
             <div class="figure-controls">
               <div class="map-controls" role="group" aria-label="Entry-map aggregation controls">
-                <div class="control"><label for="grid-size">Square cell width</label><select aria-controls="C07" aria-describedby="grid-summary" id="grid-size"><option value="5" selected>5 kilometres</option><option value="2.5">2.5 kilometres</option><option value="10">10 kilometres</option></select></div>
+                <div class="control"><label for="grid-size">Square cell width</label><select aria-controls="C08" aria-describedby="grid-summary" id="grid-size"><option value="5" selected>5 kilometres</option><option value="2.5">2.5 kilometres</option><option value="10">10 kilometres</option></select></div>
                 <p class="control-status" id="grid-summary" aria-live="polite">78 occupied cells · 222 stations · 178.48 million entries · largest cell: 35.6%</p>
               </div>
             </div>
-            <div class="chart" id="C07" role="group" aria-label="Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size." aria-describedby="note-C07">
+            <div class="chart" id="C08" role="group" aria-label="Full equal-area squares in Australian equal-area coordinate system (reference number 3577), including all 222 current stations. Sum of cell entries equals the release total. Colour domain stays fixed across grid sizes; aggregation changes with cell size." aria-describedby="note-C08">
               <p class="loading">Loading chart…</p>
             </div>
-            <p class="chart-note" id="note-C07">Darker cells contain more entries. Every grid retains all 222 stations and the same total.</p>
+            <p class="chart-note" id="note-C08">Darker cells contain more entries. Every grid retains all 222 stations and the same total.</p>
             <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
           </figure>
         </div>
         <div class="wide-figure">
-          <figure class="figure " id="figure-C08" data-figure-number="8">
+          <figure class="figure " id="figure-C09" data-figure-number="9">
             <figcaption>
               <div class="figure-heading">
-                <h3><span class="figure-number">8.</span> Large stations dominate absolute losses</h3>
+                <h3><span class="figure-number">9.</span> Large stations dominate absolute losses</h3>
               </div>
               <p class="figure-body">These are the five largest gains and five largest losses among matched stations. An area can recover strongly in percentage terms and still contribute relatively few entries.</p>
             </figcaption>
             <div class="figure-controls"></div>
             <div class="chart-summary"></div>
-            <div class="chart" id="C08" role="group" aria-label="Five largest positive and five largest negative absolute changes among 220 matched station identifiers. Other 210 stations omitted from this selected-extremes view." aria-describedby="note-C08">
+            <div class="chart" id="C09" role="group" aria-label="Five largest positive and five largest negative absolute changes among 220 matched station identifiers. Other 210 stations omitted from this selected-extremes view." aria-describedby="note-C09">
               <p class="loading">Loading chart…</p>
             </div>
-            <p class="chart-note" id="note-C08">Signed changes compare the same stations in both years. The other 210 matched stations are not shown.</p>
+            <p class="chart-note" id="note-C09">Signed changes compare the same stations in both years. The other 210 matched stations are not shown.</p>
             <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
           </figure>
           <aside class="method-strip">
@@ -204,26 +219,26 @@
             <h2>The daily pattern has shifted</h2>
             <p>Recovery also depends on when people travel. Start with weekday time bands, then compare station recovery and the changing balance of weekend travel.</p>
           </div>
-          <figure class="figure " id="figure-C09" data-figure-number="9">
+          <figure class="figure " id="figure-C10" data-figure-number="10">
             <figcaption>
               <div class="figure-heading">
-                <h3><span class="figure-number">9.</span> A city station’s day differs from a suburban one</h3>
+                <h3><span class="figure-number">10.</span> A city station’s day differs from a suburban one</h3>
               </div>
               <p class="figure-body">Morning travel plays a larger role at Footscray than at Flinders Street: 26.6% versus 5.8% of their five-band entries. Compare their cells in the morning-peak column.</p>
             </figcaption>
             <div class="figure-controls"></div>
             <div class="chart-summary"></div>
-            <div class="chart" id="C09" role="group" aria-label="Twelve largest annual-entry stations passing profile screens. Unequal-duration bands show shares of the published five-band sum, not an hourly arrival rate." aria-describedby="note-C09">
+            <div class="chart" id="C10" role="group" aria-label="Twelve largest annual-entry stations passing profile screens. Unequal-duration bands show shares of the published five-band sum, not an hourly arrival rate." aria-describedby="note-C10">
               <p class="loading">Loading chart…</p>
             </div>
-            <p class="chart-note" id="note-C09">Darker cells show larger shares of each station’s entries. Time bands differ in duration; these are not hourly rates.</p>
+            <p class="chart-note" id="note-C10">Darker cells show larger shares of each station’s entries. Time bands differ in duration; these are not hourly rates.</p>
             <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
           </figure>
           <div class="two-up summary-pair">
-            <figure class="figure " id="figure-C10" data-figure-number="10">
+            <figure class="figure " id="figure-C11" data-figure-number="11">
               <figcaption>
                 <div class="figure-heading">
-                  <h3><span class="figure-number">10.</span> Most matched stations remain below baseline</h3>
+                  <h3><span class="figure-number">11.</span> Most matched stations remain below baseline</h3>
                 </div>
                 <p class="figure-body">The median matched station records roughly <strong>75%</strong> of its earlier entries. This result changes little when the low-baseline threshold changes.</p>
               </figcaption>
@@ -231,25 +246,25 @@
               <div class="chart-summary">
                 <p class="control-status" id="hist-summary" aria-live="polite">219 matched stations · median recovery 75.2</p>
               </div>
-              <div class="chart" id="C10" role="group" aria-label="Frequency distribution in 20-point intervals; baseline threshold is selectable. All eligible extremes retained; each station counts once." aria-describedby="note-C10">
+              <div class="chart" id="C11" role="group" aria-label="Frequency distribution in 20-point intervals; baseline threshold is selectable. All eligible extremes retained; each station counts once." aria-describedby="note-C11">
                 <p class="loading">Loading chart…</p>
               </div>
-              <p class="chart-note" id="note-C10">Each station counts once. The dashed line marks full recovery. Threshold checks are available in Sources & methods.</p>
+              <p class="chart-note" id="note-C11">Each station counts once. The dashed line marks full recovery. Threshold checks are available in Sources & methods.</p>
               <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
             </figure>
-            <figure class="figure " id="figure-C11" data-figure-number="11">
+            <figure class="figure " id="figure-C12" data-figure-number="12">
               <figcaption>
                 <div class="figure-heading">
-                  <h3><span class="figure-number">11.</span> Weekend use gains ground relative to weekdays</h3>
+                  <h3><span class="figure-number">12.</span> Weekend use gains ground relative to weekdays</h3>
                 </div>
                 <p class="figure-body">For the same 191 eligible stations, the median weekend-to-weekday ratio rises from <strong>0.42 to 0.53</strong>. Higher ratios occur at <strong>176 of 191 stations</strong>.</p>
               </figcaption>
               <div class="figure-controls"></div>
               <div class="chart-summary"></div>
-              <div class="chart" id="C11" role="group" aria-label="Same 191 eligible stations each year. Ratio is average of Saturday and Sunday daily entries divided by weekday daily entries. Boxes show middle half; line is median; whiskers 1.5 interquartile range (the width of the middle half of values); points are outliers. Stations have equal weight." aria-describedby="note-C11">
+              <div class="chart" id="C12" role="group" aria-label="Same 191 eligible stations each year. Ratio is average of Saturday and Sunday daily entries divided by weekday daily entries. Boxes show middle half; line is median; whiskers 1.5 interquartile range (the width of the middle half of values); points are outliers. Stations have equal weight." aria-describedby="note-C12">
                 <p class="loading">Loading chart…</p>
               </div>
-              <p class="chart-note" id="note-C11">A ratio of 0.5 means half as many daily entries on weekends. Boxes contain the middle half of stations; lines mark medians.</p>
+              <p class="chart-note" id="note-C12">A ratio of 0.5 means half as many daily entries on weekends. Boxes contain the middle half of stations; lines mark medians.</p>
               <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
             </figure>
           </div>
@@ -265,7 +280,7 @@
         <div class="two-up">
           <div>
             <h3>Data sources</h3>
-            <p><strong>Bureau of Infrastructure and Transport Research Economics:</strong> Trainline network totals and separate Yearbook city estimates.</p>
+            <p><strong>Bureau of Infrastructure and Transport Research Economics:</strong> Trainline urban and non-urban network totals, and separate Yearbook city estimates.</p>
             <p><strong>Department of Transport and Planning:</strong> station entries and monthly train patronage. Station estimates are rounded to 50.</p>
             <p><strong>Australian Bureau of Statistics:</strong> boundaries and city locations.</p>
           </div>
@@ -283,6 +298,10 @@
               <h3>National comparisons</h3>
               <p><strong>Different series:</strong> Yearbook city estimates include Sydney intercity, a Melbourne regional-commuter allowance and Brisbane Airtrain. These values are not the Trainline totals above. Years on the axis end in June. Colour and dash pattern identify cities; the selector highlights one while retaining the others for context.</p>
               <p>Read top to bottom: begin with the 2018–2019 total, then add each city’s gain or loss. Floating bars show the contribution to the running total. This is arithmetic, not a causal explanation.</p>
+            </div>
+            <div>
+              <h3>Reported non-urban services</h3>
+              <p>Trainline 13 Table 23 reports 57.87 million journeys across five listed services in 2024–2025. Sydney Trains intercity and V/Line contribute 96.3% of that table. The treemap groups services by state; its rectangles encode journeys, not travel purpose. This table is separate from the urban totals above.</p>
             </div>
             <div>
               <h3>Victorian train journeys</h3>
@@ -308,12 +327,12 @@
               <p>Of 220 matched identifiers, 219 pass the default 5,000-entry baseline screen; the weekend boxplot uses 191 stations with eligible values in both years. Each station counts once in this histogram; bars group recovery into intervals 20 points wide. The dashed line marks a return to baseline. All eligible extremes remain visible; 100 means recovery, not 100% growth.</p>
               <div class="control"><label for="baseline-min">Minimum baseline entries</label><select id="baseline-min"><option value="5000" selected>5,000 entries</option><option value="2500">2,500 entries</option><option value="10000">10,000 entries</option></select></div>
               <p id="hist-method-summary" class="control-status" aria-live="polite">219 matched stations · median recovery 75.2</p>
-              <p><a href="#figure-C10">Return to the station recovery chart</a></p>
+              <p><a href="#figure-C11">Return to the station recovery chart</a></p>
             </div>
           </div>
         </details>
         <ul class="source-list">
-          <li id="source-trainline"><a href="https://www.bitre.gov.au/resource/rail/trainline-13">Trainline 13</a><span class="source-detail">Table 15 · 2026</span></li>
+          <li id="source-trainline"><a href="https://www.bitre.gov.au/resource/rail/trainline-13">Trainline 13</a><span class="source-detail">Tables 15 and 23 · 2026</span></li>
           <li id="source-yearbook"><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2025.pdf">Yearbook 2025</a><span class="source-detail">Tables 2.5a–e · Heavy rail</span></li>
           <li id="source-station"><a href="https://opendata.transport.vic.gov.au/dataset/annual-metropolitan-train-station-patronage-station-entries">Annual metropolitan station entries</a><span class="source-detail">2018–2019 and 2024–2025</span></li>
           <li id="source-monthly"><a href="https://opendata.transport.vic.gov.au/dataset/monthly-public-transport-patronage-by-mode">Monthly public transport patronage</a><span class="source-detail">Complete financial years</span></li>
