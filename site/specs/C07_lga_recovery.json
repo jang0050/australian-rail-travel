@@ -189,9 +189,9 @@
         "type": "text",
         "align": {"expr": "datum.side === 'left' ? 'center' : 'right'"},
         "dx": {"expr": "datum.side === 'left' ? 0 : -4"},
-        "fontSize": 12,
+        "fontSize": 13,
         "fontWeight": 600,
-        "lineHeight": 15
+        "lineHeight": 16
       },
       "encoding": {
         "longitude": {"field": "label_longitude", "type": "quantitative"},

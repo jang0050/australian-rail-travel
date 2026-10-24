@@ -55,10 +55,8 @@
           }
         },
         "tooltip": [
-          {"field": "properties.bin_id", "type": "nominal", "title": "Grid cell"},
           {"field": "properties.annual_entries", "type": "quantitative", "title": "2024–2025 entries", "format": ",.0f"},
-          {"field": "properties.station_count", "type": "quantitative", "title": "Station count", "format": ",.0f"},
-          {"field": "properties.cell_width_km", "type": "quantitative", "title": "Grid cell width (kilometres)", "format": ".1f"}
+          {"field": "properties.station_count", "type": "quantitative", "title": "Stations", "format": ",.0f"}
         ]
       }
     },

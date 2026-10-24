@@ -1,5 +1,5 @@
 {
-  "built": "2026-10-22",
+  "built": "2026-10-24",
   "script": "scripts/build_data.py",
   "inputs": [
     {"path": "data/raw/dtp_monthly.csv", "sha256": "03843a4706ad06cdd19a24da66b38be663d580da2709a71c89961b3241df9242", "source_url": "https://opendata.transport.vic.gov.au/dataset/1ab35aa9-f21d-4f00-939b-60dade427d45/resource/07141b34-08f7-430e-bf83-99e9462cc59f/download/monthly_public_transport_patronage_by_mode.csv"},
@@ -39,7 +39,7 @@
     {"file": "bins_10.geojson", "bytes": 15314, "sha256": "3b2ad4528e8d95318afbd0fbb87d87130872bbf49c64f52af98feb5644de4840", "records": 35},
     {"file": "lga_recovery.json", "bytes": 5061, "sha256": "1c607cb8f47fbb60548f3a5f31ef7ecc5dfd3de7f166bf5f726d4d569fb1563d", "records": 30},
     {"file": "australia.geojson", "bytes": 113846, "sha256": "54c45d5abd748783b4823666f30d9842ea72c3d1d794231b3cad8f1abe21ac8b", "records": 8},
-    {"file": "waffle.json", "bytes": 23523, "sha256": "3a4a76f259cf8e1cc39da4ed56d7abf79be92a8d6885dc5857aa1064df8ff609", "records": 200},
+    {"file": "waffle.json", "bytes": 43403, "sha256": "7c1fce8676c372849abd479abe2d43bccee0ec5959b64f4bd4c807b5b310ad37", "records": 200},
     {"file": "station_changes.json", "bytes": 4111, "sha256": "7fb9f7776c9e463031a775eeadf0199e42895f685ca1248e7d04f118bebf497c", "records": 10},
     {"file": "bins_2.5.geojson", "bytes": 56643, "sha256": "4c7d545f1d38ffdbb5c55e9b42429042d2f190bee9b413f6e7c0c5b431e78d89", "records": 130},
     {"file": "profiles.json", "bytes": 17905, "sha256": "b416aa42f9bb7c42847da819ca29a1bfd8836a5a2627abadc4226c1b79151447", "records": 60},

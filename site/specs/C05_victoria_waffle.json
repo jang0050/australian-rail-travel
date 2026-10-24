@@ -60,13 +60,14 @@
         "field": "service",
         "type": "nominal",
         "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#66768d", "#9c7a8b"]},
-        "legend": {"title": null, "symbolType": "square", "columns": 2, "columnPadding": 18},
+        "legend": {"title": null, "symbolType": "square", "columns": 2, "columnPadding": 48},
         "title": "Service"
       },
       "tooltip": [
-        {"field": "service", "type": "nominal", "title": "Service"},
         {"field": "display_financial_year", "type": "nominal", "title": "Financial year"},
-        {"field": "regional_share", "type": "quantitative", "title": "Regional share (percent)", "format": ".2f"}
+        {"field": "hover_service", "type": "nominal", "title": "Service"},
+        {"field": "service_share", "type": "quantitative", "title": "Share of journeys (percent)", "format": ".2f"},
+        {"field": "service_journeys", "type": "quantitative", "title": "Journeys", "format": ",.0f"}
       ]
     }
   },

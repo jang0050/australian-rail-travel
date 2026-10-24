@@ -64,14 +64,14 @@
           "field": "service",
           "type": "nominal",
           "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#66768d", "#9c7a8b"]},
-          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 18},
+          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 32},
           "title": "Service"
         },
         "strokeDash": {
           "field": "service",
           "type": "nominal",
           "scale": {"domain": ["Metropolitan", "Regional"], "range": [[1, 0], [6, 3]]},
-          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 18},
+          "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 32},
           "title": "Service"
         },
         "tooltip": [

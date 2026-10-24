@@ -72,8 +72,9 @@
                 },
                 "color": {"value": "#737d91"},
                 "tooltip": [
-                  {"field": "display_year", "type": "nominal", "title": "Financial year"},
-                  {"field": "ratio", "type": "quantitative", "title": "Weekend-to-weekday daily-entry ratio", "format": ".2f"}
+                  {"field": "station_name", "type": "nominal", "title": "Station"},
+                  {"field": "display_year", "type": "ordinal", "title": "Financial year"},
+                  {"field": "ratio", "type": "quantitative", "title": "Ratio", "format": ".2f"}
                 ]
               }
             },
@@ -112,11 +113,13 @@
                       }
                     },
                     "tooltip": [
-                      {"field": "upper_whisker_ratio", "type": "quantitative", "title": "Upper whisker of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                      {"field": "lower_whisker_ratio", "type": "quantitative", "title": "Lower whisker of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                      {"field": "display_year", "type": "ordinal", "title": "Financial year"}
+                      {"field": "display_year", "type": "ordinal", "title": "Financial year"},
+                      {"field": "whisker_range", "type": "nominal", "title": "Whisker range"}
                     ]
-                  }
+                  },
+                  "transform": [
+                    {"calculate": "format(datum.lower_whisker_ratio, '.2f') + '–' + format(datum.upper_whisker_ratio, '.2f')", "as": "whisker_range"}
+                  ]
                 },
                 {
                   "mark": {"type": "rule", "aria": false, "style": "boxplot-rule"},
@@ -139,11 +142,13 @@
                       }
                     },
                     "tooltip": [
-                      {"field": "upper_whisker_ratio", "type": "quantitative", "title": "Upper whisker of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                      {"field": "lower_whisker_ratio", "type": "quantitative", "title": "Lower whisker of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                      {"field": "display_year", "type": "ordinal", "title": "Financial year"}
+                      {"field": "display_year", "type": "ordinal", "title": "Financial year"},
+                      {"field": "whisker_range", "type": "nominal", "title": "Whisker range"}
                     ]
-                  }
+                  },
+                  "transform": [
+                    {"calculate": "format(datum.lower_whisker_ratio, '.2f') + '–' + format(datum.upper_whisker_ratio, '.2f')", "as": "whisker_range"}
+                  ]
                 }
               ]
             }
@@ -171,7 +176,7 @@
                 "ariaRoleDescription": "box",
                 "style": "boxplot-box",
                 "description": {
-                  "expr": "'Financial year: ' + datum.display_year + '; Lower quartile ratio: ' + format(datum.lower_box_ratio, '.2f') + '; Median ratio: ' + format(datum.mid_box_ratio, '.2f') + '; Upper quartile ratio: ' + format(datum.upper_box_ratio, '.2f')"
+                  "expr": "'Financial year: ' + datum.display_year + '; median: ' + format(datum.mid_box_ratio, '.2f') + '; middle 50%: ' + datum.middle_range"
                 }
               },
               "encoding": {
@@ -194,14 +199,14 @@
                 },
                 "color": {"value": "#737d91"},
                 "tooltip": [
-                  {"field": "max_ratio", "type": "quantitative", "title": "Observed maximum of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "upper_box_ratio", "type": "quantitative", "title": "Upper quartile of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "mid_box_ratio", "type": "quantitative", "title": "Median of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "lower_box_ratio", "type": "quantitative", "title": "Lower quartile of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "min_ratio", "type": "quantitative", "title": "Observed minimum of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "display_year", "type": "ordinal", "title": "Financial year"}
+                  {"field": "display_year", "type": "ordinal", "title": "Financial year"},
+                  {"field": "mid_box_ratio", "type": "quantitative", "title": "Median", "format": ".2f"},
+                  {"field": "middle_range", "type": "nominal", "title": "Middle 50%"}
                 ]
-              }
+              },
+              "transform": [
+                {"calculate": "format(datum.lower_box_ratio, '.2f') + '–' + format(datum.upper_box_ratio, '.2f')", "as": "middle_range"}
+              ]
             },
             {
               "mark": {
@@ -237,14 +242,14 @@
                   }
                 },
                 "tooltip": [
-                  {"field": "max_ratio", "type": "quantitative", "title": "Observed maximum of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "upper_box_ratio", "type": "quantitative", "title": "Upper quartile of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "mid_box_ratio", "type": "quantitative", "title": "Median of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "lower_box_ratio", "type": "quantitative", "title": "Lower quartile of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "min_ratio", "type": "quantitative", "title": "Observed minimum of Weekend-to-weekday daily-entry ratio", "format": ".2f"},
-                  {"field": "display_year", "type": "ordinal", "title": "Financial year"}
+                  {"field": "display_year", "type": "ordinal", "title": "Financial year"},
+                  {"field": "mid_box_ratio", "type": "quantitative", "title": "Median", "format": ".2f"},
+                  {"field": "middle_range", "type": "nominal", "title": "Middle 50%"}
                 ]
-              }
+              },
+              "transform": [
+                {"calculate": "format(datum.lower_box_ratio, '.2f') + '–' + format(datum.upper_box_ratio, '.2f')", "as": "middle_range"}
+              ]
             }
           ]
         }

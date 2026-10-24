@@ -123,6 +123,17 @@ function enableKeyboardInspection(element) {
   });
 }
 const state = { cityFocus: "All cities", baselineMin: 5000, grid: "5" };
+function setInsight(id, sentences) {
+  const parts = [];
+  sentences.forEach((sentence, index) => {
+    if (index) parts.push(document.createTextNode(" "));
+    const line = document.createElement("span");
+    line.className = "sentence-line";
+    line.textContent = sentence;
+    parts.push(line);
+  });
+  document.getElementById(id).replaceChildren(...parts);
+}
 // Preload local chart data so a missing file produces the visible retry state.
 // Vega-Lite still receives the same rows and performs every visual transform.
 async function localise(value) {
@@ -194,7 +205,7 @@ async function render(entry) {
         spec.width >= 760 ? 408 : (spec.width < 430 ? 270 : 340) + (spec.width >= 600 ? 148 : 320);
     }
     if (id === "C01") {
-      spec.height = width < 430 ? 320 : width < 600 ? 460 : 600;
+      spec.height = width < 430 ? 320 : width < 600 ? 460 : 470;
       // Place Sydney's value beside its circle, clear of Brisbane's mark.
       if (width < 500) {
         for (const layer of spec.layer) if (layer.mark?.type === "text") layer.mark.fontSize = 13;
@@ -210,7 +221,10 @@ async function render(entry) {
           },
         };
       }
-      if (width < 430) spec.layer[3].mark.dx = width < 340 ? 12 : 60;
+      if (width < 430) {
+        spec.layer[3].mark.dx = width < 340 ? 12 : 60;
+        spec.layer[1].encoding.size.legend.offset = 40;
+      }
     }
     // Equal plotting dimensions keep geographic scale and sight lines identical.
     // Legends add their own space below; they do not shrink either map.
@@ -297,22 +311,37 @@ for (const button of document.querySelectorAll("[data-city]"))
     const latest = (await readJSON("data/national_history.json")).find(
       (r) => r.city === city && r.year_end === 2025,
     );
-    document.getElementById("city-summary").textContent = latest
-      ? `${city} · 2024–2025: ${latest.recovery_index.toFixed(1)} on the recovery index · ${latest.trips_million.toFixed(1)} million journeys`
-      : "100 marks each city’s 2018–2019 level. Select a city for its latest result.";
+    const summary = document.getElementById("city-summary");
+    if (latest)
+      summary.textContent = `${city} · 2024–2025: ${latest.recovery_index.toFixed(1)} on the recovery index · ${latest.trips_million.toFixed(1)} million journeys`;
+    else
+      summary.innerHTML = '<span class="sentence-line">100 marks each city’s 2018–2019 level.</span> <span class="sentence-line">Select a city for its latest result.</span>';
   });
 document.getElementById("baseline-min").addEventListener("change", async (e) => {
-  await signal("C11", "baselineMin", Number(e.target.value));
+  const threshold = Number(e.target.value);
+  await signal("C11", "baselineMin", threshold);
   const s = (await readJSON("data/summary.json")).histogram_threshold_sensitivity[e.target.value];
-  for (const id of ["hist-summary", "hist-method-summary"])
-    document.getElementById(id).textContent =
-      `${s.count} matched stations · median recovery ${s.median.toFixed(1)}`;
+  const below = (await readJSON("data/stations.json")).filter(
+    (station) => station.baseline_entries >= threshold && station.recovery_index < 100,
+  ).length;
+  document.getElementById("hist-summary").textContent =
+    `${s.count} matched stations · median recovery ${s.median.toFixed(1)}`;
+  setInsight("hist-insight", [
+    `At the ${threshold === 5000 ? "default" : `${threshold.toLocaleString()}-entry`} threshold, ${below} of ${s.count} eligible stations remain below baseline.`,
+    `Median recovery is ${s.median.toFixed(1)}.`,
+  ]);
 });
 document.getElementById("grid-size").addEventListener("change", async (e) => {
   state.grid = e.target.value;
   const s = (await readJSON("data/summary.json")).grid_sensitivity.find((r) => r.grid === state.grid);
   document.getElementById("grid-summary").textContent =
-    `${s.occupied_cells} occupied cells · 222 stations · 178.48 million entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
+    `${s.occupied_cells} occupied cells · 222 stations · 178.48\u00a0million\u00a0entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
+  setInsight("bin-insight", [
+    state.grid === "5"
+      ? `One central cell contains ${s.largest_cell_share.toFixed(1)}% of annual station entries.`
+      : `At ${state.grid} km, the largest cell contains ${s.largest_cell_share.toFixed(1)}% of annual station entries.`,
+    "Changing grid size changes the measured concentration.",
+  ]);
   await render(registry.find((r) => r.id === "C08"));
 });
 try {

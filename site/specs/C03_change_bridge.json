@@ -84,11 +84,7 @@
           "scale": {"domain": ["Total", "Decrease", "Increase"], "range": ["#282e46", "#ac573b", "#2e6f95"]},
           "legend": null,
           "title": "Contribution type"
-        },
-        "tooltip": [
-          {"field": "display_label", "type": "nominal", "title": "City or total"},
-          {"field": "display_change", "type": "nominal", "title": "Total or signed contribution (million)"}
-        ]
+        }
       }
     },
     {
@@ -114,11 +110,9 @@
       }
     },
     {
-      "name": "contribution_hover",
+      "name": "city_contribution_hover",
       "mark": {"type": "rect", "opacity": 0, "height": 32},
-      "transform": [
-        {"calculate": "datum.kind === 'Total' ? format(datum.change, '.1f') : format(datum.change, '+.1f')", "as": "display_change"}
-      ],
+      "transform": [{"filter": "datum.kind !== 'Total'"}],
       "encoding": {
         "y": {
           "field": "display_label",
@@ -129,17 +123,35 @@
         "x": {"value": 0},
         "x2": {"value": {"expr": "width"}},
         "tooltip": [
-          {"field": "display_label", "type": "nominal", "title": "City or total"},
-          {"field": "start", "type": "quantitative", "title": "Running total before contribution (million)"},
-          {"field": "end", "type": "quantitative", "title": "Running total after contribution (million)"},
-          {"field": "display_change", "type": "nominal", "title": "Total or signed contribution (million)"}
+          {"field": "display_label", "type": "nominal", "title": "City"},
+          {"field": "start", "type": "quantitative", "title": "Before (million)", "format": ",.1f"},
+          {"field": "change", "type": "quantitative", "title": "Signed change (million)", "format": "+,.1f"},
+          {"field": "end", "type": "quantitative", "title": "After (million)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "name": "total_hover",
+      "mark": {"type": "rect", "opacity": 0, "height": 32},
+      "transform": [{"filter": "datum.kind === 'Total'"}],
+      "encoding": {
+        "y": {
+          "field": "display_label",
+          "type": "nominal",
+          "sort": ["2018–2019", "Sydney", "Melbourne", "Brisbane", "Adelaide", "Perth", "2024–2025"],
+          "title": "City or total"
+        },
+        "x": {"value": 0},
+        "x2": {"value": {"expr": "width"}},
+        "tooltip": [
+          {"field": "display_label", "type": "nominal", "title": "Financial year"},
+          {"field": "end", "type": "quantitative", "title": "Total journeys (million)", "format": ",.1f"}
         ]
       }
     }
   ],
   "transform": [
-    {"calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null", "as": "display_label"},
-    {"calculate": "datum.kind === 'Total' ? format(datum.change,'.1f') : format(datum.change,'+.1f')", "as": "display_change"}
+    {"calculate": "isValid(datum.label) ? replace(replace(datum.label, /(\\d{4})–(\\d{2})$/, '$1–20$2'), /([0-9.]+)m$/, '$1 million') : null", "as": "display_label"}
   ],
   "description": "Arithmetic bridge using only the same Yearbook series as C02. Floating intervals add each city’s signed contribution to the combined total."
 }

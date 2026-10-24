@@ -39,9 +39,9 @@
   --line: #cfd3df;
   --tint: #f6f7fb;
   --column-gap: 40px;
-  --section-space: 64px;
-  --figure-gap: 48px;
-  --measure: 54ch;
+  --section-space: 36px;
+  --figure-gap: 32px;
+  --measure: 48ch;
   font-family: "Source Sans 3", sans-serif;
   font-size: 18px;
   line-height: 1.55;
@@ -168,7 +168,7 @@ strong {
   line-height: 1.55;
   color: var(--muted);
   margin: 0;
-  max-width: 54ch;
+  max-width: var(--measure);
 }
 .lead {
   font-size: 21px;
@@ -188,20 +188,19 @@ strong {
 .chapter-intro {
   display: grid;
   gap: 16px;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
 }
 .chapter-intro p {
   font-size: 20px;
   line-height: 1.5;
   margin: 0;
-  max-width: 54ch;
+  max-width: var(--measure);
 }
 .national-intro {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .national-comparison-intro {
-  padding-top: 8px;
-  margin-bottom: 32px;
+  margin: 0;
 }
 .two-up {
   display: grid;
@@ -216,12 +215,26 @@ strong {
 .figure-heading h3 {
   margin-bottom: 12px;
 }
+.national-figure .figure-heading h3 {
+  margin-bottom: 0;
+}
 .figure-number {
   color: var(--muted);
 }
 .figure-body {
   font-size: 18px;
   line-height: 1.55;
+}
+.national-figure .figure-body {
+  max-width: 100%;
+}
+#figure-C03 .figure-body,
+.wide-figure .figure-body {
+  max-width: 52ch;
+}
+.sentence-line {
+  display: inline;
+  text-wrap: pretty;
 }
 .figure-controls:empty,
 .chart-summary:empty {
@@ -237,14 +250,17 @@ strong {
   font-size: 15px;
   line-height: 1.5;
   color: var(--muted);
-  max-width: none;
+  max-width: 40ch;
   margin: 0;
   font-variant-numeric: tabular-nums;
+}
+#share-summary {
+  max-width: none;
 }
 .figure .chart {
   width: 100%;
   min-width: 0;
-  margin: 12px 0 16px;
+  margin: 8px 0 4px;
   position: relative;
 }
 .vega-embed,
@@ -273,11 +289,11 @@ strong {
 .source a:hover {
   color: var(--accent);
 }
-/* Figure 1 keeps one headline, a reading column and a larger geographic frame. */
+/* Figure 1 keeps the transition beside a compact, right-aligned map. */
 .national-figure {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: auto auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  grid-template-rows: auto auto auto auto minmax(0, 1fr);
   gap: 16px var(--column-gap);
   align-items: start;
 }
@@ -294,9 +310,11 @@ strong {
   margin: 0;
 }
 .national-figure > .chart {
-  grid-column: 2/-1;
-  grid-row: 2/5;
+  grid-column: 2;
+  grid-row: 1/6;
   margin: 0;
+  max-width: 640px;
+  justify-self: end;
 }
 .national-figure > .chart-note {
   grid-column: 1;
@@ -309,46 +327,43 @@ strong {
   grid-column: 1;
   grid-row: 4;
 }
+.national-figure > .national-comparison-intro {
+  grid-column: 1;
+  grid-row: 5;
+  align-self: start;
+  margin-top: 28px;
+}
 /* The grid control sits with the entry map it changes. */
 .map-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px 24px;
+  gap: 12px;
   margin: 0;
 }
 .map-controls .control {
   flex: 0 1 auto;
 }
 .map-controls .control-status {
-  flex: 1 1 380px;
+  flex: 1 1 240px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
-/* Pair only figures that benefit from direct comparison; every figure has seven rows. */
+/* Align paired plot tops while keeping each figure's text and source together. */
 @media (min-width: 901px) {
   .two-up:has(> .figure) {
     row-gap: 0;
   }
   .two-up > .figure {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: subgrid;
-    grid-row: span 7;
+    grid-row: span 2;
     align-items: start;
-  }
-  .two-up > .figure > figcaption {
-    display: contents;
-  }
-  .map-pair > .figure {
-    grid-row: span 6;
-  }
-  .two-up > .figure > .figure-controls:empty,
-  .two-up > .figure > .chart-summary:empty {
-    display: block;
-    height: 0;
-    margin: 0;
   }
 }
 .national-charts > .figure {
-  padding-top: 28px;
+  padding-top: 24px;
   border-top: 1px solid var(--line);
 }
 .control {
@@ -411,24 +426,13 @@ strong {
 .emphasis-decline {
   color: var(--rust);
 }
-.method-strip {
-  padding: 20px 0 0;
-  border-top: 1px solid var(--line);
-  font-size: 16px;
-}
-.method-strip p {
-  font-size: 16px;
-  margin: 0;
-  max-width: var(--measure);
-}
 .wide-figure {
   display: block;
 }
-.wide-figure aside h3 {
-  font-size: 23px;
-}
-.wide-figure aside p {
+.figure-insight {
   font-size: 16px;
+  max-width: var(--measure);
+  margin: 0 0 10px;
 }
 .ending {
   padding-block: 56px;
@@ -440,7 +444,7 @@ strong {
   font-size: clamp(34px, 4.3vw, 52px);
 }
 .ending .lead {
-  max-width: 54ch;
+  max-width: var(--measure);
 }
 .ending p:last-child {
   margin-bottom: 0;
@@ -471,8 +475,30 @@ strong {
 .method-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px var(--column-gap);
-  margin-top: 24px;
+  gap: 0 var(--column-gap);
+  margin-top: 20px;
+}
+.method-grid > div {
+  border-top: 1px solid var(--line);
+  padding-block: 16px;
+}
+.method-grid > div h3 {
+  margin: 0 0 8px;
+}
+.method-grid > div p {
+  margin: 0 0 10px;
+}
+.method-grid > div p:last-child {
+  margin-bottom: 0;
+}
+.method-grid > div:last-child {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--column-gap);
+}
+.method-grid > div:last-child h3 {
+  grid-column: 1 / -1;
 }
 .method-grid h3 {
   font-size: 22px;
@@ -592,8 +618,9 @@ body #vg-tooltip-element {
   font-size: 14px;
   line-height: 1.4;
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   pointer-events: none;
+  text-align: left;
 }
 body #vg-tooltip-element table {
   width: auto;
@@ -603,6 +630,14 @@ body #vg-tooltip-element table {
 }
 body #vg-tooltip-element table tr td.key {
   color: var(--muted);
+  text-align: left;
+  padding-left: 0;
+  padding-right: 20px;
+}
+body #vg-tooltip-element table tr td.value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
 }
 @media (max-width: 1080px) {
   :root {
@@ -620,6 +655,12 @@ body #vg-tooltip-element table tr td.key {
   }
 }
 @media (max-width: 900px) {
+  .national-figure .figure-body {
+    max-width: var(--measure);
+  }
+  .national-figure .figure-heading h3 {
+    margin-bottom: 12px;
+  }
   .national-figure {
     display: block;
   }
@@ -630,24 +671,24 @@ body #vg-tooltip-element table tr td.key {
     margin-bottom: 16px;
   }
   .national-figure > .chart {
-    margin: 12px 0 16px;
+    margin: 12px 0 4px;
   }
   .national-figure > .chart-note {
     border: 0;
     padding: 0;
     margin: 0 0 10px;
   }
+  .national-figure > .national-comparison-intro {
+    margin-top: 24px;
+  }
   :root {
-    --section-space: 48px;
-    --figure-gap: 36px;
+    --section-space: 36px;
+    --figure-gap: 32px;
     --column-gap: 24px;
   }
   .two-up,
   .wide-figure {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .wide-figure aside {
-    margin-bottom: 36px;
   }
   .figure .chart {
     margin-top: 12px;
@@ -706,6 +747,16 @@ body #vg-tooltip-element table tr td.key {
   .method-grid,
   .source-list {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .method-grid {
+    display: block;
+  }
+  .method-grid > div {
+    display: block;
+    padding-block: 16px;
+  }
+  .method-grid > div:last-child {
+    display: block;
   }
   .city-legend {
     gap: 0 16px;
@@ -796,13 +847,16 @@ body #vg-tooltip-element table tr td.key {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
 }
+.chart svg.marks:focus:not(:focus-visible) {
+  outline: none;
+}
 .chart .keyboard-reading {
   font-size: 15px;
   line-height: 1.5;
-  max-width: 54ch;
+  max-width: var(--measure);
   margin: 12px 0 0;
   color: var(--ink);
 }
-#C02 .layer_6_marks {
+#C02 .layer_7_marks {
   pointer-events: none;
 }

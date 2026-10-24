@@ -73,39 +73,6 @@
       }
     },
     {
-      "transform": [{"filter": "datum.change_entries >= 0"}],
-      "mark": {"type": "point", "filled": true, "size": 55, "color": "#2e6f95"},
-      "encoding": {
-        "y": {
-          "field": "station_name",
-          "type": "nominal",
-          "sort": [
-            "Flinders Street",
-            "Southern Cross",
-            "Parliament",
-            "Melbourne Central",
-            "Flagstaff",
-            "Hughesdale",
-            "Berwick",
-            "Cranbourne",
-            "Merinda Park",
-            "Craigieburn"
-          ],
-          "title": "Station"
-        },
-        "x": {
-          "field": "change_million",
-          "type": "quantitative",
-          "scale": {"domain": [-11, 2]},
-          "title": "Change in annual station entries (million)"
-        },
-        "tooltip": [
-          {"field": "station_name", "type": "nominal", "title": "Station"},
-          {"field": "change_entries", "type": "quantitative", "title": "Change in annual station entries", "format": "+,.0f"}
-        ]
-      }
-    },
-    {
       "mark": {"type": "text", "align": "right", "dx": -5, "fontSize": 12},
       "transform": [
         {"filter": "datum.change_entries < 0"},

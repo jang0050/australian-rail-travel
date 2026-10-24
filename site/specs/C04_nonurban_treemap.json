@@ -71,7 +71,8 @@
           "as": ["labelOrder"]
         }
       ]
-    }
+    },
+    {"name": "callout_heading", "values": [{}]}
   ],
   "scales": [
     {
@@ -113,7 +114,7 @@
           "stroke": {"value": "#f6f7fb"},
           "strokeWidth": {"value": 1},
           "tooltip": {
-            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share of reported total (%)':format(datum.share,'.2f')}"
+            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share (%)':format(datum.share,'.2f')}"
           },
           "cursor": {"value": "pointer"}
         }
@@ -214,6 +215,26 @@
       }
     },
     {
+      "name": "small_heading",
+      "type": "text",
+      "from": {"data": "callout_heading"},
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {"signal": "desktop ? plotWidth + 8 : 18"},
+          "y": {"signal": "desktop ? plotTop + 2 : plotTop + plotHeight + 2"},
+          "text": {
+            "signal": "desktop || width >= 600 ? 'Smaller services · left to right' : 'Smaller services'"
+          },
+          "font": {"value": "Source Sans 3"},
+          "fontSize": {"value": 13},
+          "fontWeight": {"value": 600},
+          "fill": {"value": "#586177"},
+          "baseline": {"value": "top"}
+        }
+      }
+    },
+    {
       "name": "callout_hit",
       "type": "rect",
       "from": {"data": "small"},
@@ -221,17 +242,17 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "desktop ? plotWidth + 24 : width >= 600 ? (datum.labelOrder - 1) * width / 3 : 0"
+            "signal": "desktop ? plotWidth + 16 : width >= 600 ? (datum.labelOrder - 1) * width / 3 : 0"
           },
           "y": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) - 8"
           },
-          "width": {"signal": "desktop ? width - plotWidth - 24 : width >= 600 ? width / 3 - 8 : width"},
+          "width": {"signal": "desktop ? width - plotWidth - 16 : width >= 600 ? width / 3 - 8 : width"},
           "height": {"value": 84},
           "fill": {"value": "#f6f7fb"},
           "fillOpacity": {"value": 0},
           "tooltip": {
-            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share of reported total (%)':format(datum.share,'.2f')}"
+            "signal": "{'Service':datum.service_label,'State':datum.parent,'Journeys (million)':format(datum.value,datum.value >= 10 ? '.1f' : '.2f'),'Share (%)':format(datum.share,'.2f')}"
           },
           "cursor": {"value": "pointer"}
         }
@@ -245,7 +266,7 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 18"
+            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 18"
           },
           "y": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 4"
@@ -264,7 +285,7 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
           },
           "y": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96))"
@@ -289,7 +310,7 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
           },
           "y": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 22"
@@ -311,7 +332,7 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
+            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
           },
           "y": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 46"
@@ -353,14 +374,14 @@
           "x": {"field": "x1"},
           "y": {"signal": "datum.centreY + plotTop"},
           "x2": {
-            "signal": "(desktop ? plotWidth + 42 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 8"
+            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 8"
           },
           "y2": {
             "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 30"
           },
-          "stroke": {"value": "#282e46"},
+          "stroke": {"value": "#586177"},
           "strokeWidth": {"value": 1},
-          "opacity": {"signal": "desktop && inspectService === datum.id ? 1 : 0"}
+          "opacity": {"signal": "desktop && inspectService === datum.id ? .85 : 0"}
         }
       }
     }

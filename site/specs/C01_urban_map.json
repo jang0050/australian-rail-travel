@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 600,
-  "height": 600,
+  "height": 470,
   "autosize": {"type": "fit", "contains": "padding"},
   "config": {
     "font": "Source Sans 3",
