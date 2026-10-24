@@ -8,11 +8,11 @@
     <meta name="author" content="Jennifer Ang Ching Wei">
     <link rel="icon" href="data:,">
     <link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=98a804ad8afe">
-    <script src="vendor/vega.min.js?v=98a804ad8afe" defer></script>
-    <script src="vendor/vega-lite.min.js?v=98a804ad8afe" defer></script>
-    <script src="vendor/vega-embed.min.js?v=98a804ad8afe" defer></script>
-    <script type="module" src="js/app.js?v=98a804ad8afe"></script>
+    <link rel="stylesheet" href="css/styles.css?v=53e5cfe48b84">
+    <script src="vendor/vega.min.js?v=53e5cfe48b84" defer></script>
+    <script src="vendor/vega-lite.min.js?v=53e5cfe48b84" defer></script>
+    <script src="vendor/vega-embed.min.js?v=53e5cfe48b84" defer></script>
+    <script type="module" src="js/app.js?v=53e5cfe48b84"></script>
   </head>
   <body><a class="skip" href="#main">Skip to the story</a>
     <header class="masthead wrap"><a class="wordmark" href="#top">Australian rail / 2024–2025</a>
@@ -25,7 +25,7 @@
         <div class="hero-copy">
           <h1>Back on track<span>?</span></h1>
           <p class="subtitle">Australia’s uneven rail recovery</p>
-          <p class="lead">Rail recovery differs across cities and services. Victoria’s station data shows where and when those differences appear.</p>
+          <p class="lead">Rail journeys are returning, but not equally. Compare cities and services, then explore how Melbourne's station use has changed.</p>
         </div>
       </section>
       <section class="chapter wrap" id="national">
@@ -37,7 +37,7 @@
             <div class="figure-heading">
               <h3><span class="figure-number">1.</span> Two cities carry four in five journeys</h3>
             </div>
-            <p class="figure-body"><span class="sentence-line">Sydney and Melbourne account for <strong>80.6%</strong> of Australia’s 678 million urban heavy-rail journeys.</span> <span class="sentence-line">National rail activity is concentrated in these two cities.</span></p>
+            <p class="figure-body"><span class="sentence-line">Sydney and Melbourne account for <strong>80.6%</strong> of Australia's 678 million urban heavy-rail journeys.</span> <span class="sentence-line">Their scale shapes the national urban-rail picture.</span></p>
           </figcaption>
           <div class="figure-controls"></div>
           <div class="chart-summary"></div>
@@ -107,7 +107,7 @@
                 <div class="figure-heading">
                   <h3><span class="figure-number">4.</span> Two services dominate reported non-urban journeys</h3>
                 </div>
-                <p class="figure-body"><span class="sentence-line">Sydney Trains intercity and V/Line represent <strong>96.3%</strong> of reported non-urban journeys.</span> <span class="sentence-line">The remaining three services together account for just <strong>3.7%</strong>.</span></p>
+                <p class="figure-body"><span class="sentence-line">Sydney Trains intercity and V/Line account for <strong>96.3%</strong> of journeys across the five listed non-urban&nbsp;services.</span></p>
               </figcaption>
               <div class="figure-controls"></div>
               <div class="chart-summary"></div>
@@ -194,7 +194,7 @@
                 <div class="figure-heading">
                   <h3><span class="figure-number">8.</span> Entries still cluster in central Melbourne</h3>
                 </div>
-                <p class="figure-body" id="bin-insight" aria-live="polite"><span class="sentence-line">One central cell contains <strong>35.6%</strong> of annual station entries.</span> <span class="sentence-line">Changing grid size changes the measured concentration.</span></p>
+                <p class="figure-body" id="bin-insight" aria-live="polite"><span class="sentence-line">Entries concentrate in central Melbourne.</span> <span class="sentence-line">Changing cell width reveals how aggregation affects the apparent&nbsp;concentration.</span></p>
               </figcaption>
               <div class="figure-controls">
                 <div class="map-controls" role="group" aria-label="Entry-map aggregation controls">
@@ -299,7 +299,7 @@
                 <div class="chart" id="C12" role="group" aria-label="Same 191 eligible stations each year. Ratio is average of Saturday and Sunday daily entries divided by weekday daily entries. Boxes show middle half; line is median; whiskers 1.5 interquartile range (the width of the middle half of values); points are outliers. Stations have equal weight." aria-describedby="note-C12">
                   <p class="loading">Loading chart…</p>
                 </div>
-                <p class="chart-note" id="note-C12"><span class="sentence-line">Boxes show the middle half; lines mark medians.</span> <span class="sentence-line">Isolated points indicate outliers.</span> <span class="sentence-line">Higher ratios need not mean more weekend journeys.</span></p>
+                <p class="chart-note" id="note-C12"><span class="sentence-line">A ratio of 0.5 means half as many entries per weekend day as per weekday.</span> <span class="sentence-line">Boxes show the middle half; lines mark medians.</span> <span class="sentence-line">Isolated points indicate outliers.</span> <span class="sentence-line">Higher ratios need not mean more weekend journeys.</span></p>
                 <p class="source">Source: <a href="#source-station">Victorian station entries</a>.</p>
               </div>
             </figure>
@@ -325,7 +325,7 @@
             <h3>Comparisons</h3>
             <p>Financial years run July–June. Station recovery compares 2018–2019 with 2024–2025 using the same 220 stations.</p>
             <p>Area recovery = total current entries ÷ total baseline entries × 100. Areas describe station locations, not residents’ travel. Equal-area grids retain all 222 current stations.</p>
-            <p>Historical Trainline workbook series and cross-release reconciliation remain unverified. Recovery uses separate Yearbook estimates.</p>
+            <p>The historical Trainline workbooks were not obtained for this project; their series remain unreconciled across releases. Recovery charts use separate Yearbook city estimates from one release.</p>
           </div>
         </div>
         <details class="method-details" id="method-details">
@@ -379,7 +379,7 @@
     </main>
     <footer class="wrap">
       <h2 class="footer-title">Australian Rail Travel · FIT3179 Data Visualisation 2</h2>
-      <p>By Jennifer Ang Ching Wei · Updated <time datetime="2026-10-24">24 October 2026</time>.</p>
+      <p>By Jennifer Ang Ching Wei · Updated <time datetime="2026-10-25">25 October 2026</time>.</p>
       <p><a href="#top">Return to the start ↑</a></p>
     </footer>
     <noscript>

@@ -336,12 +336,6 @@ document.getElementById("grid-size").addEventListener("change", async (e) => {
   const s = (await readJSON("data/summary.json")).grid_sensitivity.find((r) => r.grid === state.grid);
   document.getElementById("grid-summary").textContent =
     `${s.occupied_cells} occupied cells · 222 stations · 178.48\u00a0million\u00a0entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
-  setInsight("bin-insight", [
-    state.grid === "5"
-      ? `One central cell contains ${s.largest_cell_share.toFixed(1)}% of annual station entries.`
-      : `At ${state.grid} km, the largest cell contains ${s.largest_cell_share.toFixed(1)}% of annual station entries.`,
-    "Changing grid size changes the measured concentration.",
-  ]);
   await render(registry.find((r) => r.id === "C08"));
 });
 try {

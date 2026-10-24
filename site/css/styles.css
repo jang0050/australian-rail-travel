@@ -277,6 +277,9 @@ strong {
   margin: 0 0 10px;
   color: var(--ink);
 }
+#figure-C12 .chart-note {
+  max-width: 42ch;
+}
 .source {
   font-size: 14px;
   line-height: 1.5;
