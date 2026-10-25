@@ -385,6 +385,10 @@ strong {
 #figure-C08 .figure-heading h3 {
   max-width: 24ch;
 }
+/* The action button hangs 44px above each plot. Keep that gap inside the chart row so both plots, and both buttons, start below the longer caption. */
+#journeys .summary-pair .chart {
+  padding-top: 28px;
+}
 #journeys .summary-pair .chart-note {
   margin-top: 16px;
 }
