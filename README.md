@@ -6,6 +6,6 @@ This website explores how rail travel has recovered across Australia. It compare
 
 View the [Australian Rail Travel webpage](https://jang0050.github.io/australian-rail-travel/). Its 12 figures use Vega and Vega-Lite; their readable specifications and derived data are in [`site/specs/`](site/specs/) and [`site/data/`](site/data/). Source links and methodological limitations appear on the webpage.
 
-The [two-page hand-drawn A4 sketch](site/sketch/DV2_Sketch.pdf) records the planned layout.
+The [A4 sketch](site/sketch/DV2_Sketch.pdf) shows the national and service sections (Figures 1–6).
 
 To preview this repository locally, run `python3 -m http.server 8000 --directory site` and open `http://localhost:8000/`.
