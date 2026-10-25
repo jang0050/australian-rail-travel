@@ -22,48 +22,30 @@ async function readJSON(path) {
 }
 const views = new Map();
 const finalizers = new Map();
-function positionChartActions(element, id) {
-  // SVG padding and legends are outside the visible plotting area.
-  const selector = ["C01", "C07", "C08"].includes(id)
-    ? "svg .mark-shape.role-mark"
-    : "svg .role-frame > g > path.background";
-  const plots =
-    id === "C05"
-      ? [...element.querySelectorAll("svg .mark-rect.role-mark")]
-      : [element.querySelector(selector)].filter(Boolean);
-  if (!plots.length) return;
-  const rectangles = plots.map((plot) => plot.getBoundingClientRect());
-  const bounds = {
-    top: Math.min(...rectangles.map((r) => r.top)),
-    right: Math.max(...rectangles.map((r) => r.right)),
-  };
+function positionChartActions(element) {
+  const svg = element.querySelector("svg");
+  const button = element.querySelector("summary");
+  if (!svg || !button) return;
+  const chart = svg.getBoundingClientRect();
   const container = element.getBoundingClientRect();
-  element.style.setProperty("--actions-top", `${bounds.top - container.top}px`);
-  element.style.setProperty(
-    "--actions-right",
-    `${id === "C05" && container.width < 430 ? 0 : container.right - bounds.right + 8}px`,
-  );
-  element.style.removeProperty("--actions-offset");
-  if (id !== "C01") {
-    const button = element.querySelector("summary").getBoundingClientRect();
-    let clearTop = button.top;
-    for (const label of element
-      .closest("figure")
-      .querySelectorAll("figcaption p,.chart-summary p,.figure-controls button,.figure-controls select")) {
-      const range = document.createRange();
-      range.selectNodeContents(label);
-      for (const rect of range.getClientRects())
-        if (
-          rect.width &&
-          rect.left < button.right &&
-          rect.right > button.left &&
-          rect.top < button.bottom &&
-          rect.bottom > button.top
-        )
-          clearTop = Math.max(clearTop, rect.bottom + 4);
-    }
-    if (clearTop > button.top) element.style.setProperty("--actions-offset", `${clearTop - bounds.top}px`);
-  }
+  element.style.setProperty("--actions-top", `${Math.round(chart.top - container.top - button.offsetHeight)}px`);
+  element.style.setProperty("--actions-right", `${Math.round(container.right - chart.right)}px`);
+}
+function ensureChartActions(element) {
+  const menu = element.querySelector(".vega-actions");
+  if (!menu || [...menu.querySelectorAll("a")].some((link) => link.textContent === "View Compiled Vega")) return;
+  const source = [...menu.querySelectorAll("a")].find((link) => link.textContent === "View Source");
+  const editor = [...menu.querySelectorAll("a")].find((link) => link.textContent === "Open in Vega Editor");
+  if (!source || !editor) return;
+  // A Vega chart is already compiled, so this opens the same specification as View Source.
+  const compiled = document.createElement("a");
+  compiled.href = "#";
+  compiled.textContent = "View Compiled Vega";
+  compiled.addEventListener("click", (event) => {
+    event.preventDefault();
+    source.click();
+  });
+  menu.insertBefore(compiled, editor);
 }
 // One tab stop per chart, with optional arrow-key inspection of exact values.
 // Marks retain Vega's own tooltip formatting; no parallel data calculation is used.
@@ -201,8 +183,9 @@ async function render(entry) {
     }
     if (id === "C04") {
       spec.width = width - 4;
-      spec.height =
-        spec.width >= 760 ? 408 : (spec.width < 430 ? 270 : 340) + (spec.width >= 600 ? 148 : 320);
+      const plot = spec.width >= 760 ? 380 : spec.width < 430 ? 270 : 340;
+      const labels = spec.width >= 600 ? 88 : 276;
+      spec.height = 28 + plot + 18 + labels;
     }
     if (id === "C01") {
       spec.height = width < 430 ? 320 : width < 600 ? 460 : 470;
@@ -270,19 +253,23 @@ async function render(entry) {
       spec.config.legend.labelFontSize = 13;
       spec.config.legend.titleFontSize = 13;
     }
-    if (id === "C08") spec.layer.find((l) => l.name === "grid").data.url = `data/bins_${state.grid}.geojson`;
+    if (id === "C08") {
+      const grid = spec.layer.find((layer) => layer.name === "grid");
+      grid.data.url = `data/bins_${state.grid}.geojson`;
+    }
     for (const p of spec.params ?? []) if (p.name in state) p.value = state[p.name];
     finalizers.get(id)?.();
     element.replaceChildren();
     const embedded = await window.vegaEmbed(element, await localise(spec), {
       renderer: "svg",
-      actions: { export: true, source: false, compiled: false, editor: false },
+      actions: { export: true, source: true, compiled: true, editor: true },
     });
     finalizers.set(id, embedded.finalize);
     element
       .querySelector("summary")
       .setAttribute("aria-label", `Actions for figure ${element.closest("figure").dataset.figureNumber}`);
-    positionChartActions(element, id);
+    ensureChartActions(element);
+    positionChartActions(element);
     enableKeyboardInspection(element);
     views.set(id, embedded.view);
     element.dataset.renderStatus = "rendered";
@@ -335,7 +322,7 @@ document.getElementById("grid-size").addEventListener("change", async (e) => {
   state.grid = e.target.value;
   const s = (await readJSON("data/summary.json")).grid_sensitivity.find((r) => r.grid === state.grid);
   document.getElementById("grid-summary").textContent =
-    `${s.occupied_cells} occupied cells · 222 stations · 178.48\u00a0million\u00a0entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
+    `${s.occupied_cells} occupied cells · 222 stations · 178.48 million entries · largest cell ${s.largest_cell_share.toFixed(1)}%`;
   await render(registry.find((r) => r.id === "C08"));
 });
 try {

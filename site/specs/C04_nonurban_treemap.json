@@ -1,14 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 900,
-  "height": 408,
+  "height": 512,
   "padding": {"left": 2, "right": 2, "top": 2, "bottom": 2},
   "autosize": {"type": "pad"},
   "background": "transparent",
   "signals": [
     {"name": "desktop", "update": "width >= 760"},
     {"name": "plotTop", "value": 28},
-    {"name": "plotWidth", "update": "desktop ? width - 340 : width"},
+    {"name": "plotWidth", "update": "width"},
     {"name": "plotHeight", "update": "desktop ? 380 : width < 430 ? 270 : 340"},
     {
       "name": "inspectService",
@@ -71,15 +71,14 @@
           "as": ["labelOrder"]
         }
       ]
-    },
-    {"name": "callout_heading", "values": [{}]}
+    }
   ],
   "scales": [
     {
       "name": "states",
       "type": "ordinal",
       "domain": ["New South Wales", "Victoria", "Queensland", "Western Australia"],
-      "range": ["#596d9b", "#5e8384", "#e3b29a", "#82749b"]
+      "range": ["#596d9b", "#557879", "#e3b29a", "#82749b"]
     }
   ],
   "marks": [
@@ -150,7 +149,7 @@
           "font": {"value": "Source Sans 3"},
           "fontSize": {"value": 12},
           "fontWeight": {"value": 400},
-          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "fill": {"value": "#ffffff"},
           "baseline": {"value": "top"}
         }
       }
@@ -170,7 +169,7 @@
           "font": {"value": "Source Sans 3"},
           "fontSize": {"signal": "desktop ? 20 : 16"},
           "fontWeight": {"value": 600},
-          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "fill": {"value": "#ffffff"},
           "baseline": {"value": "top"},
           "lineHeight": {"value": 23}
         }
@@ -189,7 +188,7 @@
           "font": {"value": "Source Sans 3"},
           "fontSize": {"signal": "desktop ? 30 : 25"},
           "fontWeight": {"value": 600},
-          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
+          "fill": {"value": "#ffffff"},
           "baseline": {"value": "top"}
         }
       }
@@ -209,27 +208,7 @@
           "font": {"value": "Source Sans 3"},
           "fontSize": {"value": 15},
           "fontWeight": {"value": 400},
-          "fill": {"signal": "datum.parent === 'Victoria' ? '#080e1b' : '#ffffff'"},
-          "baseline": {"value": "top"}
-        }
-      }
-    },
-    {
-      "name": "small_heading",
-      "type": "text",
-      "from": {"data": "callout_heading"},
-      "interactive": false,
-      "encode": {
-        "update": {
-          "x": {"signal": "desktop ? plotWidth + 8 : 18"},
-          "y": {"signal": "desktop ? plotTop + 2 : plotTop + plotHeight + 2"},
-          "text": {
-            "signal": "desktop || width >= 600 ? 'Smaller services · left to right' : 'Smaller services'"
-          },
-          "font": {"value": "Source Sans 3"},
-          "fontSize": {"value": 13},
-          "fontWeight": {"value": 600},
-          "fill": {"value": "#586177"},
+          "fill": {"value": "#ffffff"},
           "baseline": {"value": "top"}
         }
       }
@@ -241,14 +220,12 @@
       "interactive": true,
       "encode": {
         "update": {
-          "x": {
-            "signal": "desktop ? plotWidth + 16 : width >= 600 ? (datum.labelOrder - 1) * width / 3 : 0"
-          },
+          "x": {"signal": "width >= 600 ? (datum.labelOrder - 1) * width / 3 : 0"},
           "y": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) - 8"
+            "signal": "(plotTop + plotHeight + 18 + (width >= 600 ? 0 : (datum.labelOrder - 1) * 88)) - 4"
           },
-          "width": {"signal": "desktop ? width - plotWidth - 16 : width >= 600 ? width / 3 - 8 : width"},
-          "height": {"value": 84},
+          "width": {"signal": "width >= 600 ? width / 3 - 8 : width"},
+          "height": {"value": 64},
           "fill": {"value": "#f6f7fb"},
           "fillOpacity": {"value": 0},
           "tooltip": {
@@ -265,14 +242,12 @@
       "interactive": false,
       "encode": {
         "update": {
-          "x": {
-            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 18"
-          },
+          "x": {"signal": "(width >= 600 ? (datum.labelOrder - 1) * width / 3 + 24 : 24) - 20"},
           "y": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 4"
+            "signal": "(plotTop + plotHeight + 18 + (width >= 600 ? 0 : (datum.labelOrder - 1) * 88)) + 1"
           },
-          "width": {"value": 8},
-          "height": {"value": 8},
+          "width": {"value": 12},
+          "height": {"value": 12},
           "fill": {"signal": "scale('states', datum.parent)"}
         }
       }
@@ -284,21 +259,18 @@
       "interactive": false,
       "encode": {
         "update": {
-          "x": {
-            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
-          },
+          "x": {"signal": "(width >= 600 ? (datum.labelOrder - 1) * width / 3 + 24 : 24)"},
           "y": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96))"
+            "signal": "(plotTop + plotHeight + 18 + (width >= 600 ? 0 : (datum.labelOrder - 1) * 88))"
           },
           "text": {
-            "signal": "datum.parent === 'New South Wales' ? ['New South Wales','TrainLink regional'] : [datum.service_label]"
+            "signal": "datum.parent === 'New South Wales' ? 'TrainLink regional' : datum.service_label"
           },
           "font": {"value": "Source Sans 3"},
-          "fontSize": {"value": 16},
+          "fontSize": {"value": 14},
           "fontWeight": {"value": 600},
           "fill": {"value": "#282e46"},
-          "baseline": {"value": "top"},
-          "lineHeight": {"value": 19}
+          "baseline": {"value": "top"}
         }
       }
     },
@@ -309,15 +281,13 @@
       "interactive": false,
       "encode": {
         "update": {
-          "x": {
-            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
-          },
+          "x": {"signal": "(width >= 600 ? (datum.labelOrder - 1) * width / 3 + 24 : 24)"},
           "y": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 22"
+            "signal": "(plotTop + plotHeight + 18 + (width >= 600 ? 0 : (datum.labelOrder - 1) * 88)) + 20"
           },
-          "text": {"signal": "datum.parent === 'Western Australia' ? 'Western Australia' : ''"},
+          "text": {"signal": "datum.parent"},
           "font": {"value": "Source Sans 3"},
-          "fontSize": {"value": 13},
+          "fontSize": {"value": 14},
           "fontWeight": {"value": 400},
           "fill": {"value": "#586177"},
           "baseline": {"value": "top"}
@@ -331,15 +301,13 @@
       "interactive": false,
       "encode": {
         "update": {
-          "x": {
-            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18)"
-          },
+          "x": {"signal": "(width >= 600 ? (datum.labelOrder - 1) * width / 3 + 24 : 24)"},
           "y": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 46"
+            "signal": "(plotTop + plotHeight + 18 + (width >= 600 ? 0 : (datum.labelOrder - 1) * 88)) + 40"
           },
           "text": {"signal": "format(datum.value,'.2f') + ' · ' + format(datum.share,'.2f') + '%'"},
           "font": {"value": "Source Sans 3"},
-          "fontSize": {"value": 15},
+          "fontSize": {"value": 14},
           "fontWeight": {"value": 400},
           "fill": {"value": "#282e46"},
           "baseline": {"value": "top"}
@@ -361,27 +329,6 @@
           "stroke": {"value": "#111827"},
           "strokeWidth": {"value": 2},
           "opacity": {"signal": "inspectService === datum.id ? 1 : 0"}
-        }
-      }
-    },
-    {
-      "name": "inspection_link",
-      "type": "rule",
-      "from": {"data": "small"},
-      "interactive": false,
-      "encode": {
-        "update": {
-          "x": {"field": "x1"},
-          "y": {"signal": "datum.centreY + plotTop"},
-          "x2": {
-            "signal": "(desktop ? plotWidth + 26 : width >= 600 ? (datum.labelOrder - 1) * width / 3 + 18 : 18) - 8"
-          },
-          "y2": {
-            "signal": "(plotTop + (desktop ? 32 : plotHeight + 24) + (desktop ? (datum.labelOrder - 1) * 112 : width >= 600 ? 0 : (datum.labelOrder - 1) * 96)) + 30"
-          },
-          "stroke": {"value": "#586177"},
-          "strokeWidth": {"value": 1},
-          "opacity": {"signal": "desktop && inspectService === datum.id ? .85 : 0"}
         }
       }
     }

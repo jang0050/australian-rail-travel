@@ -41,13 +41,13 @@
     {
       "data": {"url": "data/bins_5.geojson", "format": {"type": "json", "property": "features"}},
       "name": "grid",
-      "mark": {"type": "geoshape", "stroke": "#82749b", "strokeWidth": 0.5},
+      "mark": {"type": "geoshape", "stroke": "#5c4d78", "strokeWidth": 0.8},
       "encoding": {
         "color": {
           "field": "properties.entries_million",
           "type": "quantitative",
           "title": "Annual station entries (million)",
-          "scale": {"type": "sqrt", "domain": [0, 80], "range": ["#e5e2ed", "#b9b0cd", "#8d7eaa", "#604f7e"]},
+          "scale": {"type": "sqrt", "domain": [0, 80], "range": ["#c8bcdc", "#8f7cae", "#705c94", "#604f7e"]},
           "legend": {
             "orient": "bottom",
             "gradientLength": 240,
@@ -55,8 +55,8 @@
           }
         },
         "tooltip": [
-          {"field": "properties.annual_entries", "type": "quantitative", "title": "2024–2025 entries", "format": ",.0f"},
-          {"field": "properties.station_count", "type": "quantitative", "title": "Stations", "format": ",.0f"}
+          {"field": "properties.annual_entries", "type": "quantitative", "title": "Cell entries", "format": ",.0f"},
+          {"field": "properties.station_count", "type": "quantitative", "title": "Stations in cell", "format": ",.0f"}
         ]
       }
     },

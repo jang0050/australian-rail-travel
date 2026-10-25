@@ -40,15 +40,6 @@
       "encoding": {"y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"}}
     },
     {
-      "data": {"values": [{"year_end": 2022, "ref": 112, "label": "2021–2022 downturn"}]},
-      "mark": {"type": "text", "align": "center", "fontSize": 12, "color": "#586177"},
-      "encoding": {
-        "x": {"field": "year_end", "type": "ordinal", "title": "Year ending in June"},
-        "y": {"field": "ref", "type": "quantitative", "title": "Recovery index (2018–2019 = 100)"},
-        "text": {"field": "label", "type": "nominal", "title": "City or total"}
-      }
-    },
-    {
       "data": {"url": "data/national_history.json"},
       "mark": {"type": "line", "point": {"filled": true, "size": 24}, "strokeWidth": 2},
       "encoding": {
@@ -69,7 +60,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
-            "range": ["#596d9b", "#a97c50", "#5e8384", "#82749b", "#ae7885"]
+            "range": ["#596d9b", "#a97c50", "#5e8384", "#79539a", "#b46f95"]
           },
           "legend": null,
           "title": "City"
@@ -86,7 +77,7 @@
         },
         "opacity": {
           "condition": {"test": "cityFocus === 'All cities' || datum.city === cityFocus", "value": 0.9},
-          "value": 0.18
+          "value": 0.42
         },
         "tooltip": [
           {"field": "city", "type": "nominal", "title": "City"},
@@ -133,7 +124,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
-            "range": ["#596d9b", "#a97c50", "#5e8384", "#82749b", "#ae7885"]
+            "range": ["#596d9b", "#a97c50", "#5e8384", "#79539a", "#b46f95"]
           },
           "legend": null,
           "title": "City"

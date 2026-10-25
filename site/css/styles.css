@@ -92,7 +92,7 @@ select {
   align-items: center;
   gap: 24px;
   padding-block: 22px;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
 }
 .wordmark {
   font-family: "Source Serif 4", Georgia, serif;
@@ -175,9 +175,23 @@ strong {
   line-height: 1.5;
 }
 .chapter {
-  padding-block: var(--section-space);
+  padding-block: calc(var(--section-space) + var(--figure-gap)) var(--section-space);
   border-top: 1px solid var(--line);
   scroll-margin-top: 24px;
+}
+.chapter:not(.wrap) {
+  position: relative;
+  border-top-color: transparent;
+}
+.chapter:not(.wrap)::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: max(40px, calc((100% - 1160px) / 2));
+  width: min(1160px, calc(100% - 80px));
+  height: 1px;
+  background: var(--line);
+  pointer-events: none;
 }
 .chapter-tint {
   background: var(--paper);
@@ -198,9 +212,6 @@ strong {
 }
 .national-intro {
   margin-bottom: 24px;
-}
-.national-comparison-intro {
-  margin: 0;
 }
 .two-up {
   display: grid;
@@ -254,8 +265,13 @@ strong {
   margin: 0;
   font-variant-numeric: tabular-nums;
 }
-#share-summary {
+#figure-C08 .figure-controls {
+  margin-bottom: 0;
+}
+#figure-C08 .control-status {
+  flex-basis: 100%;
   max-width: none;
+  line-height: 1.35;
 }
 .figure .chart {
   width: 100%;
@@ -292,11 +308,11 @@ strong {
 .source a:hover {
   color: var(--accent);
 }
-/* Figure 1 keeps the transition beside a compact, right-aligned map. */
+/* Figure 1 keeps the narrative beside a compact, right-aligned map. */
 .national-figure {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-  grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto auto minmax(0, 1fr);
   gap: 16px var(--column-gap);
   align-items: start;
 }
@@ -312,45 +328,31 @@ strong {
   grid-row: 2;
   margin: 0;
 }
+.national-figure .figure-context {
+  grid-column: 1;
+  grid-row: 3;
+  max-width: 46ch;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+}
 .national-figure > .chart {
   grid-column: 2;
-  grid-row: 1/6;
+  grid-row: 1/7;
   margin: 0;
   max-width: 640px;
   justify-self: end;
 }
 .national-figure > .chart-note {
   grid-column: 1;
-  grid-row: 3;
+  grid-row: 4;
   margin: 0;
   padding-top: 16px;
   border-top: 1px solid var(--line);
 }
 .national-figure > .source {
   grid-column: 1;
-  grid-row: 4;
-}
-.national-figure > .national-comparison-intro {
-  grid-column: 1;
   grid-row: 5;
-  align-self: start;
-  margin-top: 28px;
-}
-/* The grid control sits with the entry map it changes. */
-.map-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  margin: 0;
-}
-.map-controls .control {
-  flex: 0 1 auto;
-}
-.map-controls .control-status {
-  flex: 1 1 240px;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 /* Align paired plot tops while keeping each figure's text and source together. */
 @media (min-width: 901px) {
@@ -364,6 +366,30 @@ strong {
     grid-row: span 2;
     align-items: start;
   }
+  #journeys .summary-pair > .figure {
+    grid-row: span 4;
+  }
+  #journeys .summary-pair .figure-chart-group {
+    display: contents;
+  }
+  .map-pair > .figure {
+    grid-row: span 4;
+  }
+  .map-pair .figure-chart-group {
+    display: contents;
+  }
+  .map-pair .figure-heading h3 {
+    min-height: 2lh;
+  }
+}
+#figure-C08 .figure-heading h3 {
+  max-width: 24ch;
+}
+#journeys .summary-pair .chart-note {
+  margin-top: 16px;
+}
+#figure-C06 .chart-note {
+  max-width: none;
 }
 .national-charts > .figure {
   padding-top: 24px;
@@ -438,8 +464,8 @@ strong {
   margin: 0 0 10px;
 }
 .ending {
-  padding-block: 56px;
-  border-top: 1px solid var(--ink);
+  padding-block: calc(var(--section-space) + var(--figure-gap)) 56px;
+  border-top: 1px solid var(--line);
 }
 .ending h2 {
   max-width: 30ch;
@@ -453,7 +479,7 @@ strong {
   margin-bottom: 0;
 }
 .methods {
-  padding-block: 48px;
+  padding-block: 56px 48px;
   border-top: 1px solid var(--line);
 }
 .methods h2 {
@@ -532,8 +558,8 @@ strong {
   line-height: 1.5;
 }
 footer {
-  border-top: 1px solid var(--ink);
-  padding-block: 24px 32px;
+  border-top: 1px solid var(--line);
+  padding-block: 48px 32px;
 }
 .footer-title {
   font-size: 20px;
@@ -585,14 +611,14 @@ footer p {
   white-space: nowrap;
   border: 0;
 }
-/* Compact always-visible actions overlay the plot; no toolbar row or caption overlap. */
+/* Keep the action button above the plot, flush with the chart’s right edge. */
 .chart.vega-embed.has-actions {
   padding: 0;
 }
 .chart.vega-embed summary {
   opacity: 1 !important;
-  top: calc(var(--actions-top, 0px) + var(--actions-offset, -44px));
-  right: var(--actions-right, 8px);
+  top: var(--actions-top, -44px);
+  right: var(--actions-right, 0px);
   z-index: 5;
   width: 28px;
   height: 28px;
@@ -602,8 +628,8 @@ footer p {
   border-color: var(--line);
 }
 .chart.vega-embed .vega-actions {
-  top: calc(var(--actions-top, 0px) + 42px);
-  right: var(--actions-right, 8px);
+  top: calc(var(--actions-top, -44px) + 44px);
+  right: var(--actions-right, 0px);
   z-index: 6;
   background: var(--paper);
   border-color: var(--line);
@@ -652,6 +678,10 @@ body #vg-tooltip-element table tr td.value {
   .masthead {
     align-items: start;
   }
+  .chapter:not(.wrap)::before {
+    left: 24px;
+    width: calc(100% - 48px);
+  }
   nav {
     max-width: 390px;
     gap: 6px 18px;
@@ -673,6 +703,9 @@ body #vg-tooltip-element table tr td.value {
   .national-figure .figure-body {
     margin-bottom: 16px;
   }
+  .national-figure .figure-context {
+    margin-bottom: 16px;
+  }
   .national-figure > .chart {
     margin: 12px 0 4px;
   }
@@ -680,9 +713,6 @@ body #vg-tooltip-element table tr td.value {
     border: 0;
     padding: 0;
     margin: 0 0 10px;
-  }
-  .national-figure > .national-comparison-intro {
-    margin-top: 24px;
   }
   :root {
     --section-space: 36px;
@@ -754,6 +784,10 @@ body #vg-tooltip-element table tr td.value {
   .method-grid {
     display: block;
   }
+  .chapter:not(.wrap)::before {
+    left: 18px;
+    width: calc(100% - 36px);
+  }
   .method-grid > div {
     display: block;
     padding-block: 16px;
@@ -765,13 +799,16 @@ body #vg-tooltip-element table tr td.value {
     gap: 0 16px;
   }
   .ending {
-    padding-block: 40px;
+    padding-block: calc(var(--section-space) + var(--figure-gap)) 40px;
   }
   .ending .lead {
     font-size: 20px;
   }
   .methods {
-    padding-block: 36px;
+    padding-block: 40px 36px;
+  }
+  footer {
+    padding-top: 36px;
   }
 }
 @media (forced-colors: active) {
@@ -833,19 +870,14 @@ body #vg-tooltip-element table tr td.value {
   z-index: 1;
 }
 .chart.vega-embed .vega-actions {
-  top: calc(var(--actions-top, 0px) + var(--actions-offset, -44px) + 44px);
+  top: calc(var(--actions-top, -44px) + 44px);
+  right: var(--actions-right, 0px);
 }
 .chart.vega-embed .vega-actions a {
   min-height: 44px;
   padding-block: 10px;
 }
 
-#C01.vega-embed summary {
-  top: calc(var(--actions-top, 0px) + 8px);
-}
-#C01.vega-embed .vega-actions {
-  top: calc(var(--actions-top, 0px) + 52px);
-}
 .chart svg.marks:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
