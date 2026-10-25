@@ -8,11 +8,11 @@
     <meta name="author" content="Jennifer Ang Ching Wei">
     <link rel="icon" href="data:,">
     <link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/styles.css?v=76428efe430d">
-    <script src="vendor/vega.min.js?v=76428efe430d" defer></script>
-    <script src="vendor/vega-lite.min.js?v=76428efe430d" defer></script>
-    <script src="vendor/vega-embed.min.js?v=76428efe430d" defer></script>
-    <script type="module" src="js/app.js?v=76428efe430d"></script>
+    <link rel="stylesheet" href="css/styles.css?v=4051ebde0482">
+    <script src="vendor/vega.min.js?v=4051ebde0482" defer></script>
+    <script src="vendor/vega-lite.min.js?v=4051ebde0482" defer></script>
+    <script src="vendor/vega-embed.min.js?v=4051ebde0482" defer></script>
+    <script type="module" src="js/app.js?v=4051ebde0482"></script>
   </head>
   <body><a class="skip" href="#main">Skip to the story</a>
     <header class="masthead wrap"><a class="wordmark" href="#top">Australian rail / 2024–2025</a>
@@ -55,7 +55,7 @@
                 <div class="figure-heading">
                   <h3><span class="figure-number">2.</span> Growth is not the same as recovery</h3>
                 </div>
-                <p class="figure-body"><span class="sentence-line">All five cities experienced a sharp decline after 2019.</span> <span class="sentence-line">By 2025, Perth reached <strong>100.7</strong>, while Sydney and Melbourne remained below baseline at <strong>84.6</strong> and <strong>79.1</strong>.</span></p>
+                <p class="figure-body"><span class="sentence-line">COVID-19 restrictions disrupted rail journeys across all five cities.</span> <span class="sentence-line">By 2025, Perth reached <strong>100.7</strong>, while Sydney and Melbourne remained below baseline at <strong>84.6</strong> and <strong>79.1</strong>.</span></p>
               </figcaption>
               <div class="figure-controls">
                 <div class="city-legend" role="group" aria-label="Highlight a city"><button type="button" class="legend-reset" data-city="All cities" aria-pressed="true">All cities</button><button type="button" class="legend-city" data-city="Sydney" aria-pressed="false"><svg aria-hidden="true" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="#596d9b" stroke-width="3" stroke-dasharray=""/></svg>Sydney</button><button type="button" class="legend-city" data-city="Melbourne" aria-pressed="false"><svg aria-hidden="true" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="#a97c50" stroke-width="3" stroke-dasharray="7 3"/></svg>Melbourne</button><button type="button" class="legend-city" data-city="Brisbane" aria-pressed="false"><svg aria-hidden="true" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="#5e8384" stroke-width="3" stroke-dasharray="2 3"/></svg>Brisbane</button><button type="button" class="legend-city" data-city="Perth" aria-pressed="false"><svg aria-hidden="true" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="#79539a" stroke-width="3" stroke-dasharray="10 3 2 3"/></svg>Perth</button><button type="button" class="legend-city" data-city="Adelaide" aria-pressed="false"><svg aria-hidden="true" width="26" height="8"><line x1="1" y1="4" x2="25" y2="4" stroke="#b46f95" stroke-width="3" stroke-dasharray="5 2 1 2"/></svg>Adelaide</button></div>
@@ -194,7 +194,7 @@
               </figcaption>
               <div class="figure-controls">
                 <div class="control"><label for="grid-size">Square cell width</label><select aria-controls="C08" aria-describedby="grid-summary" id="grid-size"><option value="2.5">2.5 kilometres</option><option value="5" selected>5 kilometres</option><option value="10">10 kilometres</option></select></div>
-                <p class="sr-only" id="grid-summary" aria-live="polite">78 occupied cells · 222 stations · 178.48 million entries · largest cell: 35.6%</p>
+                <p class="control-status" id="grid-summary" aria-live="polite">78 occupied cells · 178.48 million entries · largest cell: 35.6%</p>
               </div>
             </div>
             <div class="figure-chart-group">
@@ -308,56 +308,19 @@
         <div class="two-up">
           <div>
             <h3>Data sources</h3>
-            <p><strong>Bureau of Infrastructure and Transport Research Economics:</strong> Trainline urban and non-urban network totals, and separate Yearbook city estimates.</p>
-            <p><strong>Department of Transport and Planning:</strong> station entries and monthly train patronage. Station estimates are rounded to 50.</p>
-            <p><strong>Australian Bureau of Statistics:</strong> boundaries and city locations.</p>
-            <p>Current Trainline Tables 15 and 23 were checked against the official report.</p>
+            <p><strong>Bureau of Infrastructure and Transport Research Economics:</strong> Trainline provides urban and non-urban journey totals. Separate Yearbook estimates include Sydney intercity, Melbourne's regional-commuter allowance and Brisbane Airtrain. Their scopes differ.</p>
+            <p><strong>Department of Transport and Planning:</strong> Station entries and monthly train patronage. Station estimates are rounded to 50 and exclude within-station transfers and Southern Cross regional-platform gates.</p>
+            <p>Metropolitan estimation changed in January 2021; V/Line includes replacement services. The analysis ends in 2024–2025, although monthly data extend into 2025–2026.</p>
+            <p><strong>Australian Bureau of Statistics:</strong> Boundaries and city locations.</p>
           </div>
           <div>
             <h3>Comparisons</h3>
-            <p>Financial years run July–June. Station recovery compares 2018–2019 with 2024–2025 using the same 220 stations.</p>
-            <p>Area recovery = total current entries ÷ total baseline entries × 100. Areas describe station locations, not residents’ travel. Equal-area grids retain all 222 current stations.</p>
-            <p>The historical Trainline workbooks were not obtained for this project; their series remain unreconciled across releases. Recovery charts use separate Yearbook city estimates from one release.</p>
+            <p>Financial years run July–June. Station recovery compares the same 220 stations across 2018–2019 and 2024–2025; 219 qualify at the histogram's default threshold.</p>
+            <p>Area recovery compares current and baseline station entries. Council areas represent station locations, not residents' travel. Equal-area grids include all 222 current stations.</p>
+            <p>Heatmap time bands have unequal durations; colours show shares, not hourly rates. Weekend ratios compare average daily entries, requiring at least 500 weekday entries.</p>
+            <p>Historical Trainline workbooks were unavailable, so cross-release totals remain unreconciled. Recovery charts instead use estimates from one Yearbook release.</p>
           </div>
         </div>
-        <details class="method-details" id="method-details">
-          <summary>Methods and sensitivity checks</summary>
-          <div class="method-grid">
-            <div>
-              <h3>National comparisons</h3>
-              <p>Yearbook city estimates include Sydney intercity, a Melbourne regional-commuter allowance and Brisbane Airtrain. Their service scope differs from Trainline. The waterfall adds changes within the Yearbook series; it does not explain their causes.</p>
-            </div>
-            <div>
-              <h3>Reported non-urban services</h3>
-              <p>Trainline 13 Table 23 covers five listed services totalling 57.87 million journeys in 2024–2025. These are service categories, not passengers’ travel purposes. The table is separate from Trainline’s urban total.</p>
-            </div>
-            <div>
-              <h3>Victorian train journeys</h3>
-              <p>Waffle squares round combined metropolitan and V/Line journeys to whole percentage points. Coach, bus and tram categories are excluded. The slope chart compares two endpoints, without showing intervening years.</p>
-              <p>Metropolitan totals are 243.19 million then 187.40 million journeys; V/Line totals are 21.04 million then 25.06 million. Metropolitan estimation began using available barrier counts in January 2021. V/Line figures include replacement services.</p>
-              <p><strong>Data vintage:</strong> The full Department of Transport and Planning file extends to June 2026. It records 202.31 million metropolitan and 27.10 million V/Line journeys in 2025–2026. Free-travel periods from November 2025 required alternative estimation. The main comparison ends in 2024–2025.</p>
-            </div>
-            <div>
-              <h3>Station maps</h3>
-              <p>Recovery uses summed entries from the same matched stations within each 2025 local government area. Areas without eligible stations are grey. Both maps use a Melbourne-centred azimuthal equal-area display projection.</p>
-              <p>The bin map groups all 222 current stations into complete squares in Australian equal-area coordinate system (reference number 3577). Each station contributes to one cell. Cells are not clipped at the coast. A fixed square-root colour scale keeps grid sizes comparable.</p>
-            </div>
-            <div>
-              <h3>Station comparisons</h3>
-              <p>Station entries exclude transfers within a station. Southern Cross excludes gates to regional platforms 1–8. Entry changes do not directly measure train patronage. Stable station identifiers define the matched cohort.</p>
-              <p>The heatmap selects the twelve largest annual-entry stations from 66 eligible stations. It excludes bands at the 50-entry reporting floor, normal weekdays below 1,000 entries, and band-total discrepancies above 150. Time bands have unequal durations; the heatmap shows shares, not hourly rates.</p>
-            </div>
-            <div>
-              <h3>Weekend distribution</h3>
-              <p>Each ratio divides average Saturday and Sunday daily entries by average weekday entries. Each station has equal weight. Whiskers reach observations within 1.5 box lengths. Both years require at least 500 weekday entries; weekend values must exceed the 50-entry floor.</p>
-            </div>
-            <div>
-              <h3>Station recovery sensitivity</h3>
-              <p>Of 220 matched identifiers, 219 pass the default 5,000-entry baseline screen. Each station counts once; histogram intervals span 20 index points.</p>
-              <p>All eligible extremes remain visible. An index of 100 means the baseline was regained, not 100% growth.</p>
-            </div>
-          </div>
-        </details>
         <ul class="source-list">
           <li id="source-trainline"><a href="https://www.bitre.gov.au/resource/rail/trainline-13">Trainline 13</a><span class="source-detail">Tables 15 and 23 · 2026</span></li>
           <li id="source-yearbook"><a href="https://www.bitre.gov.au/sites/default/files/documents/bitre-yearbook-2025.pdf">Yearbook 2025</a><span class="source-detail">Tables 2.5a–e · Heavy rail</span></li>

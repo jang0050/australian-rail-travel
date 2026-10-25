@@ -322,7 +322,7 @@ document.getElementById("grid-size").addEventListener("change", async (e) => {
   state.grid = e.target.value;
   const s = (await readJSON("data/summary.json")).grid_sensitivity.find((r) => r.grid === state.grid);
   document.getElementById("grid-summary").textContent =
-    `${s.occupied_cells} occupied cells · 222 stations · 178.48 million entries · largest cell ${s.largest_cell_share.toFixed(1)}%`;
+    `${s.occupied_cells} occupied cells · 178.48 million entries · largest cell: ${s.largest_cell_share.toFixed(1)}%`;
   await render(registry.find((r) => r.id === "C08"));
 });
 try {

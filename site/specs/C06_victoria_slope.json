@@ -63,7 +63,7 @@
         "color": {
           "field": "service",
           "type": "nominal",
-          "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#414a79", "#6a7b44"]},
+          "scale": {"domain": ["Metropolitan", "Regional"], "range": ["#59677d", "#7d8268"]},
           "legend": {"title": null, "symbolType": "stroke", "columns": 2, "columnPadding": 32},
           "title": "Service"
         },

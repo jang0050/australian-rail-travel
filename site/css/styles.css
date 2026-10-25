@@ -236,6 +236,9 @@ strong {
   font-size: 18px;
   line-height: 1.55;
 }
+#figure-C02 .figure-body {
+  max-width: 54ch;
+}
 .national-figure .figure-body {
   max-width: 100%;
 }
@@ -265,13 +268,10 @@ strong {
   margin: 0;
   font-variant-numeric: tabular-nums;
 }
-#figure-C08 .figure-controls {
-  margin-bottom: 0;
-}
 #figure-C08 .control-status {
-  flex-basis: 100%;
   max-width: none;
   line-height: 1.35;
+  margin-top: 10px;
 }
 .figure .chart {
   width: 100%;
@@ -490,50 +490,6 @@ strong {
 }
 .methods p {
   font-size: 16px;
-}
-.method-details {
-  margin: 24px 0;
-  border-block: 1px solid var(--line);
-  padding: 16px 0;
-}
-.method-details > summary {
-  font-weight: 600;
-  cursor: pointer;
-  width: fit-content;
-}
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 var(--column-gap);
-  margin-top: 20px;
-}
-.method-grid > div {
-  border-top: 1px solid var(--line);
-  padding-block: 16px;
-}
-.method-grid > div h3 {
-  margin: 0 0 8px;
-}
-.method-grid > div p {
-  margin: 0 0 10px;
-}
-.method-grid > div p:last-child {
-  margin-bottom: 0;
-}
-.method-grid > div:last-child {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 var(--column-gap);
-}
-.method-grid > div:last-child h3 {
-  grid-column: 1 / -1;
-}
-.method-grid h3 {
-  font-size: 22px;
-}
-.method-grid .control-status {
-  margin-top: 12px;
 }
 .source-list {
   list-style: none;
@@ -777,23 +733,12 @@ body #vg-tooltip-element table tr td.value {
   .national-charts > .figure {
     padding-top: 24px;
   }
-  .method-grid,
   .source-list {
     grid-template-columns: minmax(0, 1fr);
-  }
-  .method-grid {
-    display: block;
   }
   .chapter:not(.wrap)::before {
     left: 18px;
     width: calc(100% - 36px);
-  }
-  .method-grid > div {
-    display: block;
-    padding-block: 16px;
-  }
-  .method-grid > div:last-child {
-    display: block;
   }
   .city-legend {
     gap: 0 16px;
